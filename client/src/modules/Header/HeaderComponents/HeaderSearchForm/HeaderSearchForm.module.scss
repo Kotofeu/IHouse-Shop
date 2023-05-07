@@ -1,0 +1,30 @@
+@import '../../../../styles/settings.scss';
+
+.searchForm {
+    border-radius: 10px;
+    border: 1px solid $title-color;
+    overflow: hidden;
+}
+
+.searchInput {
+    height: 100%;
+    width: 100%;
+    display: block;
+    padding: 0 10px;
+    transition: all .3s ease-in-out;
+    background-color: $neutral-color;
+    border: none;
+
+    &:hover,
+    &:focus {
+        background-color: $primary-color;
+    }
+}
+
+.searchButton {
+    display: block;
+    border: none;
+    height: 100%;
+    background-color: $secondary-color;
+
+}

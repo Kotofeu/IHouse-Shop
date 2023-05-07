@@ -45,80 +45,12 @@
 
 }
 
-.headerButtonLink {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.buttonLinkImage {
-    height: 26px;
-    width: 26px;
-    object-fit: contain;
-    margin-bottom: 5px;
-}
-
-.buttonLinkTitle {
-    white-space: nowrap;
-}
-
-.searchForm {
+.headerSearchForm{
     width: 100%;
     height: 40px;
     display: flex;
-    transition: all .3s ease-in-out;
-    border-radius: 10px;
-    border: 1px solid $title-color;
-    overflow: hidden;
-    
-
 }
 
-.searchInput {
-    height: 100%;
-    width: 100%;
-    display: block;
-    padding: 0 10px;
-    transition: all .3s ease-in-out;
-    background-color: #f7f7f7;
-    border: none;
-    &:hover, &:focus {
-        background-color: $primary-color;
-    }
-}
-
-.searchButton {
-    display: block;
-    border: none;
-    height: 100%;
-    background-color: $secondary-color;
-
-}
-
-.userBox {
-    justify-content: flex-end;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+.headerUser{
     min-width: 61px;
-}
-
-.userImage {
-    height: 40px;
-    width: 40px;
-    background-color: $secondary-color;
-    border-radius: 50%;
-    display: block;
-    object-fit: cover;
-
-
-}
-
-.arrowImage {
-    margin-left: 3px;
-    object-fit: fill;
-    display: block;
-    height: 8px;
-    width: 16px;
 }

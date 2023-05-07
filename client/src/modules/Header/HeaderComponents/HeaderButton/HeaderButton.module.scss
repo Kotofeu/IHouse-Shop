@@ -1,0 +1,16 @@
+.headerButtonLink{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.buttonLinkImage{
+    height: 26px;
+    width: 26px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+.buttonLinkTitle{
+    white-space: nowrap;
+
+}

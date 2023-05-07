@@ -2,22 +2,21 @@ import { memo, FC } from 'react'
 
 import Container from '../../../../components/Container/Container'
 import { NavLink } from 'react-router-dom'
+import HeaderButton from '../HeaderButton/HeaderButton'
+import HeaderSearchForm from '../HeaderSearchForm/HeaderSearchForm'
 
 import logoImage from '../../../../assets/icons/IH-logo.svg'
 import catalogImage from '../../../../assets/icons/Catalog.svg'
 import aboutImage from '../../../../assets/icons/AboutUs.svg'
 import favouritesImage from '../../../../assets/icons/Favourites.svg'
 import basketImage from '../../../../assets/icons/Basket.svg'
-import defaultUserImage from '../../../../assets/icons/User-icon.svg'
-import ArrowImage from '../../../../assets/icons/Arrow.svg'
+import testIam from '../../../../assets/testIam.jpg'
 
 import classes from './Header.module.scss'
-
+import HeaderUser from '../HeaderUser/HeaderUser'
 
 export const Header: FC = memo(() => {
-  const searchForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-  }
+
   return (
     <header className={classes.header}>
       <Container>
@@ -27,35 +26,42 @@ export const Header: FC = memo(() => {
           </NavLink>
           <nav className={classes.headerNavigation}>
             <div className={classes.linkButtonns}>
-              <NavLink className={classes.headerButtonLink} to='/catalog'>
-                <img className={classes.buttonLinkImage} src={catalogImage} alt='catalog' />
-                <span className={classes.buttonLinkTitle}>Каталог</span>
-              </NavLink>
-              <NavLink className={classes.headerButtonLink} to='/about'>
-                <img className={classes.buttonLinkImage} src={aboutImage} alt='about us' />
-                <span className={classes.buttonLinkTitle}>О нас</span>
-              </NavLink>
+              <HeaderButton
+                className={classes.headerLink}
+                imageSrc={catalogImage}
+                title='Каталог'
+                link='/catalog'
+              />
+              <HeaderButton
+                className={classes.headerLink}
+                imageSrc={aboutImage}
+                title='О нас'
+                link='/about'
+              />
             </div>
-            <form className={classes.searchForm} onSubmit={searchForm}>
-              <input className={classes.searchInput} type='text' autoComplete="off" title='Поле поиска' />
-              <button className={classes.searchButton} type='submit' title='Поиск'>Поиск</button>
-            </form>
-            <div className={classes.linkButtonns}>
-              <NavLink className={classes.headerButtonLink} to='/favourites'>
-                <img className={classes.buttonLinkImage} src={favouritesImage} alt='favourites' />
-                <span className={classes.buttonLinkTitle}>Избранное</span>
-              </NavLink>
-              <NavLink className={classes.headerButtonLink} to='/basket'>
-                <img className={classes.buttonLinkImage} src={basketImage} alt='basket' />
-                <span className={classes.buttonLinkTitle}>Корзина</span>
-              </NavLink>
-            </div>
+            <HeaderSearchForm
+              className={classes.headerSearchForm}
+              inputTitle='Поле поиска'
+              buttonTitle='Поиск'
+              inputType='text'
 
+            />
+            <div className={classes.linkButtonns}>
+              <HeaderButton
+                className={classes.headerLink}
+                imageSrc={favouritesImage}
+                title='Избранное'
+                link='/about'
+              />
+              <HeaderButton
+                className={classes.headerLink}
+                imageSrc={basketImage}
+                title='Корзина'
+                link='/basket'
+              />
+            </div>
           </nav>
-          <div className={classes.userBox} onClick={() => console.log('user')}>
-            <img className={classes.userImage} src={defaultUserImage} alt='user' />
-            <img className={classes.arrowImage} src={ArrowImage} alt="arrow" />
-          </div>
+          <HeaderUser className={classes.headerUser} userImage={testIam}/>
 
         </div>
       </Container>

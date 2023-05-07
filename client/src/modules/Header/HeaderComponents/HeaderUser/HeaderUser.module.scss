@@ -1,0 +1,26 @@
+@import '../../../../styles/settings.scss';
+.userBox {
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.userImage {
+    height: 40px;
+    width: 40px;
+    background-color: $secondary-color;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+
+
+}
+
+.arrowImage {
+    margin-left: 3px;
+    object-fit: fill;
+    display: block;
+    height: 8px;
+    width: 16px;
+}
