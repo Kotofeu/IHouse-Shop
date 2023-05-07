@@ -1,8 +1,11 @@
-import React from 'react'
+import { PartnersSection } from '../modules/Partners'
+
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div style={{height: '400vh', paddingTop: '200px'}}>
+      <PartnersSection/>
+    </div>
   )
 }
 

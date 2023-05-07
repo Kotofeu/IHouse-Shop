@@ -1,5 +1,124 @@
-.navLinks{
+@import '../../../../styles/settings.scss';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $primary-color;
+    z-index: 999;
+}
+
+.headerInner {
     display: flex;
-    gap: 20px;
     padding: 15px 0px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    min-height: 50px;
+
+}
+
+.logoLink {
+    display: block;
+}
+
+.logoImage {
+    object-fit: contain;
+    max-height: 50px;
+    max-width: 40px;
+}
+
+
+.headerNavigation {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+}
+
+.linkButtonns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.headerButtonLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonLinkImage {
+    height: 26px;
+    width: 26px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+.buttonLinkTitle {
+    white-space: nowrap;
+}
+
+.searchForm {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    transition: all .3s ease-in-out;
+    border-radius: 10px;
+    border: 1px solid $title-color;
+    overflow: hidden;
+    
+
+}
+
+.searchInput {
+    height: 100%;
+    width: 100%;
+    display: block;
+    padding: 0 10px;
+    transition: all .3s ease-in-out;
+    background-color: #f7f7f7;
+    border: none;
+    &:hover, &:focus {
+        background-color: $primary-color;
+    }
+}
+
+.searchButton {
+    display: block;
+    border: none;
+    height: 100%;
+    background-color: $secondary-color;
+
+}
+
+.userBox {
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    min-width: 61px;
+}
+
+.userImage {
+    height: 40px;
+    width: 40px;
+    background-color: $secondary-color;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+
+
+}
+
+.arrowImage {
+    margin-left: 3px;
+    object-fit: fill;
+    display: block;
+    height: 8px;
+    width: 16px;
 }

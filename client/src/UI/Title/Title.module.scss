@@ -1,0 +1,59 @@
+@import '../../styles/settings.scss';
+
+.title {
+  font-weight: 700;
+  position: relative;
+  letter-spacing: 0.03em;
+  line-height: 1.2em;
+  color: $title-color;
+  font-size: 20px;
+}
+.posCetner {
+  text-align: center;
+
+}
+.sectionTitle {
+  font-size: 24px;
+  letter-spacing: -0.04em;
+  
+}
+
+
+
+
+@media (min-width: 479.98px) {
+  .sectionTitle {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 575.98px) {
+  .sectionTitle {
+    font-size: 48px;
+    line-height: 1.18em;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (min-width: 767.98px) {
+  .sectionTitle {
+    font-size: 52px;
+    line-height: 1.14em;
+    letter-spacing: -.04em;
+  }
+}
+
+
+
+
+@keyframes animate-down {
+  0% {
+      transform: translateY(-100%);
+
+  }
+
+  100% {
+      transform: translateY(0);
+
+  }
+}
