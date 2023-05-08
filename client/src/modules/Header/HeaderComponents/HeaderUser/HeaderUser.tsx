@@ -18,6 +18,7 @@ const HeaderUser: FC<IHeaderUser> = memo(
         const openUser = ()  => {
             setIsOpen((prev) => (!prev))
             //Логика открытия окна пользователя
+            console.log(isOpen)
         }
         return (
             <div
