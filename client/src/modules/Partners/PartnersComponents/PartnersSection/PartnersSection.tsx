@@ -19,24 +19,27 @@ import Title, { TitleType } from '../../../../UI/Title/Title'
 
 export const PartnersSection = memo(() => {
     return (
-        <section className={classes.partnersSection}>
+        <section className={classes.partners}>
             <Container containerType={ContainerType.containerFluid}>
-                <Title
-                    titleType={[TitleType.sectionTitle, TitleType.posCetner]}
-                >
-                    Наши партнёры
-                </Title>
-                <div className={classes.partnersList}>
-                    <PartnersParallax
-                        className={classes.partnersParallax}
-                        images={[Vimar, Jung, HDL]}
-                        baseVelocity={3}
-                    />
-                    <PartnersParallax
-                        className={classes.partnersParallax}
-                        images={[Berker, KNX, Schnwider, IRidium, Seawin]}
-                        baseVelocity={-3}
-                    />
+                <div className={classes.partnersInner}>
+                    <Title
+                        className={classes.partnersTitle}
+                        titleType={[TitleType.sectionTitle, TitleType.posCetner]}
+                    >
+                        Наши партнёры
+                    </Title>
+                    <div className={classes.partnersList}>
+                        <PartnersParallax
+                            className={classes.partnersParallax}
+                            images={[Vimar, Jung, HDL]}
+                            baseVelocity={3}
+                        />
+                        <PartnersParallax
+                            className={classes.partnersParallax}
+                            images={[Berker, KNX, Schnwider, IRidium, Seawin]}
+                            baseVelocity={-3}
+                        />
+                    </div>
                 </div>
             </Container>
         </section>

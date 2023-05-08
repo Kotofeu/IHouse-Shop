@@ -13,14 +13,21 @@
     justify-content: space-between;
     height: 100%;
 }
-.infoBox{
+
+.infoBox {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     padding-top: 10px;
-    &:first-child{
+    flex-grow: 1;
+
+    &:first-child {
         padding-top: 0px;
+        justify-content: flex-start;
+
     }
 }
+
 .cardImageBox {
     width: 100%;
     height: 200px;
@@ -34,89 +41,108 @@
 }
 
 .cardDesc {
+    position: relative;
+    height: 100%;
     padding-top: 7px;
     font-size: 18px;
     line-height: 1.4em;
     color: $title-color;
     font-weight: 600;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    &:hover{
+        &::after{
+            opacity: 0;
+        }
+    }
+    &::after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 30px;
+        transition: opacity .3s ease-in-out;
+        opacity: 1;
+        background: linear-gradient(rgba($primary-color, 0), $primary-color)
+    }
 }
 
 .cardInfo {
     display: flex;
-    justify-content: space-between;
+    //justify-content: space-between;
     align-items: center;
 }
 
+.ratingBox,
+.noRating {
+    margin-right: 20px;
+    padding: 10px;
+    border: 1px solid $text-color;
+    border-radius: 7px;
+}
+
 .ratingBox {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
-    padding-right: 20px;
+    align-items: center;
 }
 
 .ratingStars {
-    
+    padding-right: 8px;
+
 }
 
 .ratingCount {
+    padding-left: 8px;
+    position: relative;
 
+    &::before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
+        width: 1px;
+        background-color: $text-color;
+
+    }
 }
 
 .brandImageBox {
     max-width: 110px;
+    height: 40px;
     width: 100%;
 }
-.brandImage{
-    
+
+.brandImage {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
+
 .bottomMenu {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+
     gap: 5px;
     padding-top: 20px;
 }
 
-.coastBox {
+.cardCost {
     padding: 8px;
     border-radius: 2px;
     flex-grow: 1;
-    background-color: $neutral-color;
-    display: flex;
-    align-items: center;
-}
-
-.oldCoast {
-    color: $text-color;
-    font-size: 13px;
-    text-decoration: line-through;
-    font-weight: 500;
-    padding-left: 10px;
-}
-
-.coast {
-    font-weight: 600;
-    color: $secondary-color;
-    font-size: 20px;
-}
-
-.discountCoast {
-    color: $secondary-color;
-
 }
 
 .cardButton {
-    display: block;
-    background-color: transparent;
-    border: 1px solid $text-color;
     border-radius: 9px;
     width: 40px;
     height: 40px;
-}
 
-.cardButtonImage {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    margin: auto;
+    & img {
+        width: 20px;
+        height: 20px;
+    }
 }

@@ -1,12 +1,12 @@
-import Container from '../../../components/Container/Container'
+import Container from '../../../../components/Container/Container'
 
 
-import GoodCard from '../GoodsComponents/GoodCard/GoodCard'
+import GoodCard from '../GoodCard/GoodCard'
 
-import releImage from '../../../assets/images/1.png'
-import curtainImage from '../../../assets/images/2.png'
-import HDL from '../../Partners/PartnersImages/hdl.png'
-import Jung from '../../Partners/PartnersImages/jung.png'
+import releImage from '../../../../assets/images/1.png'
+import curtainImage from '../../../../assets/images/2.png'
+import HDL from '../../../Partners/PartnersImages/hdl.png'
+import Jung from '../../../Partners/PartnersImages/jung.png'
 
 import classes from './PromotionSection.module.scss'
 
@@ -18,7 +18,7 @@ export const PromotionSection = () => {
             goodDesc: `Диммер 4 - канальный, 
             0-10В с 4-канальным релейным актуатором,
             16А на канал`,
-            coast: 3333333,
+            cost: 3333333,
             oldCost: 9999999,
             rating: 4.5,
             ratingsCount: 39,
@@ -30,7 +30,8 @@ export const PromotionSection = () => {
             goodDesc: `Актуатор 6 - канальный, 
             20 А на канал, 
             с модулем входов`,
-            coast: 564.99,
+            cost: 564.99,
+            oldCost: 34,
             rating: 3.5,
             ratingsCount: 4,
             brandImage: Jung,
@@ -39,10 +40,7 @@ export const PromotionSection = () => {
             id: 3,
             goodImage: curtainImage,
             goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            coast: 564,
-            rating: 3.5,
-            ratingsCount: 4,
-            brandImage: Jung,
+            cost: 564
         }
     ]
     return (
@@ -56,7 +54,7 @@ export const PromotionSection = () => {
                                 id={item.id}
                                 goodImages={item.goodImage}
                                 goodDesc={item.goodDesc}
-                                coast={item.coast}
+                                cost={item.cost}
                                 oldCost={item.oldCost}
                                 rating={item.rating}
                                 ratingsCount={item.ratingsCount}

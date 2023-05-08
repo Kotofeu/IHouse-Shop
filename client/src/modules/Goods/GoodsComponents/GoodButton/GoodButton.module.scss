@@ -1,0 +1,19 @@
+@import '../../../../styles/settings.scss';
+.button {
+
+    display: block;
+    background-color: transparent;
+    border: 1px solid $text-color;
+}
+
+.buttonActive {
+    border-color: $secondary-color !important;
+    border-width: 4px;
+}
+
+.cardButtonImage {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin: auto;
+}

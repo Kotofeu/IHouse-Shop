@@ -1,100 +1,96 @@
 import { memo, FC } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import favouritesImage from '../../../../assets/icons/Favourites.svg'
-import basketImage from '../../../../assets/icons/Basket.svg'
+
+import noPhoto from '../../../../assets/images/NoPhoto.jpg'
+import StarRating from '../../../../components/StarRating/StarRating'
 
 import classes from './GoodCard.module.scss'
+import GoodCardButtons from '../GoodCardButtons/GoodCardButtons'
+import GoodCost from '../GoodCost/GoodCost'
+
 interface IGoodCard {
     id: number
     className?: string,
     goodImages: string,
     goodDesc: string,
-    coast: number,
+    cost: number,
     oldCost?: number,
     rating?: number,
     ratingsCount?: number,
-    brandImage?: string
+    brandImage?: string,
+    isFavouriteDefault?: boolean,
+    isInBasketDefault?: boolean
 }
 const GoodCard: FC<IGoodCard> = memo((props) => {
     const {
         id,
         goodImages,
         goodDesc,
-        coast,
+        cost,
         oldCost,
         className,
         rating,
         ratingsCount,
         brandImage,
+        isFavouriteDefault = false,
+        isInBasketDefault = false
     } = props
-    const isDiscount: boolean
-        = typeof oldCost !== 'undefined' && oldCost > coast;
-    const addInFavourities = () => {
-        // Добваление в избранное 
-    }
-    const addInBasket = () => {
-        // Добваление в корзину 
+
+    const imgBroke = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        event.currentTarget.src = noPhoto
     }
     return (
-        <NavLink className={
+        <div className={
             [classes.goodCard, className ? className : ''].join(' ')
-        } to={`/catalog/${id}`}>
+        }>
             <div className={classes.cardInner}>
-                <div className={classes.infoBox}>
+                <NavLink className={classes.infoBox} to={`/catalog/${id}`}>
                     <div className={classes.cardImageBox}>
-                        <img className={classes.cardImage} src={goodImages} alt={goodDesc} />
+                        <img
+                            className={classes.cardImage}
+                            src={goodImages}
+                            alt={goodDesc}
+                            onError={imgBroke}
+                        />
                     </div>
                     <p className={classes.cardDesc}>{goodDesc}</p>
-                </div>
+                </NavLink>
                 <div className={classes.infoBox}>
                     <div className={classes.cardInfo}>
-                        <div className={classes.ratingBox}>
-                            <div className={classes.ratingStars}>
-                                {rating}
-                            </div>
-                            <div className={classes.ratingCount}>
-                                {ratingsCount}
-                            </div>
-                        </div>
-                        <div className={classes.brandImageBox}>
-                            <img className={classes.brandImage} src={brandImage} alt="brand" />
-                        </div>
+                        {
+                            rating
+                                ? <div className={classes.ratingBox}>
+                                    <StarRating className={classes.ratingStars} rating={rating} />
+                                    <div className={classes.ratingCount}>
+                                        {ratingsCount}
+                                    </div>
+                                </div>
+                                : <div className={classes.noRating}>
+                                    Нет отзывов
+                                </div>
+                        }
+                        {
+                            brandImage
+                                ? <div className={classes.brandImageBox}>
+                                    <img className={classes.brandImage} src={brandImage} alt="brand" />
+                                </div>
+                                : null
+                        }
+
                     </div>
                     <div className={classes.bottomMenu}>
-                        <div className={classes.coastBox}>
-
-                            <div
-                                className={
-                                    [classes.coast, isDiscount ? classes.discountCoast : ''].join(' ')
-                                }
-                            >
-                                {coast.toLocaleString()} ₽
-                            </div>
-                            {
-                                isDiscount &&
-                                <div className={classes.oldCoast}>{oldCost?.toLocaleString()} ₽</div>
-                            }
-                        </div>
-                        <button
-                            type='button'
-                            className={classes.cardButton}
-                            onClick={addInFavourities}
-                        >
-                            <img className={classes.cardButtonImage} src={favouritesImage} alt="favourities" />
-                        </button>
-                        <button
-                            type='button'
-                            className={classes.cardButton}
-                            onClick={addInBasket}
-                        >
-                            <img className={classes.cardButtonImage} src={basketImage} alt="basket" />
-                        </button>
+                        <GoodCost className={classes.cardCost} oldCost={oldCost} cost={cost} />
+                        <GoodCardButtons
+                            cardClassName={classes.cardButton}
+                            isFavouriteDefault={isFavouriteDefault}
+                            isInBasketDefault={isInBasketDefault}
+                        />
                     </div>
                 </div>
 
             </div>
-        </NavLink>
+        </div>
     )
 })
 

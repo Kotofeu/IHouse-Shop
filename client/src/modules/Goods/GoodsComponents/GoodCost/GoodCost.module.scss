@@ -1,0 +1,29 @@
+@import '../../../../styles/settings.scss';
+
+.costBox {
+    background-color: $neutral-color;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+}
+
+.oldCost {
+    color: $text-color;
+    font-size: 13px;
+    text-decoration: line-through;
+    font-weight: 500;
+    padding-right: 10px;
+}
+
+.cost {
+    font-weight: 600;
+    color: $secondary-color;
+    font-size: 20px;
+}
+
+.discountCost {
+    color: $secondary-color;
+
+}

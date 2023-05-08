@@ -1,1 +1,1 @@
-export {PromotionSection} from './PromotionSection/PromotionSection'
+export {PromotionSection} from './GoodsComponents/PromotionSection/PromotionSection'
