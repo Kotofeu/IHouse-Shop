@@ -26,18 +26,18 @@ export const PartnersSection = memo(() => {
                         className={classes.partnersTitle}
                         titleType={[TitleType.sectionTitle, TitleType.posCetner]}
                     >
-                        Наши партнёры
+                        НАШИ ПАРТНЁРЫ
                     </Title>
                     <div className={classes.partnersList}>
                         <PartnersParallax
                             className={classes.partnersParallax}
-                            images={[Vimar, Jung, HDL]}
-                            baseVelocity={3}
+                            images={[Vimar, Jung, HDL, Berker, KNX, Schnwider, IRidium, Seawin]}
+                            baseVelocity={2}
                         />
                         <PartnersParallax
                             className={classes.partnersParallax}
-                            images={[Berker, KNX, Schnwider, IRidium, Seawin]}
-                            baseVelocity={-3}
+                            images={[]}
+                            baseVelocity={-2}
                         />
                     </div>
                 </div>

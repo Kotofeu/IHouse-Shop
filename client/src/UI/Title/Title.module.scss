@@ -16,27 +16,27 @@
 
 .sectionTitle {
   font-size: 24px;
-  letter-spacing: -0.04em;
+  letter-spacing: .15em;
+
 }
 
 @media (min-width: 479.98px) {
   .sectionTitle {
-    font-size: 28px;
+    //letter-spacing: .16em;
   }
 }
 
 @media (min-width: 575.98px) {
   .sectionTitle {
-    font-size: 30px;
-    letter-spacing: 0.05em;
+   // letter-spacing: .15em;
   }
 }
 
 @media (min-width: 767.98px) {
   .sectionTitle {
-    line-height: 1.18em;
-    font-size: 36px;
-    letter-spacing: -.04em;
+   /* line-height: 1.18em;
+    font-size: 24px;
+    letter-spacing: .16em;*/
   }
 }
 

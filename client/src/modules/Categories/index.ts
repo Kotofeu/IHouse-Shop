@@ -1,1 +1,1 @@
-export {} from './CategoriesComponents/CategoriesSection'
+export {CategoriesNavigation} from './CategoriesComponents/CategoriesNavigation/CategoriesNavigation'
