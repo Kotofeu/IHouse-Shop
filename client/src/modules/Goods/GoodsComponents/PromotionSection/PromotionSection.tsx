@@ -56,7 +56,7 @@ export const PromotionSection = () => {
     return (
         <section className={classes.promotion}>
             <Title className={classes.promotionTitle} titleType={[TitleType.sectionTitle]}>Акции</Title>
-            <div className={classes.promotionInner} style={{ display: 'flex' }}>
+            <div className={classes.promotionInner}>
                 {
                     goods.map((item) => (
                         <GoodCard

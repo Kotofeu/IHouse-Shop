@@ -1,5 +1,7 @@
 import Container from '../components/Container/Container';
+
 import { CategoriesNavigation } from '../modules/Categories';
+import { ComprehensiveOfferSection } from '../modules/ComprehensiveOffer';
 import { PromotionSection } from '../modules/Goods'
 import { PartnersSection } from '../modules/Partners'
 
@@ -13,6 +15,7 @@ const Home = () => {
           <div className={classes.homeContent}>
 
             <PromotionSection />
+            <ComprehensiveOfferSection />
             <PartnersSection />
 
           </div>
