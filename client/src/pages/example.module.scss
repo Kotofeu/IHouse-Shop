@@ -1,6 +1,20 @@
 @import '../styles/settings.scss';
 .home {
-    background-color: $primary-color;
+
+    background-color: $neutral-color;
+
+}
+.homeInner{
+    display: flex;
     padding-top: 100px;
-    height: 400vh;
+    padding-bottom: 50px;
+    min-height: 100vh;
+
+}
+.homeContent{
+    margin-left: 20px;
+    overflow-x: hidden;
+
+}
+.homeNav{
 }

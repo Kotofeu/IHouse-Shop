@@ -30,7 +30,7 @@ const ScrollParallax: FC<IParallaxProps> = ({ children, baseVelocity, className 
     clamp: false
   });
 
-  const transformX = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
+  const transformX = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
 
   const directionFactor = useRef<number>(1);
   useAnimationFrame((timestamp, delta) => {
@@ -81,8 +81,6 @@ const ScrollParallax: FC<IParallaxProps> = ({ children, baseVelocity, className 
         style={{ x: transformX }}
         variants={scrollerHide}
       >
-        {children}
-        {children}
         {children}
         {children}
       </motion.div>

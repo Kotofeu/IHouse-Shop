@@ -16,12 +16,11 @@ const PartnersParallax: FC<IPartnersParallaxProps> = memo(({images, className, b
         2 - так как в ScrollParallax используется 4 спана,
          для бесшовной склейки необходимо растянуть спан до половины максимального размера экрана
     */
-    const maxWidth = 1920  / 2
-    const imageWidth = maxWidth / images.length
+    const imageWidth = 100 / images.length
     return (
         <ScrollParallax baseVelocity={baseVelocity} className={className}>
-            <div className={classes.parallaxInner} style={{width: `${maxWidth}px`}}>
-                {images.map(item => (<PartnersImage width={imageWidth} src={item} key={item}/>))}
+            <div className={classes.parallaxInner}>
+                {images.map(item => (<PartnersImage width={`${imageWidth}%`} src={item} key={item}/>))}
             </div>
         </ScrollParallax>
 

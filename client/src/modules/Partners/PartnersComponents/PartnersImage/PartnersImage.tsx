@@ -3,12 +3,12 @@ import classes from './PartnersImage.module.scss'
 
 interface IPartnersImage {
     src: string,
-    width: number
+    width?: string
 }
 const PartnersImage: FC<IPartnersImage> = memo((props) => {
     const {src, width} = props
     return (
-        <img className={classes.partnerImage} src={src} style={{ width: `${width}px`}} alt={src} />
+        <img className={classes.partnerImage} src={src} style={{ width: width}} alt={src} />
     )
 })
 

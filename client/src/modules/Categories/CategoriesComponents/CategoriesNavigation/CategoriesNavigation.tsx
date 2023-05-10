@@ -21,7 +21,7 @@ export const CategoriesNavigation = () => {
         },
         {
           id: 2,
-          typeName: 'RGB-ламбы',
+          typeName: 'RGB-лампы',
         },
         {
           id: 3,
@@ -75,17 +75,18 @@ export const CategoriesNavigation = () => {
       imageSrc: moduleImage,
       types: [
         {
-          id: 9,
+          id: 10,
           typeName: 'Блок питания',
         },
         {
-          id: 10,
+          id: 11,
           typeName: 'Модуль штор',
         },
         {
-          id: 11,
+          id: 12,
           typeName: 'Модуль реле',
-        }
+        },
+        
       ]
     },
     {
@@ -98,7 +99,7 @@ export const CategoriesNavigation = () => {
     <nav className={classes.categoriesNavigation}>
       {
         categories.map((category) => (
-          <Category {...category}></Category>
+          <Category {...category} key={category.id}></Category>
         ))
       }
     </nav>

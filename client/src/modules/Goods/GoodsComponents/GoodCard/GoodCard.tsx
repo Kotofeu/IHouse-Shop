@@ -45,7 +45,7 @@ const GoodCard: FC<IGoodCard> = memo((props) => {
             [classes.goodCard, className ? className : ''].join(' ')
         }>
             <div className={classes.cardInner}>
-                <NavLink className={classes.infoBox} to={`/catalog/${id}`}>
+                <NavLink className={classes.cardLink} to={`/catalog/${id}`}>
                     <div className={classes.cardImageBox}>
                         <img
                             className={classes.cardImage}

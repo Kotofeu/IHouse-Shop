@@ -1,19 +1,20 @@
-  
-  .parallax {
-    overflow: hidden;
-    margin: 0;
-    white-space: nowrap;
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  
-  .parallax .scroller {
-    
-    display: flex;
-    white-space: nowrap;
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  .parallax span {
-    display: block;
-  }
+.parallax {
+  overflow: hidden;
+  margin: 0;
+  white-space: nowrap;
+  display: flex;
+  width: 200%;
+  flex-wrap: nowrap;
+}
+.parallax .scroller {
+  display: flex;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.scroller {
+  width: 100%;
+}
+.scroller>* {
+  width: 50%;
+}

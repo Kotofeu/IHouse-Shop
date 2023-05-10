@@ -1,25 +1,56 @@
 @import '../../../../styles//settings.scss';
 
 .partners {
+    margin-top: 5px;
     //background-color: $primary-color;
+    width: 100%;
+    overflow: hidden;
 }
 
 .partnersInner {
     display: flex;
-    align-items: center;
     flex-direction: column;
     justify-content: center;
     min-height: 150px;
-    width: 100%;
-    overflow: hidden;
     padding: 15px 0;
-}
-.partnersTitle{
-    padding-bottom: 8px;
-}
-.partnersParallax {
+
 }
 
-.partnersList { 
+.partnersTitle {
+    padding-bottom: 10px;
+}
+
+.partnersParallax {
+    padding-bottom: 5px;
+
+    &:last-child {
+        padding-bottom: 0;
+    }
+}
+
+.partnersList {
     width: 100%;
+    position: relative;
+
+    &::after,
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+    }
+
+    &::after {
+        right: 0;
+        background: linear-gradient(to right, rgba($neutral-color, 0), $neutral-color);
+        // filter: blur(100%);
+    }
+
+    &::before {
+        left: 0;
+        background: linear-gradient(to left, rgba($neutral-color, 0), $neutral-color);
+
+    }
 }

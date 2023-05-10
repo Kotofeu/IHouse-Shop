@@ -1,11 +1,19 @@
 @import '../../../../styles/settings.scss';
 
-.promotion{
+.promotion {
+
 }
-.goodCard{
-    width: calc(34% - 20px);
+
+.promotionTitle {
+    padding-bottom: 10px;
 }
-.promotionInner{
+
+.goodCard {
+    min-width: calc(33% - 11px);
+    width:  calc(33% - 11px);
+}
+
+.promotionInner {
     display: flex;
     gap: 20px;
 }

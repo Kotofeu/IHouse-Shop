@@ -1,7 +1,7 @@
 import { memo } from 'react'
 
 import PartnersParallax from '../PartnersParallax/PartnersParallax'
-import Container, { ContainerType } from '../../../../components/Container/Container'
+import Title, { TitleType } from '../../../../UI/Title/Title'
 
 
 import Vimar from '../../PartnersImages/вимар.png'
@@ -15,33 +15,30 @@ import Seawin from '../../PartnersImages/seawin.png'
 
 
 import classes from './PartnersSection.module.scss'
-import Title, { TitleType } from '../../../../UI/Title/Title'
 
 export const PartnersSection = memo(() => {
     return (
         <section className={classes.partners}>
-            <Container containerType={ContainerType.containerFluid}>
                 <div className={classes.partnersInner}>
                     <Title
                         className={classes.partnersTitle}
-                        titleType={[TitleType.sectionTitle, TitleType.posCetner]}
+                        titleType={[TitleType.sectionTitle]}
                     >
-                        НАШИ ПАРТНЁРЫ
+                        Наши партнёры
                     </Title>
                     <div className={classes.partnersList}>
                         <PartnersParallax
                             className={classes.partnersParallax}
-                            images={[Vimar, Jung, HDL, Berker, KNX, Schnwider, IRidium, Seawin]}
+                            images={[Vimar, Jung, HDL]}
                             baseVelocity={2}
                         />
                         <PartnersParallax
                             className={classes.partnersParallax}
-                            images={[]}
+                            images={[Berker, KNX, Schnwider, IRidium, Seawin]}
                             baseVelocity={-2}
                         />
                     </div>
                 </div>
-            </Container>
         </section>
 
     )

@@ -8,19 +8,26 @@
     flex-wrap: wrap;
 
 }
+.oldCost, .cost, .discountCost{
+    white-space: nowrap;
 
+}
 .oldCost {
     color: $text-color;
     font-size: 13px;
     text-decoration: line-through;
     font-weight: 500;
     padding-right: 10px;
+    white-space: nowrap;
+
 }
 
 .cost {
     font-weight: 600;
     color: $secondary-color;
     font-size: 20px;
+    white-space: nowrap;
+
 }
 
 .discountCost {
