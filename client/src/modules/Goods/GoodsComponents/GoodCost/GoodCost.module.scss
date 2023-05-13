@@ -3,8 +3,9 @@
 .cost {
     background-color: $neutral-color;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    align-items: flex-end;
+    justify-content:center;
+    flex-direction: column;
     flex-wrap: wrap;
 
 }

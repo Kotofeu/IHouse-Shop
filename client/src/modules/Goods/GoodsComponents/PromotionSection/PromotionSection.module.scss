@@ -9,14 +9,16 @@
 }
 
 .promotion_good {
+
     height: 100%;
     width:  100%;
-
+    flex-grow: 1;
+    min-height: 394px;
 }
 .promotion_slide{
     padding: 2px;
-
+    height: 100%;
 }
 .promotion_slider{
-    height: 400px;
+    //height: 410px;
 }

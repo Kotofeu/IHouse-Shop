@@ -1,9 +1,9 @@
-import { ReactNode, memo } from 'react';
-import { Swiper, SwiperSlide} from 'swiper/react'
-import SwiperCore,{ SwiperOptions, Pagination, Navigation, Scrollbar, A11y} from 'swiper';
+import { ReactNode } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { SwiperOptions, Pagination, Navigation, Scrollbar, A11y } from 'swiper';
 
-import 'swiper/swiper-bundle.min.css'
-SwiperCore.use([ Pagination, Navigation, Scrollbar, A11y])
+import './MySlider.scss'
+SwiperCore.use([Pagination, Navigation, Scrollbar, A11y])
 interface IMySlider<T> {
     settings?: SwiperOptions,
     items: T[];
@@ -23,11 +23,14 @@ export default function MySlider<T>(props: IMySlider<T>) {
         className,
         slideClass,
     } = props
-
+    let navigationPadding = 0;
+    if (settings?.pagination) navigationPadding = 15
+    if (settings?.scrollbar) navigationPadding = 7
     return (
         <Swiper
             {...settings}
             className={className}
+            style={{ paddingBottom: `${navigationPadding}px` }}
         >
             {
                 items.length && items.map((item, index) =>

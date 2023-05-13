@@ -99,9 +99,25 @@ export const ComprehensiveOfferSection = () => {
                     />
                 }
                 settings={{
-                    slidesPerView: 4,
+                    slidesPerView: 1,
                     spaceBetween: 10,
                     navigation: {enabled: true},
+                    pagination: {type: "fraction"},
+                    autoHeight: true,
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 1,
+                        },
+                        668: {
+                            slidesPerView: 2,
+                        },
+                        900: {
+                            slidesPerView: 3,
+                        },
+                        1200: {
+                            slidesPerView: 4,
+                        }
+                    }
                 }}
                 slideClass={classes.comprehensiveOffer_slide}
                 className={classes.comprehensiveOffer_slider}

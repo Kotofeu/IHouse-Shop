@@ -199,14 +199,26 @@ export const PromotionSection = () => {
                     />
                 }
                 settings={{
-                    slidesPerView: 3,
+                    slidesPerView: 1,
                     spaceBetween: 10,
-                    navigation: {enabled: true},
-                    pagination: {clickable: true}
+                    navigation: { enabled: true},
+                    scrollbar: {draggable: true},
+                    autoHeight: true,
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 1,
+                        },
+                        900: {
+                            slidesPerView: 2,
+                        },
+                        1200: {
+                            slidesPerView: 3,
+                        }
+                    }
                 }}
                 slideClass={classes.promotion_slide}
                 className={classes.promotion_slider}
-                
+
             />
         </section>
     )

@@ -127,8 +127,10 @@
     display: flex;
     width: 100%;
     align-items: center;
+    justify-content: flex-end;
     gap: 5px;
     padding-top: 20px;
+    flex-wrap: wrap;
 }
 
 .card_cost {
