@@ -20,48 +20,48 @@ export const Header: FC = memo(() => {
   return (
     <header className={classes.header}>
       <Container>
-        <div className={classes.headerInner}>
-          <NavLink className={classes.logoLink} to='/'>
-            <img className={classes.logoImage} src={logoImage} alt='IHouse Shop company' />
+        <div className={classes.header_inner}>
+          <NavLink className={classes.header_logo} to='/'>
+            <img className={classes.header_logoImage} src={logoImage} alt='IHouse Shop company' />
           </NavLink>
-          <nav className={classes.headerNavigation}>
-            <div className={classes.linkButtonns}>
+          <nav className={classes.header_navigation}>
+            <div className={classes.header_linkButtons}>
               <HeaderButton
-                className={classes.headerLink}
+                className={classes.header_link}
                 imageSrc={catalogImage}
                 title='Каталог'
                 link='/catalog'
               />
               <HeaderButton
-                className={classes.headerLink}
+                className={classes.header_link}
                 imageSrc={aboutImage}
                 title='О нас'
                 link='/about'
               />
             </div>
             <HeaderSearchForm
-              className={classes.headerSearchForm}
+              className={classes.header_searchForm}
               inputTitle='Поле поиска'
               buttonTitle='Поиск'
               inputType='text'
 
             />
-            <div className={classes.linkButtonns}>
+            <div className={classes.header_linkButtons}>
               <HeaderButton
-                className={classes.headerLink}
+                className={classes.header_link}
                 imageSrc={favouritesImage}
                 title='Избранное'
                 link='/about'
               />
               <HeaderButton
-                className={classes.headerLink}
+                className={classes.header_link}
                 imageSrc={basketImage}
                 title='Корзина'
                 link='/basket'
               />
             </div>
           </nav>
-          <HeaderUser className={classes.headerUser} userImage={testIam}/>
+          <HeaderUser className={classes.header_user} userImage={testIam}/>
 
         </div>
       </Container>

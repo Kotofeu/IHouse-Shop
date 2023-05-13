@@ -22,15 +22,15 @@ const HeaderUser: FC<IHeaderUser> = memo(
         }
         return (
             <div
-                className={[classes.userBox, className].join(' ')}
+                className={[classes.user, className].join(' ')}
                 onClick={openUser}
             >
                 <img
-                    className={classes.userImage}
+                    className={classes.user_image}
                     src={userImage}
                     alt='user' />
                 <img
-                    className={classes.arrowImage}
+                    className={classes.user_arrow}
                     src={ArrowImage}
                     alt="arrow" />
             </div>

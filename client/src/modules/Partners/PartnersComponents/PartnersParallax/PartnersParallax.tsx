@@ -19,7 +19,7 @@ const PartnersParallax: FC<IPartnersParallaxProps> = memo(({images, className, b
     const imageWidth = 100 / images.length
     return (
         <ScrollParallax baseVelocity={baseVelocity} className={className}>
-            <div className={classes.parallaxInner}>
+            <div className={classes.parallax_inner}>
                 {images.map(item => (<PartnersImage width={`${imageWidth}%`} src={item} key={item}/>))}
             </div>
         </ScrollParallax>

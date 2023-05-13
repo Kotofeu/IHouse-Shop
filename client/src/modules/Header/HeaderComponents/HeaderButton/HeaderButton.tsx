@@ -11,9 +11,9 @@ interface IHeaderButton {
 const HeaderButton: FC<IHeaderButton> = memo((props) => {
   const { imageSrc, title, link, className } = props
   return (
-    <NavLink className={[classes.headerButtonLink, className].join(' ')} to={link}>
-      <img className={classes.buttonLinkImage} src={imageSrc} alt={title} />
-      <span className={classes.buttonLinkTitle}>{title}</span>
+    <NavLink className={[classes.headerButton, className].join(' ')} to={link}>
+      <img className={classes.headerButton_link} src={imageSrc} alt={title} />
+      <span className={classes.headerButton_title}>{title}</span>
     </NavLink>)
 })
 

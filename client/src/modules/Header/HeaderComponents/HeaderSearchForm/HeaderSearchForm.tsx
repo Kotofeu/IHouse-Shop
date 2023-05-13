@@ -38,7 +38,7 @@ const HeaderSearchForm: FC<IHeaderSearchForm> = memo((props) => {
             onSubmit={searchFormSubmit}
         >
             <input
-                className={classes.searchInput}
+                className={classes.searchForm_input}
                 type={inputType}
                 autoComplete="off"
                 title={inputTitle}
@@ -46,7 +46,7 @@ const HeaderSearchForm: FC<IHeaderSearchForm> = memo((props) => {
                 onChange={searchFormChange}
             />
             <button
-                className={classes.searchButton}
+                className={classes.searchForm_button}
                 type='submit'
                 title={buttonTitle}
             >

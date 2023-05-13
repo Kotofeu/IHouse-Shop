@@ -5,8 +5,8 @@ interface ITitleProps extends React.AllHTMLAttributes<HTMLHeadElement> {
     titleType?: TitleType[];
 }
 export enum TitleType {
-    posCetner = classes.posCetner,
-    sectionTitle = classes.sectionTitle,
+    posCetner = classes.title___posCetner,
+    sectionTitle = classes.title___sectionTitle,
 }
 const Title: FC<ITitleProps> =
     React.memo(

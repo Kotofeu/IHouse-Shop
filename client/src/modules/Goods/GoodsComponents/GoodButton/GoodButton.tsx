@@ -16,14 +16,14 @@ const GoodButton: FC<IGoodCard> = memo((props) => {
                 [
                     className,
                     classes.button,
-                    isActive ? classes.buttonActive : ''
+                    isActive ? classes.button___isActive : ''
                 ]
                     .join(' ')
             }
             onClick={onClick}
             title={title}
         >
-            <img className={classes.cardButtonImage} src={buttonImage} alt={title} />
+            <img className={classes.button_image} src={buttonImage} alt={title} />
         </button>)
 })
 

@@ -8,30 +8,30 @@
   font-size: 20px;
 }
 
-.posCetner {
+.title___posCetner {
   text-align: center;
 
 }
 
-.sectionTitle {
+.title___sectionTitle {
   font-size: 24px;
 
 }
 
 @media (min-width: 479.98px) {
-  .sectionTitle {
+  .title___sectionTitle {
     //letter-spacing: .16em;
   }
 }
 
 @media (min-width: 575.98px) {
-  .sectionTitle {
+  .title___sectionTitle {
    // letter-spacing: .15em;
   }
 }
 
 @media (min-width: 767.98px) {
-  .sectionTitle {
+  .title___sectionTitle {
    /* line-height: 1.18em;
     font-size: 24px;
     letter-spacing: .16em;*/

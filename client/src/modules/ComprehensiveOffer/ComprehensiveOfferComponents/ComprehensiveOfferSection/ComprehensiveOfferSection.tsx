@@ -84,32 +84,29 @@ export const ComprehensiveOfferSection = () => {
     return (
         <section className={classes.comprehensiveOffer}>
             <Title
-                className={classes.offerTitle}
+                className={classes.comprehensiveOffer_title}
                 titleType={[TitleType.sectionTitle]}
             >
                 Комплексные предложения
             </Title>
-            <div className={classes.offersList}>
-                <MySlider settings={
-                    {
-                        dots: true,
-                        arrows: false,
-                        autoplay: true,
-                        slidesPerRow: 4,
-                        className: classes.offerSlide
-                    }
-                }>
-                    {offer.map(offer => (
-                        <ComprehensiveOfferCard
-                            title={offer.title}
-                            imageSrc={offer.imageSrc}
-                            key={offer.title}
-                            className={classes.offerItem}
-                        />
-                    ))}
-                </MySlider>
-
-            </div>
+            <MySlider
+                items={offer}
+                renderItem={offer =>
+                    <ComprehensiveOfferCard
+                        className={classes.comprehensiveOffer_offer}
+                        title={offer.title}
+                        imageSrc={offer.imageSrc}
+                    />
+                }
+                settings={{
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                    navigation: {enabled: true},
+                }}
+                slideClass={classes.comprehensiveOffer_slide}
+                className={classes.comprehensiveOffer_slider}
+                
+            />
         </section>
     )
 }

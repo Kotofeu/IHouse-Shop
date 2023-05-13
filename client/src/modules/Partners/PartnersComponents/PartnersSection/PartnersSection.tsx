@@ -19,21 +19,21 @@ import classes from './PartnersSection.module.scss'
 export const PartnersSection = memo(() => {
     return (
         <section className={classes.partners}>
-                <div className={classes.partnersInner}>
+                <div className={classes.partners_inner}>
                     <Title
-                        className={classes.partnersTitle}
+                        className={classes.partners_title}
                         titleType={[TitleType.sectionTitle]}
                     >
                         Наши партнёры
                     </Title>
-                    <div className={classes.partnersList}>
+                    <div className={classes.partners_list}>
                         <PartnersParallax
-                            className={classes.partnersParallax}
+                            className={classes.partners_parallax}
                             images={[Vimar, Jung, HDL]}
                             baseVelocity={2}
                         />
                         <PartnersParallax
-                            className={classes.partnersParallax}
+                            className={classes.partners_parallax}
                             images={[Berker, KNX, Schnwider, IRidium, Seawin]}
                             baseVelocity={-2}
                         />

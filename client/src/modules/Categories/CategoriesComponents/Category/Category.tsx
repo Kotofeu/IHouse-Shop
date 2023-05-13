@@ -22,17 +22,17 @@ const Category: FC<ICategory> = memo((props) => {
             onMouseLeave={() => setIsCategoryHovered(false)}
         >
             <NavLink
-                className={classes.categoryLink}
+                className={classes.category_link}
                 to={`/catalog/${categoryName}`}
             >
-                <img className={classes.categoryImage} src={imageSrc} alt={categoryName} />
-                <span className={classes.categoryText}>{categoryName}</span>
+                <img className={classes.category_image} src={imageSrc} alt={categoryName} />
+                <span className={classes.category_text}>{categoryName}</span>
             </NavLink>
             <AnimatePresence initial={false}>
                 {
                     types && isCategoryHovered
                         ? <motion.div
-                            className={classes.typeList}
+                            className={classes.category_typeList}
                             initial="collapsed"
                             animate="open"
                             exit="collapsed"
@@ -43,9 +43,9 @@ const Category: FC<ICategory> = memo((props) => {
                         >
                             {
                                 types.map((type) => (
-                                    <div className={classes.type} key={type.id}>
+                                    <div className={classes.category_type} key={type.id}>
                                         <NavLink
-                                            className={classes.typeLink}
+                                            className={classes.category_typeLink}
                                             to={`/catalog/${categoryName}/${type.typeName}`}
                                         >
                                             {type.typeName}

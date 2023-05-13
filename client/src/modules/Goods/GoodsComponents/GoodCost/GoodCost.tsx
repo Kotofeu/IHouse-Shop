@@ -10,14 +10,14 @@ const GoodCost: FC<IGoodCost> = memo((props) => {
     const isDiscount: boolean
         = typeof oldCost !== 'undefined' && oldCost > cost;
     return (
-        <div className={[className, classes.costBox].join(' ')}>
+        <div className={[className, classes.cost].join(' ')}>
             {
                 isDiscount &&
-                <div className={classes.oldCost}>{oldCost?.toLocaleString()} ₽</div>
+                <div className={classes.cost_oldValue}>{oldCost?.toLocaleString()} ₽</div>
             }
             <div
                 className={
-                    [classes.cost, isDiscount ? classes.discountCost : ''].join(' ')
+                    [classes.cost__value, isDiscount ? classes.cost_discountCost : ''].join(' ')
                 }
             >
                 {cost.toLocaleString()} ₽

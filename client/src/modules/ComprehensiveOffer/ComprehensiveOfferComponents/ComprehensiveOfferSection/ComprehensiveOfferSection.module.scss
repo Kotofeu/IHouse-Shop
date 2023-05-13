@@ -1,17 +1,20 @@
 @import '../../../../styles/settings.scss';
 
-.comprehensiveOffer {}
-
-.offerTitle {
+.comprehensiveOffer {
+    
     padding-top: 15px;
+}
+
+.comprehensiveOffer_title {
     padding-bottom: 10px;
 
 }
+.comprehensiveOffer_offer{
 
-.offerItem {
-    width: 25%;
-    margin: 0 10px;
 }
-.offerSlide{
-    margin: 0 -10px;
+.comprehensiveOffer_slide{
+
+}
+.comprehensiveOffer_slider{
+    
 }

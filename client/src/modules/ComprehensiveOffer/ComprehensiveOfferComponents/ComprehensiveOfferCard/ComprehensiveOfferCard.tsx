@@ -1,7 +1,7 @@
 import { memo, FC } from 'react'
 
 import classes from './ComprehensiveOfferCard.module.scss'
-interface IComprehensiveOfferCard {
+export interface IComprehensiveOfferCard {
     title: string,
     imageSrc: string,
     className?: string
@@ -11,11 +11,11 @@ const ComprehensiveOfferCard: FC<IComprehensiveOfferCard> =
         const { title, imageSrc, className} = props
         return (
             <div className={[classes.offer, className].join(' ')}>
-                <span className={classes.offerTitle}>
+                <span className={classes.offer_title}>
                     {title}
                 </span>
                 <img
-                    className={classes.offerImage}
+                    className={classes.offer_image}
                     src={imageSrc}
                     alt={title}
                 />

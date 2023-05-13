@@ -1,6 +1,6 @@
 @import '../../../../styles/settings.scss';
 
-.costBox {
+.cost {
     background-color: $neutral-color;
     display: flex;
     align-items: center;
@@ -8,11 +8,11 @@
     flex-wrap: wrap;
 
 }
-.oldCost, .cost, .discountCost{
+.cost_oldValue, .cost__value, .cost_discountCost{
     white-space: nowrap;
 
 }
-.oldCost {
+.cost_oldValue {
     color: $text-color;
     font-size: 13px;
     text-decoration: line-through;
@@ -22,7 +22,7 @@
 
 }
 
-.cost {
+.cost__value {
     font-weight: 600;
     color: $secondary-color;
     font-size: 20px;
@@ -30,7 +30,7 @@
 
 }
 
-.discountCost {
+.cost_discountCost {
     color: $secondary-color;
 
 }

@@ -10,9 +10,9 @@ const Home = () => {
   return (
     <div className={classes.home}>
       <Container>
-        <div className={classes.homeInner}>
+        <div className={classes.home_inner}>
           <CategoriesNavigation />
-          <div className={classes.homeContent}>
+          <div className={classes.home_content}>
 
             <PromotionSection />
             <ComprehensiveOfferSection />

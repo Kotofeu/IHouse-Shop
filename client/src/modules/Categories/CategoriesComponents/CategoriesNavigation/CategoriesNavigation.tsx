@@ -96,7 +96,7 @@ export const CategoriesNavigation = () => {
     }
   ]
   return (
-    <nav className={classes.categoriesNavigation}>
+    <nav className={classes.categories}>
       {
         categories.map((category) => (
           <Category {...category} key={category.id}></Category>

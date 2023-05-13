@@ -7,7 +7,7 @@
     overflow: hidden;
 }
 
-.partnersInner {
+.partners_inner {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,19 +16,13 @@
 
 }
 
-.partnersTitle {
+.partners_title {
     padding-bottom: 10px;
 }
 
-.partnersParallax {
-    padding-bottom: 5px;
 
-    &:last-child {
-        padding-bottom: 0;
-    }
-}
 
-.partnersList {
+.partners_list {
     width: 100%;
     position: relative;
 
@@ -52,5 +46,12 @@
         left: 0;
         background: linear-gradient(to left, rgba($neutral-color, 0), $neutral-color);
 
+    }
+}
+.partners_parallax {
+    padding-bottom: 5px;
+
+    &:last-child {
+        padding-bottom: 0;
     }
 }

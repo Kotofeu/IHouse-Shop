@@ -1,4 +1,4 @@
-import GoodCard from '../GoodCard/GoodCard'
+import GoodCard, { IGoodCard } from '../GoodCard/GoodCard'
 import Title, { TitleType } from '../../../../UI/Title/Title'
 
 import releImage from '../../../../assets/images/1.png'
@@ -7,12 +7,13 @@ import HDL from '../../../Partners/PartnersImages/hdl.png'
 import Jung from '../../../Partners/PartnersImages/jung.png'
 
 import classes from './PromotionSection.module.scss'
+import MySlider from '../../../../components/MySlider/MySlider'
 
 export const PromotionSection = () => {
-    const goods = [
+    const goods: IGoodCard[] = [
         {
             id: 1,
-            goodImage: releImage,
+            goodImages: releImage,
             goodDesc: `Диммер 4 - канальный, 
             0-10В с 4-канальным релейным актуатором,
             16А на канал`,
@@ -24,7 +25,7 @@ export const PromotionSection = () => {
         },
         {
             id: 2,
-            goodImage: curtainImage,
+            goodImages: curtainImage,
             goodDesc: `Актуатор 6 - канальный, 
             20 А на канал, 
             с модулем входов`,
@@ -36,7 +37,7 @@ export const PromotionSection = () => {
         },
         {
             id: 4,
-            goodImage: curtainImage,
+            goodImages: curtainImage,
             goodDesc: `Актуатор 6 - канальный, 
             20 А на канал, 
             с модулем входов`,
@@ -47,33 +48,166 @@ export const PromotionSection = () => {
             brandImage: Jung,
         },
         {
-            id: 3,
-            goodImage: curtainImage,
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
+            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
+            cost: 564
+        },
+        {
+            id: 5,
+            goodImages: curtainImage,
             goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
             cost: 564
         }
     ]
     return (
         <section className={classes.promotion}>
-            <Title className={classes.promotionTitle} titleType={[TitleType.sectionTitle]}>Акции</Title>
-            <div className={classes.promotionInner}>
-                {
-                    goods.map((item) => (
-                        <GoodCard
-                            className={classes.goodCard}
-                            id={item.id}
-                            goodImages={item.goodImage}
-                            goodDesc={item.goodDesc}
-                            cost={item.cost}
-                            oldCost={item.oldCost}
-                            rating={item.rating}
-                            ratingsCount={item.ratingsCount}
-                            brandImage={item.brandImage}
-                            key={item.id}
-                        />
-                    ))
+            <Title className={classes.promotion_title} titleType={[TitleType.sectionTitle]}>Акции</Title>
+            <MySlider
+                items={goods}
+                renderItem={item =>
+                    <GoodCard
+                        className={classes.promotion_good}
+                        id={item.id}
+                        goodImages={item.goodImages}
+                        goodDesc={item.goodDesc}
+                        cost={item.cost}
+                        oldCost={item.oldCost}
+                        rating={item.rating}
+                        ratingsCount={item.ratingsCount}
+                        brandImage={item.brandImage}
+                    />
                 }
-            </div>
+                settings={{
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                    navigation: {enabled: true},
+                    pagination: {clickable: true}
+                }}
+                slideClass={classes.promotion_slide}
+                className={classes.promotion_slider}
+                
+            />
         </section>
     )
 }

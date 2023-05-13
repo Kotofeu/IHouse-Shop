@@ -1,47 +1,36 @@
 @import '../../../../styles/settings.scss';
 
-.goodCard {
+.card {
     padding: 15px;
     border-radius: 10px;
     background-color: $primary-color;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .16);
 }
 
-.cardInner {
+.card_inner {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
 }
-.cardLink{
+.card_link{
     position: relative;
 }
-.infoBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-top: 10px;
-    flex-grow: 1;
-    &:first-child {
-        padding-top: 0px;
-        justify-content: flex-start;
 
-    }
-}
-
-.cardImageBox {
+.card_imageBox {
     width: 100%;
     height: 150px;
 
 }
 
-.cardImage {
+.card_image {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.cardDesc {
+
+.card_desc {
     min-height: 82px;
     padding-top: 7px;
     font-size: 18px;
@@ -69,8 +58,19 @@
         background: linear-gradient(rgba($primary-color, 0), $primary-color)
     }
 }
+.card_infoBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 10px;
+    flex-grow: 1;
+    &:first-child {
+        padding-top: 0px;
+        justify-content: flex-start;
 
-.cardInfo {
+    }
+}
+.card_info {
     display: flex;
     //justify-content: space-between;
     align-items: center;
@@ -79,24 +79,24 @@
     row-gap: 4px;
 }
 
-.ratingBox,
-.noRating {
+.card_rating,
+.card_rating___empty {
     padding: 10px;
     border: 1px solid $text-color;
     border-radius: 7px;
 }
 
-.ratingBox {
+.card_rating {
     display: flex;
     align-items: center;
 }
 
-.ratingStars {
+.card_ratingStars {
     padding-right: 8px;
 
 }
 
-.ratingCount {
+.card_ratingCount {
     padding-left: 8px;
     position: relative;
 
@@ -112,18 +112,18 @@
     }
 }
 
-.brandImageBox {
+.card_brand {
     height: 40px;
     width: 80px;
 }
 
-.brandImage {
+.card_brandImage {
     object-fit: contain;
     width: 100%;
     height: 100%;
 }
 
-.bottomMenu {
+.card_menu {
     display: flex;
     width: 100%;
     align-items: center;
@@ -131,13 +131,13 @@
     padding-top: 20px;
 }
 
-.cardCost {
+.card_cost {
     padding: 8px;
-    border-radius: 2px;
+    border-radius: 4px;
     flex-grow: 1;
 }
 
-.cardButton {
+.card_button {
     border-radius: 9px;
     min-width: 40px;
     min-height: 40px;
