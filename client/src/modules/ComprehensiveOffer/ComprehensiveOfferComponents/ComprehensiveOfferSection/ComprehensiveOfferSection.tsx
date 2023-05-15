@@ -44,42 +44,6 @@ export const ComprehensiveOfferSection = () => {
             title: "Комплект тёплого пола",
             imageSrc: Floor
         },
-
-        {
-            title: "Всё для света",
-            imageSrc: Ligth
-        },
-        {
-            title: "Всё для штор",
-            imageSrc: Curtain
-        },
-        {
-            title: "Умный дом",
-            imageSrc: SmartHouse
-        },
-        {
-            title: "Комплект тёплого пола",
-            imageSrc: Floor
-        },
-
-        {
-            title: "Всё для света",
-            imageSrc: Ligth
-        },
-        {
-            title: "Всё для штор",
-            imageSrc: Curtain
-        },
-        {
-            title: "Умный дом",
-            imageSrc: SmartHouse
-        },
-        {
-            title: "Комплект тёплого пола",
-            imageSrc: Floor
-        },
-
-
     ]
     return (
         <section className={classes.comprehensiveOffer}>
