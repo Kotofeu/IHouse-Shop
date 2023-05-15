@@ -1,0 +1,106 @@
+@import '../../../../styles/settings.scss';
+
+.footer {
+    background-color: $title-color;
+    color: $primary-color;
+
+    & a {
+        color: $secondary-color;
+    }
+}
+
+.footer_inner {
+    display: flex;
+    padding: 40px 0;
+    justify-content: space-between;
+    font-weight: 500;
+
+}
+
+.footer_title {
+    font-weight: 600;
+    color: $primary-color;
+
+    &___h4 {
+        font-size: 22px;
+        padding-bottom: 10px;
+    }
+
+    &___h5 {
+        font-size: 18px;
+    }
+}
+
+// contact 
+
+
+.footer_contact {
+    font-style: normal;
+}
+
+.footer_city {
+    padding: 13px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.footer_mail {
+
+}
+
+.footer_place {
+    line-height: 1.3em;
+}
+
+.footer_phone {
+    text-decoration: underline;
+}
+
+
+
+
+
+// social
+.footer_social {}
+
+.footer_ourSite {
+    font-size: 18px;
+    font-weight: 600;
+}
+.footer_socialLinksList{
+    
+}
+.footer_socialLink{
+    margin: 15px 0;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    &:first-child{
+        margin-top: 0px;
+    }
+}
+.footer_socialImage{
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+}
+
+
+// subscribe
+.footer_subscribe{
+
+}
+.footer_subscribeForm{
+    height: 40px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+// copyrighting
+
+.footer_copyrighting {
+    background-color: #222;
+    text-align: center;
+    padding: 20px 10px;
+    font-weight: 500;
+}

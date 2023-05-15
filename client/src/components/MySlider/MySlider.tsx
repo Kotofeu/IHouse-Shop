@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { SwiperOptions, Pagination, Navigation, Scrollbar, A11y } from 'swiper';
+import SwiperCore, { SwiperOptions, Pagination, Navigation, Scrollbar, A11y,Autoplay  } from 'swiper';
 
 import './MySlider.scss'
-SwiperCore.use([Pagination, Navigation, Scrollbar, A11y])
+SwiperCore.use([Pagination, Navigation, Scrollbar, A11y, Autoplay ])
 interface IMySlider<T> {
     settings?: SwiperOptions,
     items: T[];

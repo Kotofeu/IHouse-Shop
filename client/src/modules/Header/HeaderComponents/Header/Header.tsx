@@ -39,13 +39,7 @@ export const Header: FC = memo(() => {
                 link='/about'
               />
             </div>
-            <HeaderSearchForm
-              className={classes.header_searchForm}
-              inputTitle='Поле поиска'
-              buttonTitle='Поиск'
-              inputType='text'
-
-            />
+            <HeaderSearchForm/>
             <div className={classes.header_linkButtons}>
               <HeaderButton
                 className={classes.header_link}

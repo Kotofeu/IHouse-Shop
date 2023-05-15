@@ -205,9 +205,6 @@ export const PromotionSection = () => {
                     scrollbar: {draggable: true},
                     autoHeight: true,
                     breakpoints: {
-                        320: {
-                            slidesPerView: 1,
-                        },
                         900: {
                             slidesPerView: 2,
                         },

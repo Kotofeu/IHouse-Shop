@@ -1,27 +1,19 @@
 import {
-    FC,
     memo,
     useCallback,
     useState,
-    HTMLInputTypeAttribute,
     FormEvent
 } from 'react'
+import  Form  from '../../../../components/Form/From'
+import image from '../../../../assets/testIam.jpg'
 
 import classes from './HeaderSearchForm.module.scss'
 
-interface IHeaderSearchForm {
-    inputTitle?: string,
-    buttonTitle: string,
-    inputType?: HTMLInputTypeAttribute,
-    className?: string,
-
-}
-const HeaderSearchForm: FC<IHeaderSearchForm> = memo((props) => {
-    const { inputTitle, buttonTitle, inputType, className } = props
+const HeaderSearchForm = memo(() => {
     const [searchValue, setSearchValue] = useState<string>('');
 
     const searchFormSubmit = useCallback(
-        (event: React.FormEvent<HTMLFormElement>) => {
+        (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault()
             //Отправка на сервер
         }, []
@@ -30,29 +22,18 @@ const HeaderSearchForm: FC<IHeaderSearchForm> = memo((props) => {
         setSearchValue(event.currentTarget.value)
     }
     return (
-        <form
-            className={
-                [classes.searchForm, className ? className : '']
-                    .join(' ')
-            }
-            onSubmit={searchFormSubmit}
-        >
-            <input
-                className={classes.searchForm_input}
-                type={inputType}
-                autoComplete="off"
-                title={inputTitle}
-                value={searchValue}
-                onChange={searchFormChange}
-            />
-            <button
-                className={classes.searchForm_button}
-                type='submit'
-                title={buttonTitle}
-            >
-                {buttonTitle}
-            </button>
-        </form>)
+        <Form
+            className={classes.header_searchForm}
+            onFormSubmit={searchFormSubmit}
+            inputValue={searchValue}
+            inputType='text'
+            inputTitle='Поле поиска'
+            inputAutoComplete='off'
+            placeholder='Поиск по сайту'
+            inputOnChange={searchFormChange}
+            buttonTitle='Поиск'
+        />
+    )
 })
 
 export default HeaderSearchForm

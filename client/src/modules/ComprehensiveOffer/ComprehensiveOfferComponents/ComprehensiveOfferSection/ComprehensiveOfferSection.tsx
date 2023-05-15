@@ -104,18 +104,25 @@ export const ComprehensiveOfferSection = () => {
                     navigation: {enabled: true},
                     pagination: {type: "fraction"},
                     autoHeight: true,
+                    slidesPerGroup: 1,
+                    autoplay:{
+                        delay: 3000,
+                        stopOnLastSlide: false,
+                        disableOnInteraction: false
+                    },
+                    loop: true,
                     breakpoints: {
-                        320: {
-                            slidesPerView: 1,
-                        },
                         668: {
                             slidesPerView: 2,
+                            slidesPerGroup: 2,
                         },
                         900: {
                             slidesPerView: 3,
+                            slidesPerGroup: 3,
                         },
                         1200: {
                             slidesPerView: 4,
+                            slidesPerGroup: 4,
                         }
                     }
                 }}
