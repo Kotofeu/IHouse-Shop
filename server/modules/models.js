@@ -1,7 +1,150 @@
 const sequelize = require('../db');
 const { DataTypes } = require('sequelize');
 
-const TodosList = sequelize.define('todos_lists', {
+const Role = sequelize.define('role', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    }
+});
+const User = sequelize.define('user', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    password:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    phone:
+    {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    isSubscribed:
+    {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
+    }
+});
+const Basket = sequelize.define('basket', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    count:
+    {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+});
+const Rating = sequelize.define('rating', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    rating:
+    {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    }
+});
+const Favourites = sequelize.define('favourites', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    }
+});
+const Good = sequelize.define('good', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    price:
+    {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    oldPrice:
+    {
+        type: DataTypes.FLOAT,
+        allowNull: true
+    },
+    goodRating:
+    {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    }
+
+});
+const GoodImages = sequelize.define('good_images', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    image:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+});
+const Category = sequelize.define('category', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    }
+});
+const Type = sequelize.define('type', {
     id:
     {
         type: DataTypes.INTEGER,
@@ -14,66 +157,214 @@ const TodosList = sequelize.define('todos_lists', {
         allowNull: false
     }
 });
-const TodoItem = sequelize.define('todo_items', {
+const GoodInfo = sequelize.define('good_info', {
     id:
     {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    title: {
+    name:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    description:
+    {
         type: DataTypes.TEXT,
         allowNull: false
     }
 });
-const Workers = sequelize.define('workers', {
+const Brand = sequelize.define('brand', {
     id:
     {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    name: {
+    name:
+    {
         type: DataTypes.STRING,
-        unique: true,
+        allowNull: false,
+        unique: true
+    },
+    image:
+    {
+        type: DataTypes.STRING,
         allowNull: false
     }
 });
-const Contacts = sequelize.define('contacts', {
+const ComplexOffer = sequelize.define('complex_offer', {
     id:
     {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    name: {
+    name:
+    {
         type: DataTypes.STRING,
-        unique: true,
+        allowNull: false,
+        unique: true
+    },
+    price:
+    {
+        type: DataTypes.FLOAT,
         allowNull: false
+    }
+});
+const ComplexOfferGoods = sequelize.define('complex_offer_goods', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
-    info: {
-        type: DataTypes.TEXT
-    },
-    phone: {
-        type: DataTypes.STRING,
-        unique: true
-    },
-    email: {
-        type: DataTypes.STRING,
-        unique: true
+    count: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     }
 });
 
-TodosList.hasMany(TodoItem);
-TodoItem.belongsTo(TodosList);
 
 
-Workers.hasMany(TodosList);
-TodosList.belongsTo(Workers);
+Role.hasMany(User, {
+    foreignKey: {
+        name: 'roleId',
+        allowNull: false
+    }
+});
+User.belongsTo(Role);
+
+User.hasMany(Basket, {
+    foreignKey: {
+        name: 'userId',
+        allowNull: false
+    }
+});
+Basket.belongsTo(User);
+
+User.hasMany(Rating, {
+    foreignKey: {
+        name: 'userId',
+        allowNull: false
+    }
+});
+Rating.belongsTo(User);
+
+User.hasMany(Favourites, {
+    foreignKey: {
+        name: 'userId',
+        allowNull: false
+    }
+});
+Favourites.belongsTo(User);
+
+
+
+Good.hasMany(Basket, {
+    foreignKey: {
+        name: 'goodId',
+        allowNull: false
+    }
+});
+Basket.belongsTo(Good);
+
+Good.hasMany(Rating, {
+    foreignKey: {
+        name: 'goodId',
+        allowNull: false
+    }
+});
+Rating.belongsTo(Good);
+
+Good.hasMany(Favourites, {
+    foreignKey: {
+        name: 'goodId',
+        allowNull: false
+    }
+});
+Favourites.belongsTo(Good);
+
+Good.hasMany(GoodImages, {
+    foreignKey: {
+        name: 'goodId',
+        allowNull: false
+    }
+});
+GoodImages.belongsTo(Good);
+
+Good.hasMany(GoodInfo, {
+    foreignKey: {
+        name: 'goodId',
+        allowNull: false
+    }
+});
+GoodInfo.belongsTo(Good);
+
+
+Category.hasMany(Good, {
+    foreignKey: {
+        name: 'categoryId',
+        allowNull: false
+    }
+})
+Good.belongsTo(Category)
+
+
+Type.hasMany(Good, {
+    foreignKey: {
+        name: 'typeId',
+        allowNull: true
+    }
+});
+Good.belongsTo(Type);
+
+Category.hasMany(Type, {
+    foreignKey: {
+        name: 'categoryId',
+        allowNull: false
+    }
+});
+Type.belongsTo(Category);
+
+Brand.hasMany(Good, {
+    foreignKey: {
+        name: 'brandId',
+        allowNull: true
+    }
+});
+Good.belongsTo(Brand);
+
+Good.hasMany(ComplexOfferGoods, {
+    foreignKey: {
+        name: 'goodId',
+        allowNull: false
+    }
+});
+ComplexOfferGoods.belongsTo(Good);
+
+ComplexOffer.hasMany(ComplexOfferGoods, {
+    foreignKey: {
+        name: 'complexOfferId',
+        allowNull: false
+    }
+});
+ComplexOfferGoods.belongsTo(ComplexOffer);
+
 
 module.exports = {
-    TodosList,
-    TodoItem,
-    Workers,
-    Contacts
+    Role,
+    User,
+    Basket,
+    Rating,
+    Favourites,
+    Good,
+    GoodImages,
+    Category,
+    Type,
+    GoodInfo,
+    Brand,
+    ComplexOffer,
+    ComplexOfferGoods,
 }
