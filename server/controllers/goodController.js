@@ -1,73 +1,114 @@
-const { 
-    Good, 
-    GoodImages, 
-    Category, 
-    Type, 
-    GoodInfo, 
-    Brand, 
+const {
+    Good,
+    GoodImages,
+    Category,
+    Type,
+    GoodInfo,
+    Brand,
     Rating
 } = require('../modules/models');
 const ApiError = require('../error/ApiError');
 const { Op } = require("sequelize");
 class goodController {
-   /* async create(req, res, next) {
+    async post(req, res, next) {
 
         try {
-            let { id, name, workerId, todoTitle } = req.body;
+            let { id, name, price, oldPrice, isPromotion, categoryId, typeId, brandId } = req.body;
+            let goods;
             if (id) {
-                const todo = await TodoItem.create({
-                    todosListId: id,
-                    title: todoTitle
+                goods = await Good.update({
+                    name: name,
+                    price: price,
+                    oldPrice: oldPrice,
+                    isPromotion: isPromotion,
+                    categoryId: categoryId,
+                    typeId: typeId,
+                    brandId: brandId
+                },
+                {
+                    where: {
+                        id: id
+                    }
                 });
-                return res.json(todo);
             }
             else {
-                const todosList = await TodosList.create({ name: name, workerId: workerId });
-                return res.json(todosList);
+                goods = await Good.create({
+                    name: name,
+                    price: price,
+                    oldPrice: oldPrice,
+                    isPromotion: isPromotion,
+                    categoryId: categoryId,
+                    typeId: typeId,
+                    brandId: brandId
+                });
             }
+            return res.json(goods);
+
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
 
-    }*/
-    async getAll(req, res) {
+    }
+    async getAll(req, res, next) {
         try {
-            let { 
-                categoryId, 
-                typeId, 
-                brandId, 
-                limit, 
+            let {
+                categoryId = null,
+                typeId,
+                brandId,
+                limit,
                 minPrice,
                 maxPrice,
+                orderBy,
+                isPromotion,
                 name,
-                page 
-            } = req.body;
+                page
+            } = req.query;
             page = page || 1
             limit = limit || 9
             let offset = page * limit - limit
             let goods;
-            /*
-                where: {categoryId: categoryId, typeId: typeId,}
-            */
+            let order;
+            switch (orderBy){
+                case "name": order = [['name', 'ASC']]; break;
+                case "price": order = [['price', 'ASC']]; break;
+                default: order = [['id', 'ASC']]
+            }
             let where = {};
             if (categoryId) where.categoryId = categoryId
             if (typeId) where.typeId = typeId
             if (brandId) where.brandId = brandId
-            if (name) where.name = {[Op.like]: `%${name}%`}
-            if (minPrice) where.price = {[Op.gte]: minPrice}
-            if (maxPrice) where.price = {[Op.lte]: maxPrice}
-            if (!categoryId && !typeId && !brandId && !minPrice && !maxPrice && !name) {
-                goods = await Good.findAndCountAll({limit, offset})
+            if (isPromotion) where.isPromotion = {[Op.is]: true}
+            if (name) where.name = { [Op.iLike]: `%${name}%` }
+            if (minPrice) where.price = { [Op.gte]: minPrice }
+            if (maxPrice) where.price = { [Op.lte]: maxPrice }
+            if (minPrice && maxPrice) where.price = { [Op.between]: [minPrice, maxPrice] }
+            if (!categoryId && !typeId && !brandId && !minPrice && !maxPrice && !name && !isPromotion) {
+                goods = await Good.findAndCountAll({
+                    limit, offset,
+                    order: order,
+                    include: [
+                        { model: GoodImages },
+                        { model: Rating },
+                        { model: Category },
+                        { model: Type },
+                        { model: Brand },
+                    ]
+                })
             }
             else {
                 goods = await Good.findAndCountAll({
                     where: where,
-                    limit, 
+                    limit,
                     offset,
-                    include: {
-                        model: GoodImages, Rating, Category, Type, Brand
-                    }
+                    order: order,
+                    include: [
+                        { model: GoodImages },
+                        { model: Rating },
+                        { model: Category },
+                        { model: Type },
+                        { model: Brand },
+                    ]
                 })
             }
             return res.json(goods);
@@ -76,85 +117,45 @@ class goodController {
             next(ApiError.badRequest(e.message));
         }
     }
-    async getById(req, res) {
-        const {id} = req.params
-        const goods = await Good.findOne(
-            {
-                where: {id},
-                include: {
-                    model: GoodImages, Rating, Category, Type, Brand, GoodInfo
+    async getById(req, res, next) {
+        try {
+            const { id } = req.params
+            const goods = await Good.findOne(
+                {
+                    where: { id },
+                    include: [
+                        { model: GoodImages },
+                        { model: GoodInfo },
+                        { model: Rating },
+                        { model: Category },
+                        { model: Type },
+                        { model: Brand },
+                    ]
+                    //  include: [{model: DeviceInfo, as: 'info'}]
+                },
+            )
+            return res.json(goods)
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+    }
+
+    async delete(req, res, next) {
+        try {
+            let { id } = req.body;
+            const goods = await Good.destroy({
+                where: {
+                    id: id
                 }
-              //  include: [{model: DeviceInfo, as: 'info'}]
-            },
-        )
-        return res.json(goods)
-    }
-
-   /* async delete(req, res, next) {
-        try {
-            let { id, todoId } = req.body;
-            if (id) {
-                const todosItems = await TodoItem.destroy({
-                    where: {
-                        todosListId: id
-                    }
-                });
-                const todosList = await TodosList.destroy({
-                    where: {
-                        id: id
-                    }
-                });
-                return res.json(todosItems + todosList);
-            }
-            else {
-                const todo = await TodoItem.destroy({
-                    where: {
-                        id: todoId
-                    }
-                });
-                return res.json(todo);
-            }
+            });
+            return res.json(goods);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
 
     }
-    async update(req, res, next) {
-        try {
-            let { id, name, idTodo, todoTitle } = req.body;
-            if (id) {
-                const todosList = await TodosList.update(
-                    {
-                        name: name
-                    },
-                    {
-                        where: {
-                            id: id
-                        }
-                    }
-                );
-                return res.json(todosList);
-            }
-            else {
-                const todo = await TodoItem.update(
-                    {
-                        title: todoTitle
-                    },
-                    {
-                        where: {
-                            id: idTodo
-                        }
-                    }
-                );
-                return res.json(todo);
-            }
-        }
-        catch (e) {
-            next(ApiError.badRequest(e.message));
-        }
-
-    }*/
 }
 
 module.exports = new goodController();

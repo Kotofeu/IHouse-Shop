@@ -1,10 +1,9 @@
 const Router = require('express');
 const router = new Router();
-const contactController = require('../controllers/offerController');
+const partnerController = require('../controllers/partnerController');
 
-router.post('/', contactController.create);
-router.post('/update/', contactController.update);
-router.delete('/', contactController.delete);
-router.get('/', contactController.getAll);
-router.get('/:id', contactController.getById);
+router.post('/', partnerController.post);
+router.delete('/', partnerController.delete);
+router.get('/', partnerController.getAll);
+router.get('/:id', partnerController.getById);
 module.exports = router;

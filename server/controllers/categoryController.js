@@ -1,12 +1,12 @@
-const { Brand } = require('../modules/models');
+const { Category, Type } = require('../modules/models');
 const ApiError = require('../error/ApiError');
-class brandController {
+class categoryController {
     async post(req, res, next) {
         try {
             let { id, name, image } = req.body;
-            let brand;
+            let category;
             if (id) {
-                brand = await Brand.update(
+                category = await Category.update(
                     {
                         name: name,
                         image: image
@@ -19,42 +19,51 @@ class brandController {
                 );
             }
             else {
-                brand = await Brand.create({ name: name, image: image });
+                category = await Category.create({ name: name, image: image });
             }
-            return res.json(brand);
+            return res.json(category);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
     }
-    async getAll(req, res) {
+    async getAll(req, res, next) {
         try {
-           const brand = await Brand.findAndCountAll()
-            return res.json(brand);
+            const category = await Category.findAndCountAll({
+                order: [['name', 'ASC']],
+                include: { model: Type}
+            })
+            return res.json(category);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
     }
-    async getById(req, res) {
-        const {id} = req.params
-        const brand = await Brand.findOne(
-            {
-                where: {id}
-            },
-        )
-        return res.json(brand)
+    async getById(req, res, next) {
+        try {
+
+            const { id } = req.params
+            const category = await Category.findOne(
+                {
+                    where: { id }
+                },
+            )
+            return res.json(category)
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
     }
 
     async delete(req, res, next) {
         try {
             let { id } = req.body;
-            const brand = await Brand.destroy({
+            const category = await Category.destroy({
                 where: {
                     id: id
                 }
             });
-            return res.json(brand);
+            return res.json(category);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
@@ -62,4 +71,4 @@ class brandController {
     }
 }
 
-module.exports = new brandController();
+module.exports = new categoryController();

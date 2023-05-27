@@ -27,23 +27,29 @@ class brandController {
             next(ApiError.badRequest(e.message));
         }
     }
-    async getAll(req, res) {
+    async getAll(req, res, next) {
         try {
-           const brand = await Brand.findAndCountAll()
+            const brand = await Brand.findAndCountAll()
             return res.json(brand);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
     }
-    async getById(req, res) {
-        const {id} = req.params
-        const brand = await Brand.findOne(
-            {
-                where: {id}
-            },
-        )
-        return res.json(brand)
+    async getById(req, res, next) {
+        try {
+
+            const { id } = req.params
+            const brand = await Brand.findOne(
+                {
+                    where: { id }
+                },
+            )
+            return res.json(brand)
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
     }
 
     async delete(req, res, next) {

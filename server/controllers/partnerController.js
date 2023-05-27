@@ -1,36 +1,71 @@
-const { Workers } = require('../modules/models');
+const { Partner } = require('../modules/models');
 const ApiError = require('../error/ApiError');
-
-class workerController {
-    async create(req, res, next) {
+class brandController {
+    async post(req, res, next) {
         try {
-            let { name } = req.body;
-            const workers = await Workers.create({ name });
-            return res.json(workers);
+            let { id, name, image } = req.body;
+            let partner;
+            if (id) {
+                partner = await Partner.update(
+                    {
+                        name: name,
+                        image: image
+                    },
+                    {
+                        where: {
+                            id: id
+                        }
+                    }
+                );
+            }
+            else {
+                partner = await Partner.create({ name: name, image: image });
+            }
+            return res.json(partner);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
-
     }
-    async getAll(req, res) {
-        const workers = await Workers.findAndCountAll();
-        return res.json(workers);
-    }
-    async getById(req, res) {
+    async getAll(req, res, next) {
         try {
-            const { id } = req.params;
-            const workers = await Workers.findOne(
+            const partner = await Partner.findAndCountAll()
+            return res.json(partner);
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+    }
+    async getById(req, res, next) {
+        try {
+
+            const { id } = req.params
+            const partner = await Partner.findOne(
                 {
-                    where: { id: id },
+                    where: { id }
                 },
-            );
-            return res.json(workers);
+            )
+            return res.json(partner)
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
     }
-};
 
-module.exports = new workerController();
+    async delete(req, res, next) {
+        try {
+            let { id } = req.body;
+            const partner = await Partner.destroy({
+                where: {
+                    id: id
+                }
+            });
+            return res.json(partner);
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+    }
+}
+
+module.exports = new brandController();

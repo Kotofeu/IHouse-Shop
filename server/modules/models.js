@@ -109,6 +109,11 @@ const Good = sequelize.define('good', {
     {
         type: DataTypes.FLOAT,
         allowNull: true
+    },
+    isPromotion: 
+    {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
     }
 
 });
@@ -206,6 +211,10 @@ const ComplexOffer = sequelize.define('complex_offer', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
+    },
+    desc: {
+        type: DataTypes.TEXT,
+        allowNull: false
     },
     price:
     {
@@ -324,7 +333,7 @@ GoodInfo.belongsTo(Good);
 Category.hasMany(Good, {
     foreignKey: {
         name: 'categoryId',
-        allowNull: false
+        allowNull: true
     }
 })
 Good.belongsTo(Category)
