@@ -1,6 +1,8 @@
 import { memo, FC, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
+
+import arrowImage from '../../../../assets/icons/Arrow.svg'
 import classes from './Category.module.scss'
 interface IGoodType {
     id: number,
@@ -15,6 +17,10 @@ interface ICategory {
 const Category: FC<ICategory> = memo((props) => {
     const { id, categoryName, imageSrc, types } = props
     const [isCategoryHovered, setIsCategoryHovered] = useState<boolean>(false);
+    const expandMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setIsCategoryHovered(prev => !prev)
+    }
     return (
         <div
             className={classes.category}
@@ -27,6 +33,21 @@ const Category: FC<ICategory> = memo((props) => {
             >
                 <img className={classes.category_image} src={imageSrc} alt={categoryName} />
                 <span className={classes.category_text}>{categoryName}</span>
+                {
+                    types
+                        ? <button
+                            className={
+                                [
+                                    classes.category_openButton,
+                                    isCategoryHovered ? classes.category_openButton___active : ""
+                                ]
+                                    .join(' ')
+                            }
+                            onClick={expandMenu}>
+                                <img src={arrowImage} alt='arrow'></img>
+                            </button> : null
+                }
+
             </NavLink>
             <AnimatePresence initial={false}>
                 {

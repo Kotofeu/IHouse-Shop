@@ -1,11 +1,13 @@
 const Router = require('express');
 const router = new Router();
-const contactRouter = require('./contactRouter');
-const workerRouter = require('./workerRouter');
-const todosRouter = require('./todosRouter');
+const goodRouter = require('./goodRouter');
+const offerRouter = require('./offerRouter');
+const partnerRouter = require('./partnerRouter');
+const brandRouter = require('./brandRouter');
 
-router.use('/contact', contactRouter);
-router.use('/worker', workerRouter);
-router.use('/todos', todosRouter);
+router.use('/good', goodRouter);
+router.use('/complex_offer', offerRouter);
+router.use('/partner', partnerRouter);
+router.use('/brand', brandRouter);
 
 module.exports = router;

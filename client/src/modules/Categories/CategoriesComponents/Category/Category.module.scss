@@ -2,7 +2,8 @@
 
 .category {
     padding: 10px 0;
-    &:first-child{
+
+    &:first-child {
         padding-top: 0;
     }
 }
@@ -35,9 +36,27 @@
     padding-left: 8px;
     color: $title-color;
 }
-.category_typeList{
+
+.category_openButton {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border: none;
+    background-color: transparent;
+    padding: 0 15px;
+    transition: transform .3s ease-in-out;
+    will-change: transform;
+    &___active {
+        transform: rotate(180deg);
+
+    }
+}
+
+.category_typeList {
     padding-left: 10px;
 }
+
 .category_type {
     padding: 3px;
 

@@ -10,17 +10,17 @@ import GoodCardButtons from '../GoodCardButtons/GoodCardButtons'
 import GoodCost from '../GoodCost/GoodCost'
 
 export interface IGoodCard {
-    id: number
-    className?: string,
-    goodImages: string,
-    goodDesc: string,
-    cost: number,
-    oldCost?: number,
-    rating?: number,
-    ratingsCount?: number,
-    brandImage?: string,
-    isFavouriteDefault?: boolean,
-    isInBasketDefault?: boolean
+    id: number;
+    className?: string;
+    goodImages: string;
+    goodDesc: string;
+    cost: number;
+    oldCost?: number;
+    rating?: number;
+    ratingsCount?: number;
+    brandImage?: string;
+    isFavouriteDefault?: boolean;
+    isInBasketDefault?: boolean;
 }
 const GoodCard: FC<IGoodCard> = memo((props) => {
     const {

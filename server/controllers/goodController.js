@@ -1,8 +1,16 @@
-const { TodosList, TodoItem } = require('../modules/models');
+const { 
+    Good, 
+    GoodImages, 
+    Category, 
+    Type, 
+    GoodInfo, 
+    Brand, 
+    Rating
+} = require('../modules/models');
 const ApiError = require('../error/ApiError');
-
-class todosController {
-    async create(req, res, next) {
+const { Op } = require("sequelize");
+class goodController {
+   /* async create(req, res, next) {
 
         try {
             let { id, name, workerId, todoTitle } = req.body;
@@ -22,40 +30,67 @@ class todosController {
             next(ApiError.badRequest(e.message));
         }
 
-    }
+    }*/
     async getAll(req, res) {
         try {
-            let { workerId } = req.query;
-            let todosList;
-            if (!workerId) {
-                todosList = await TodosList.findAndCountAll({
-                    order: [
-                        ['id', 'ASC']],
-                    include: {
-                        model: TodoItem
-                    }
-
-                });
+            let { 
+                categoryId, 
+                typeId, 
+                brandId, 
+                limit, 
+                minPrice,
+                maxPrice,
+                name,
+                page 
+            } = req.body;
+            page = page || 1
+            limit = limit || 9
+            let offset = page * limit - limit
+            let goods;
+            /*
+                where: {categoryId: categoryId, typeId: typeId,}
+            */
+            let where = {};
+            if (categoryId) where.categoryId = categoryId
+            if (typeId) where.typeId = typeId
+            if (brandId) where.brandId = brandId
+            if (name) where.name = {[Op.like]: `%${name}%`}
+            if (minPrice) where.price = {[Op.gte]: minPrice}
+            if (maxPrice) where.price = {[Op.lte]: maxPrice}
+            if (!categoryId && !typeId && !brandId && !minPrice && !maxPrice && !name) {
+                goods = await Good.findAndCountAll({limit, offset})
             }
             else {
-                todosList = await TodosList.findAndCountAll({
-                    where: {
-                        workerId: workerId
-                    },
-                    order: [
-                        ['id', 'ASC']],
+                goods = await Good.findAndCountAll({
+                    where: where,
+                    limit, 
+                    offset,
                     include: {
-                        model: TodoItem
+                        model: GoodImages, Rating, Category, Type, Brand
                     }
-                });
+                })
             }
-            return res.json(todosList);
+            return res.json(goods);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
     }
-    async delete(req, res, next) {
+    async getById(req, res) {
+        const {id} = req.params
+        const goods = await Good.findOne(
+            {
+                where: {id},
+                include: {
+                    model: GoodImages, Rating, Category, Type, Brand, GoodInfo
+                }
+              //  include: [{model: DeviceInfo, as: 'info'}]
+            },
+        )
+        return res.json(goods)
+    }
+
+   /* async delete(req, res, next) {
         try {
             let { id, todoId } = req.body;
             if (id) {
@@ -119,7 +154,7 @@ class todosController {
             next(ApiError.badRequest(e.message));
         }
 
-    }
+    }*/
 }
 
-module.exports = new todosController();
+module.exports = new goodController();

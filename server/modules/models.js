@@ -109,11 +109,6 @@ const Good = sequelize.define('good', {
     {
         type: DataTypes.FLOAT,
         allowNull: true
-    },
-    goodRating:
-    {
-        type: DataTypes.FLOAT,
-        allowNull: false
     }
 
 });
@@ -142,6 +137,11 @@ const Category = sequelize.define('category', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
+    },
+    image:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 });
 const Type = sequelize.define('type', {
@@ -225,7 +225,25 @@ const ComplexOfferGoods = sequelize.define('complex_offer_goods', {
         allowNull: false,
     }
 });
-
+const Partner = sequelize.define('partner', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    image:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+});
 
 
 Role.hasMany(User, {
@@ -367,4 +385,5 @@ module.exports = {
     Brand,
     ComplexOffer,
     ComplexOfferGoods,
+    Partner
 }

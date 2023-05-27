@@ -3,7 +3,7 @@
   margin: 0;
   white-space: nowrap;
   display: flex;
-  width: 200%;
+  min-width: 200%;
   flex-wrap: nowrap;
 }
 .parallax .scroller {
@@ -13,8 +13,8 @@
   flex-wrap: nowrap;
 }
 .scroller {
-  width: 100%;
+ // min-width: 100%;
 }
 .scroller>* {
-  width: 50%;
+  //width: 50%;
 }
