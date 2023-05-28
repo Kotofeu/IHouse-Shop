@@ -113,36 +113,7 @@ class goodController {
         }
 
     }
-    async postGoodImage(req, res, next) {
-        try {
-            const {
-                id,
-                goodId
-            } = req.body;
-            const { image } = req.files;
-            let fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
-            image.mv(path.resolve(__dirname, '..', 'static', fileName))
-            let goodImage;
-            if (id) {
-                goodImage = await GoodImages.update({
-                    image: fileName,
-                    goodId: goodId,
-                },
-                    { where: { id: id } })
-            }
-            else {
-                goodImage = await GoodImages.create({
-                    image: fileName,
-                    goodId: goodId,
-                })
-            }
-            return res.json(goodImage);
-        }
-        catch (e) {
-            next(ApiError.badRequest(e.message));
-        }
 
-    }
     async getAllGoodImage(req, res, next) {
         const { goodId } = req.query;
         let goodImage;
@@ -213,22 +184,33 @@ class goodController {
                 typeId,
                 brandId,
             } = req.body;
+            const { images } = req.files;
+            let imagesNames = [];
+            images.forEach(image => {
+                const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
+                imagesNames.push(fileName)
+                image.mv(path.resolve(__dirname, '..', 'static', fileName))
+            })
             let goods;
+
             if (id) {
-                goods = await Good.update({
-                    name: name,
-                    price: price,
-                    oldPrice: oldPrice,
-                    isPromotion: isPromotion,
-                    categoryId: categoryId,
-                    typeId: typeId,
-                    brandId: brandId
-                },
-                    {
-                        where: {
-                            id: id
+                goods = await Good.update(
+                    { name, price, oldPrice, isPromotion, categoryId, typeId, brandId },
+                    { where: { id } }
+                );
+                if (imagesNames) {
+                    const imagesForDelete = GoodImages.findAll({ where: { goodId: id } })
+                    imagesForDelete.row.map(image => image.image).forEach(image => (
+                        fs.unlink(path.resolve(__dirname, '..', 'static', image), () => null)
+                    ))
+                    GoodImages.destroy({ where: { goodId: id } })
+                    imagesNames.forEach(image => RatingImage.create(
+                        {
+                            goodId: id,
+                            image
                         }
-                    });
+                    ))
+                }
             }
             else {
                 goods = await Good.create({
@@ -240,6 +222,14 @@ class goodController {
                     typeId: typeId,
                     brandId: brandId
                 });
+                if (imagesNames) {
+                    imagesNames.forEach(image => GoodImages.create(
+                        {
+                            goodId: goods.id,
+                            image
+                        }
+                    ))
+                }
             }
             return res.json(goods);
 
@@ -345,6 +335,10 @@ class goodController {
     async deleteGood(req, res, next) {
         try {
             let { id } = req.body;
+            const imagesForDelete = GoodImages.findAll({ where: { goodId: id } })
+            imagesForDelete.row.map(image => image.image).forEach(image => (
+                fs.unlink(path.resolve(__dirname, '..', 'static', image), () => null)
+            ))
             const goods = await Good.destroy({
                 where: {
                     id: id

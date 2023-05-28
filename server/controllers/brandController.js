@@ -3,23 +3,18 @@ const ApiError = require('../error/ApiError');
 class brandController {
     async post(req, res, next) {
         try {
-            let { id, name, image } = req.body;
+            let { id, name } = req.body;
+            const { image } = req.files;
+            const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
+            image.mv(path.resolve(__dirname, '..', 'static', fileName));
             let brand;
             if (id) {
-                brand = await Brand.update(
-                    {
-                        name: name,
-                        image: image
-                    },
-                    {
-                        where: {
-                            id: id
-                        }
-                    }
-                );
+                const imagesForDelete = Brand.findOne({ where: id })
+                fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+                brand = await Brand.update({name,image: fileName},{where: {id: id}});
             }
             else {
-                brand = await Brand.create({ name: name, image: image });
+                brand = await Brand.create({ name: name, image: fileName });
             }
             return res.json(brand);
         }
@@ -55,6 +50,8 @@ class brandController {
     async delete(req, res, next) {
         try {
             let { id } = req.body;
+            const imagesForDelete = Brand.findOne({ where: id })
+            fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
             const brand = await Brand.destroy({
                 where: {
                     id: id

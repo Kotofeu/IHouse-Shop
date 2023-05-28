@@ -3,13 +3,19 @@ const ApiError = require('../error/ApiError');
 class brandController {
     async post(req, res, next) {
         try {
-            let { id, name, image } = req.body;
+            let { id, name } = req.body;
+            const { image } = req.files;
+            const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
+            image.mv(path.resolve(__dirname, '..', 'static', fileName));
             let partner;
             if (id) {
+                const imagesForDelete = Partner.findOne({ where: id })
+                fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+
                 partner = await Partner.update(
                     {
                         name: name,
-                        image: image
+                        image: fileName
                     },
                     {
                         where: {
@@ -19,7 +25,7 @@ class brandController {
                 );
             }
             else {
-                partner = await Partner.create({ name: name, image: image });
+                partner = await Partner.create({ name: name, image: fileName });
             }
             return res.json(partner);
         }
@@ -55,6 +61,9 @@ class brandController {
     async delete(req, res, next) {
         try {
             let { id } = req.body;
+            const imagesForDelete = Partner.findOne({ where: id })
+            fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+
             const partner = await Partner.destroy({
                 where: {
                     id: id

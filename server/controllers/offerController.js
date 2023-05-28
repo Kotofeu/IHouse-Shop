@@ -4,6 +4,7 @@ const {
     Good,
     Brand,
     Category,
+    Rating,
     Type
 } = require('../modules/models');
 
@@ -12,14 +13,20 @@ const ApiError = require('../error/ApiError');
 class offerController {
     async postOffer(req, res, next) {
         try {
-            let { id, name, price, desc, image } = req.body;
+            let { id, name, price, desc } = req.body;
+            const { image } = req.files;
+            const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
+            image.mv(path.resolve(__dirname, '..', 'static', fileName));
             let complexOffer;
             if (id) {
+                const imagesForDelete = ComplexOffer.findOne({ where: id })
+                fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+
                 complexOffer = await ComplexOffer.update({
                     name: name,
                     price: price,
                     desc: desc,
-                    image: image
+                    image: fileName
                 },
                     {
                         where: {
@@ -32,7 +39,7 @@ class offerController {
                     name: name,
                     price: price,
                     desc: desc,
-                    image: image
+                    image: fileName
                 });
             }
             return res.json(complexOffer);
@@ -86,7 +93,8 @@ class offerController {
                             include: [
                                 { model: Brand },
                                 { model: Category },
-                                { model: Type }
+                                { model: Type },
+                                { model: Rating }
                             ]
 
                         }]
@@ -108,9 +116,16 @@ class offerController {
             const complexOffer = await ComplexOffer.findOne(
                 {
                     where: { id },
-                    include: [
-                        { all: true },
-                    ]
+                    include: [{
+                        model: Good,
+                        include: [
+                            { model: Brand },
+                            { model: Category },
+                            { model: Type },
+                            { model: Rating }
+                        ]
+
+                    }]
                 },
             )
             return res.json(complexOffer)
@@ -123,6 +138,9 @@ class offerController {
     async deleteOffer(req, res, next) {
         try {
             let { id } = req.body;
+            const imagesForDelete = ComplexOffer.findOne({ where: id })
+            fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+
             const complexOffer = await ComplexOffer.destroy({
                 where: {
                     id: id

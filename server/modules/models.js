@@ -1,20 +1,6 @@
 const sequelize = require('../db');
 const { DataTypes } = require('sequelize');
 
-const Role = sequelize.define('role', {
-    id:
-    {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    name:
-    {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    }
-});
 const User = sequelize.define('user', {
     id:
     {
@@ -48,11 +34,15 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    isSubscribed:
-    {
+    isSubscribed: {
         type: DataTypes.BOOLEAN,
         allowNull: true
-    }
+    },
+    role: {
+        type: DataTypes.STRING,
+        defaultValue: "USER"
+    },
+
 });
 const Basket = sequelize.define('basket', {
     id:
@@ -76,10 +66,27 @@ const Rating = sequelize.define('rating', {
     },
     rating:
     {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false
+    },
+    comment: {
+        type: DataTypes.TEXT,
+        allowNull: true
     }
 });
+const RatingImage = sequelize.define('rating_images', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    image:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
 const Favourites = sequelize.define('favourites', {
     id:
     {
@@ -110,7 +117,7 @@ const Good = sequelize.define('good', {
         type: DataTypes.FLOAT,
         allowNull: true
     },
-    isPromotion: 
+    isPromotion:
     {
         type: DataTypes.BOOLEAN,
         allowNull: true
@@ -259,14 +266,6 @@ const Partner = sequelize.define('partner', {
 });
 
 
-Role.hasMany(User, {
-    foreignKey: {
-        name: 'roleId',
-        allowNull: false
-    }
-});
-User.belongsTo(Role);
-
 User.hasMany(Basket, {
     foreignKey: {
         name: 'userId',
@@ -308,7 +307,13 @@ Good.hasMany(Rating, {
     }
 });
 Rating.belongsTo(Good);
-
+Rating.hasMany(RatingImage, {
+    foreignKey: {
+        name: 'ratingId',
+        allowNull: false
+    }
+});
+RatingImage.belongsTo(Rating);
 Good.hasMany(Favourites, {
     foreignKey: {
         name: 'goodId',
@@ -385,10 +390,10 @@ ComplexOfferGoods.belongsTo(ComplexOffer);
 
 
 module.exports = {
-    Role,
     User,
     Basket,
     Rating,
+    RatingImage,
     Favourites,
     Good,
     GoodImages,
