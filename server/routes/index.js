@@ -8,7 +8,7 @@ const categoryRouter = require('./categoryRouter');
 const typeRouter = require('./typeRouter');
 
 router.use('/good', goodRouter);
-router.use('/complex_offer', offerRouter);
+router.use('/offer', offerRouter);
 router.use('/partner', partnerRouter);
 router.use('/brand', brandRouter);
 router.use('/category', categoryRouter);

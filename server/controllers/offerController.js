@@ -1,38 +1,71 @@
-const { ComplexOffer, ComplexOfferGoods, Good } = require('../modules/models');
+const {
+    ComplexOffer,
+    ComplexOfferGoods,
+    Good,
+    Brand,
+    Category,
+    Type
+} = require('../modules/models');
+
 const ApiError = require('../error/ApiError');
 
 class offerController {
-    async post(req, res, next) {
-
+    async postOffer(req, res, next) {
         try {
-            let { id, name, price, oldPrice, categoryId, typeId, brandId } = req.body;
-            let ComplexOffer;
+            let { id, name, price, desc, image } = req.body;
+            let complexOffer;
             if (id) {
-                ComplexOffer = await Good.update({
+                complexOffer = await ComplexOffer.update({
                     name: name,
                     price: price,
-                    oldPrice: oldPrice,
-                    categoryId: categoryId,
-                    typeId: typeId,
-                    brandId: brandId
+                    desc: desc,
+                    image: image
                 },
-                {
-                    where: {
-                        id: id
-                    }
-                });
+                    {
+                        where: {
+                            id: id
+                        }
+                    });
             }
             else {
-                ComplexOffer = await Good.create({
+                complexOffer = await ComplexOffer.create({
                     name: name,
                     price: price,
-                    oldPrice: oldPrice,
-                    categoryId: categoryId,
-                    typeId: typeId,
-                    brandId: brandId
+                    desc: desc,
+                    image: image
                 });
             }
-            return res.json(ComplexOffer);
+            return res.json(complexOffer);
+
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+
+    }
+    async postGoodsAtOffer(req, res, next) {
+        try {
+            let { id, complexOfferId, goodId, count } = req.body;
+            let complexOfferGoods;
+            if (id) {
+                complexOfferGoods = await ComplexOfferGoods.update({
+                    goodId: goodId,
+                    count: count
+                },
+                    {
+                        where: {
+                            id: id
+                        }
+                    });
+            }
+            else {
+                complexOfferGoods = await ComplexOfferGoods.create({
+                    complexOfferId: complexOfferId,
+                    goodId: goodId,
+                    count: count
+                });
+            }
+            return res.json(complexOfferGoods);
 
         }
         catch (e) {
@@ -42,15 +75,28 @@ class offerController {
     }
     async getAll(req, res, next) {
         try {
-            const complex_offer = await ComplexOffer.findAndCountAll({
+            const complexOffer = await ComplexOffer.findAndCountAll({
                 order: [
                     ['name', 'ASC']],
                 include: [
-                    { model: ComplexOfferGoods },
-                    { model: Good }
-                ]
+                    {
+                        model: ComplexOfferGoods,
+                        include: [{
+                            model: Good,
+                            include: [
+                                { model: Brand },
+                                { model: Category },
+                                { model: Type }
+                            ]
+
+                        }]
+                    },
+
+                ],
+                distinct: true
+
             })
-            return res.json(complex_offer);
+            return res.json(complexOffer);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
@@ -59,36 +105,44 @@ class offerController {
     async getById(req, res, next) {
         try {
             const { id } = req.params
-            const goods = await Good.findOne(
+            const complexOffer = await ComplexOffer.findOne(
                 {
                     where: { id },
                     include: [
-                        { model: GoodImages },
-                        { model: GoodInfo },
-                        { model: Rating },
-                        { model: Category },
-                        { model: Type },
-                        { model: Brand },
+                        { all: true },
                     ]
-                    //  include: [{model: DeviceInfo, as: 'info'}]
                 },
             )
-            return res.json(goods)
+            return res.json(complexOffer)
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
     }
 
-    async delete(req, res, next) {
+    async deleteOffer(req, res, next) {
         try {
             let { id } = req.body;
-            const goods = await Good.destroy({
+            const complexOffer = await ComplexOffer.destroy({
                 where: {
                     id: id
                 }
             });
-            return res.json(goods);
+            return res.json(complexOffer);
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+    }
+    async deleteGoodsAtOffer(req, res, next) {
+        try {
+            let { id } = req.body;
+            const complexOfferGoods = await ComplexOfferGoods.destroy({
+                where: {
+                    id: id
+                }
+            });
+            return res.json(complexOfferGoods);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));

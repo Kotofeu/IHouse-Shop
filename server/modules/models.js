@@ -220,6 +220,10 @@ const ComplexOffer = sequelize.define('complex_offer', {
     {
         type: DataTypes.FLOAT,
         allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 });
 const ComplexOfferGoods = sequelize.define('complex_offer_goods', {

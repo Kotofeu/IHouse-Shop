@@ -33,7 +33,12 @@ class typeController {
             let { categoryId } = req.query;
             let type;
             if (categoryId) {
-                type = await Type.findAndCountAll({ where: { categoryId: categoryId }, order: [['name', 'ASC']]})
+                type = await Type.findAndCountAll({
+                    where: { categoryId: categoryId },
+                    order: [['name', 'ASC']],
+                    distinct:true
+
+                })
             }
             else {
                 type = await Type.findAndCountAll()

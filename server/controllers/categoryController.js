@@ -31,7 +31,8 @@ class categoryController {
         try {
             const category = await Category.findAndCountAll({
                 order: [['name', 'ASC']],
-                include: { model: Type}
+                include: { model: Type},
+                distinct:true
             })
             return res.json(category);
         }
