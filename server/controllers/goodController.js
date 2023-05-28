@@ -14,51 +14,7 @@ const { Op } = require("sequelize");
 
 const ApiError = require('../error/ApiError');
 class goodController {
-    async postGoodInfo(req, res, next) {
-        try {
-            let {
-                id,
-                name,
-                description,
-                goodId,
-                listInfo
-            } = req.body;
-            let goodInfo;
-            if (id) {
-                goodInfo = await GoodInfo.update(
-                    {
-                        name, name,
-                        description: description,
-                        goodId: goodId
-                    },
-                    { where: { id: id } }
-                );
-            }
-            else {
-                if (listInfo) {
-                    goodInfo = listInfo.length
-                    listInfo.forEach(info => GoodInfo.create({
-                        name: info.name,
-                        description: info.description,
-                        goodId: goodId
-                    }))
-                }
-                else {
-                    goodInfo = await GoodInfo.create({
-                        name: name,
-                        description: description,
-                        goodId: goodId
-                    });
-                }
 
-            }
-            return res.json(goodInfo);
-        }
-        catch (e) {
-            next(ApiError.badRequest(e.message));
-        }
-
-    }
     async getAllGoodInfo(req, res, next) {
         let { goodId } = req.query;
         let goodInfo;
@@ -74,7 +30,7 @@ class goodController {
             }
             else {
                 goodInfo = await GoodInfo.findAndCountAll({
-                    order: [['id', 'ASC']],
+                    order: [['name', 'ASC']],
                     distinct: true,
                 })
             }
@@ -84,20 +40,7 @@ class goodController {
             next(ApiError.badRequest(e.message));
         }
     }
-    async getGoodInfoById(req, res, next) {
-        let { id } = req.params;
-        try {
-            const goodInfo = await GoodInfo.findOne({
-                where: {
-                    id: id
-                }
-            })
-            return res.json(goodInfo);
-        }
-        catch (e) {
-            next(ApiError.badRequest(e.message));
-        }
-    }
+
     async deleteGoodInfo(req, res, next) {
         try {
             let { id } = req.body;
@@ -111,9 +54,7 @@ class goodController {
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
-
     }
-
     async getAllGoodImage(req, res, next) {
         const { goodId } = req.query;
         let goodImage;
@@ -183,6 +124,7 @@ class goodController {
                 categoryId,
                 typeId,
                 brandId,
+                infos
             } = req.body;
             const { images } = req.files;
             let imagesNames = [];
@@ -211,6 +153,14 @@ class goodController {
                         }
                     ))
                 }
+                if (infos) {
+                    GoodInfo.destroy({where: {goodId: id}})
+                    infos.forEach(info => GoodInfo.create({
+                        name: info.name,
+                        description: info.description,
+                        goodId: id
+                    }))
+                }
             }
             else {
                 goods = await Good.create({
@@ -229,6 +179,13 @@ class goodController {
                             image
                         }
                     ))
+                }
+                if (infos) {
+                    infos.forEach(info => GoodInfo.create({
+                        name: info.name,
+                        description: info.description,
+                        goodId: goods.id
+                    }))
                 }
             }
             return res.json(goods);
