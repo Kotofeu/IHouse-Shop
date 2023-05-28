@@ -14,7 +14,11 @@ const { Op } = require("sequelize");
 
 const ApiError = require('../error/ApiError');
 class goodController {
-
+    /**
+     * Возвращает всю информацию о товарах / товаре
+     * Переменные приходящие в req.query
+     * @param {number} goodId id товара
+    */
     async getAllGoodInfo(req, res, next) {
         let { goodId } = req.query;
         let goodInfo;
@@ -40,7 +44,11 @@ class goodController {
             next(ApiError.badRequest(e.message));
         }
     }
-
+    /**
+     * Удаляет строку информации о товаре
+     * Переменные приходящие в req.body
+     * @param {number} id id строки информации
+    */
     async deleteGoodInfo(req, res, next) {
         try {
             let { id } = req.body;
@@ -55,6 +63,11 @@ class goodController {
             next(ApiError.badRequest(e.message));
         }
     }
+    /**
+     * Возвращает все изображения товаров / товара
+     * Переменные приходящие в req.query
+     * @param {number} goodId id товара
+    */
     async getAllGoodImage(req, res, next) {
         const { goodId } = req.query;
         let goodImage;
@@ -80,6 +93,11 @@ class goodController {
             next(ApiError.badRequest(e.message));
         }
     }
+    /**
+     * Возвращает изображение товара
+     * Переменные приходящие в req.params
+     * @param {number} id id изображения
+    */
     async getGoodImageById(req, res, next) {
         const { id } = req.params;
         try {
@@ -94,6 +112,11 @@ class goodController {
             next(ApiError.badRequest(e.message));
         }
     }
+    /**
+     * Удаляет изображение товара 
+     * Переменные приходящие в req.body
+     * @param {number} id id изображения
+    */
     async deleteGoodImage(req, res, next) {
         try {
             let { id } = req.body;
@@ -113,6 +136,28 @@ class goodController {
         }
 
     }
+
+    /**
+     * Создаёт и обновляет товар
+     * Переменные приходящие в req.body
+     * @param {number} id id товара, при указании производит обновление товара, при отсутствии добавление
+     * @param {string} name название товара
+     * @param {number} price цена товара
+     * @param {number} oldPrice старая цена товара, нужна для определения скидок
+     * @param {boolean} isPromotion нахождение товара на вкладке Акции
+     * @param {number} categoryId id категории
+     * @param {number} typeId id типа товара
+     * @param {number} brandId id бренда
+     * @param {info[]} infos массив информации об объекте
+     * {
+        * @var {string} name название зарактеристики, 
+        * @var {string} description описание характеристики, 
+        * @var {integer} goodId id товара 
+     * }
+     * 
+     * Переменные приходящие в req.files
+     * @param {image[]} images картинки товара
+    */
     async postGood(req, res, next) {
         try {
             let {
@@ -154,7 +199,7 @@ class goodController {
                     ))
                 }
                 if (infos) {
-                    GoodInfo.destroy({where: {goodId: id}})
+                    GoodInfo.destroy({ where: { goodId: id } })
                     infos.forEach(info => GoodInfo.create({
                         name: info.name,
                         description: info.description,
@@ -196,6 +241,20 @@ class goodController {
         }
 
     }
+    /**
+     * Поиск товаров по параметрам 
+     * Переменные приходящие в req.query
+     * @param {number} categoryId id категирии товара
+     * @param {number} typeId id типа товара
+     * @param {number} brandId id типа товара
+     * @param {string} name название товара
+     * @param {number} minPrice минимальная цена для товара
+     * @param {number} maxPrice максимальная цена для товара
+     * @param {string} orderBy упорядочить по @enum {name, price, id: default}
+     * @param {boolean} isPromotion является ли товар в разделе акции
+     * @param {number} limit лимит количества получаемых товаров
+     * @param {number} page страница получаемых товаров
+    */
     async getAllGoods(req, res, next) {
         try {
             let {
@@ -266,6 +325,11 @@ class goodController {
             next(ApiError.badRequest(e.message));
         }
     }
+    /**
+     * Возвращает товар
+     * Переменные приходящие в req.params
+     * @param {number} id id товара
+    */
     async getGoodById(req, res, next) {
         try {
             const { id } = req.params
@@ -289,6 +353,11 @@ class goodController {
             next(ApiError.badRequest(e.message));
         }
     }
+    /**
+     * Удаляет товар 
+     * Переменные приходящие в req.body
+     * @param {number} id id товара
+    */
     async deleteGood(req, res, next) {
         try {
             let { id } = req.body;
