@@ -7,7 +7,7 @@
 .pnp.js
 /client/package-lock.json
 /server/static/*.*
-/server/*.env
+/server/.env
 /server/package-lock.json
 *.env
 # misc
