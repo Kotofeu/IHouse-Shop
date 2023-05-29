@@ -11,19 +11,15 @@ class basketController {
     async postGoogInBasket(req, res, next) {
         try {
             const {
-                id,
                 goodId,
-                userId,
                 count
             } = req.body;
+            const userId = req.user.id
+
             let goodInBasket;
             let oldCount;
-
-            if (!id){
-                oldCount = await Basket.findOne({ where: { userId, goodId } })
-            }
+            oldCount = await Basket.findOne({ where: { userId, goodId } })
             if (oldCount) {
-
                 const newCount = await Basket.update(
                     {
                         count
@@ -31,12 +27,6 @@ class basketController {
                     { where: { id: oldCount.id } }
                 );
                 return res.json(newCount);
-            }
-            if (id) {
-                goodInBasket = await Basket.update(
-                    { goodId, count },
-                    { where: { id } }
-                );
             }
             else {
                 goodInBasket = await Basket.create({ userId, goodId, count });
@@ -49,7 +39,7 @@ class basketController {
 
     }
     async getUserBasket(req, res, next) {
-        const { userId } = req.query;
+        const userId = req.user.id
         let goodInBasket;
         if (!userId){
             next(ApiError.badRequest("Не задан userId"));
@@ -84,9 +74,11 @@ class basketController {
         }
     }
     async isGoodInUserBasket(req, res, next) {
-        const { userId, goodId} = req.query;
+        const {  goodId} = req.query;
+        const userId = req.user.id
+
         if (!userId || !goodId){
-            next(ApiError.badRequest("Не переданы userId и goodId"));
+            next(ApiError.badRequest("Не передан goodId"));
         }
         try {
             const goodInBasket = await Basket.findOne({where: {userId, goodId}})
@@ -101,10 +93,12 @@ class basketController {
     }
     async deleteGoodInBasket(req, res, next) {
         try {
-            const { id } = req.body;
+            const userId = req.user.id
+            const { goodId } = req.body;
             const goodInBasket = await Basket.destroy({
                 where: {
-                    id: id
+                    goodId,
+                    userId
                 }
             });
             return res.json(goodInBasket);

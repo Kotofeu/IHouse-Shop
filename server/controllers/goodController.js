@@ -5,7 +5,8 @@ const {
     Type,
     GoodInfo,
     Brand,
-    Rating
+    Rating,
+    User
 } = require('../modules/models');
 const staticManagement = require('../helpers/staticManagement')
 const { Op } = require("sequelize");
@@ -285,7 +286,7 @@ class goodController {
                     order: order,
                     include: [
                         { model: GoodImages },
-                        { model: Rating },
+                        { model: Rating},
                         { model: Category },
                         { model: Type },
                         { model: Brand },
@@ -302,7 +303,7 @@ class goodController {
                     order: order,
                     include: [
                         { model: GoodImages },
-                        { model: Rating },
+                        { model: Rating},
                         { model: Category },
                         { model: Type },
                         { model: Brand },
@@ -330,7 +331,7 @@ class goodController {
                     include: [
                         { model: GoodImages },
                         { model: GoodInfo },
-                        { model: Rating },
+                        { model: Rating  },
                         { model: Category },
                         { model: Type },
                         { model: Brand },

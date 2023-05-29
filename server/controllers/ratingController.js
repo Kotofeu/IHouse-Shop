@@ -9,33 +9,29 @@ const ApiError = require('../error/ApiError');
 class goodController {
     async postRating(req, res, next) {
         try {
-            const {
+            let {
                 id,
                 rating,
-                userId,
                 goodId,
                 comment
             } = req.body;
+            if (rating > 5) rating = 5
+            if (rating < 0) rating = 0
+            const userId = req.user.id
+
             let oldRating;
-            if (!id){
+            if (!id) {
                 oldRating = await Rating.findOne({ where: { userId, goodId } })
+
             }
             if (oldRating) {
-
-                const newRating = await Rating.update(
-                    {
-                        rating,
-                        comment
-                    },
-                    { where: { id: oldRating.id } }
-                );
-                return res.json(newRating);
+                id = oldRating.id
             }
 
             let imagesNames = [];
             let images;
 
-            if (req.files && req.files.images ){
+            if (req.files && req.files.images) {
 
                 images = req.files.images
                 imagesNames = staticManagement.manyStaticCreate(images);
@@ -69,6 +65,7 @@ class goodController {
                         goodId
                     }
                 );
+
                 if (images) {
                     imagesNames.forEach(image => RatingImage.create(
                         {
@@ -114,6 +111,7 @@ class goodController {
     }
     async getAllRatingByUser(req, res, next) {
         const { userId } = req.query;
+
         let ratingModel;
         if (!userId) {
             next(ApiError.badRequest("Не указан userId"));
@@ -134,12 +132,32 @@ class goodController {
         }
     }
     async deleteRating(req, res, next) {
+
         try {
-            const { id } = req.body;
-            staticManagement.manyStaticDelete(await RatingImage.findAll({ where: { ratingId: id } }))
+            const userId = req.user.id
+            const { ratingId, imageId } = req.body;
+            if (!userId || !ratingId) {
+                return res.json("Ошибка получения id пользователя и/или не передан id рейтинга");
+            }
+            let rating = await Rating.findOne({ where: { userId, id: ratingId } })
+            if (!rating) return res.json("Оценка не принадлежит пользователю");
+            if (imageId) {
+                staticManagement.staticDelete(await RatingImage.findOne({ where: { ratingId: ratingId, id: imageId } }))
+                const goodImage = await RatingImage.destroy({
+                    where: {
+                        id: imageId,
+                        ratingId: ratingId
+                    }
+                });
+                return res.json(goodImage);
+            }
+            rating = await Rating.findAll({ where: { userId, id: ratingId } })
+
+            staticManagement.manyStaticDelete(await RatingImage.findAll({ where: { ratingId: ratingId } }))
             const ratingModel = await Rating.destroy({
                 where: {
-                    id: id
+                    id: ratingId,
+                    userId
                 }
             });
             return res.json(ratingModel);
@@ -149,22 +167,7 @@ class goodController {
         }
 
     }
-    async deleteRatingImage(req, res, next) {
-        try {
-            let { id } = req.body;
-            staticManagement.staticDelete(await RatingImage.findOne({ where: { id: id } }))
-            const goodImage = await RatingImage.destroy({
-                where: {
-                    id: id
-                }
-            });
-            return res.json(goodImage);
-        }
-        catch (e) {
-            next(ApiError.badRequest(e.message));
-        }
 
-    }
 }
 
 module.exports = new goodController();

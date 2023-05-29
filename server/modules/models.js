@@ -11,18 +11,7 @@ const User = sequelize.define('user', {
     name:
     {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    email:
-    {
-        type: DataTypes.STRING,
         allowNull: false,
-        unique: true
-    },
-    password:
-    {
-        type: DataTypes.STRING,
-        allowNull: false
     },
     phone:
     {
@@ -37,12 +26,31 @@ const User = sequelize.define('user', {
     isSubscribed: {
         type: DataTypes.BOOLEAN,
         allowNull: true
+    }
+
+});
+const UserAuthorization = sequelize.define('users_authorization', {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    email:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    password:
+    {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     role: {
         type: DataTypes.STRING,
         defaultValue: "USER"
     },
-
 });
 const Basket = sequelize.define('basket', {
     id:
@@ -245,7 +253,8 @@ const ComplexOfferGoods = sequelize.define('complex_offer_goods', {
         allowNull: false,
     }
 });
-
+User.hasOne(UserAuthorization)
+UserAuthorization.belongsTo(User)
 User.hasMany(Basket, {
     foreignKey: {
         name: 'userId',
@@ -371,6 +380,7 @@ ComplexOfferGoods.belongsTo(ComplexOffer);
 
 module.exports = {
     User,
+    UserAuthorization,
     Basket,
     Rating,
     RatingImage,

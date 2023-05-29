@@ -11,21 +11,13 @@ class favouritesController {
     async postGoogInFavourites(req, res, next) {
         try {
             const {
-                id,
-                goodId,
-                userId
+                goodId
             } = req.body;
+            const userId = req.user.id
+
             let goodInFavourites;
-            if (!id) {
-                const alreadyInFavorites = await Favourites.findOne({ where: { userId, goodId } })
-                if (alreadyInFavorites) return res.json(alreadyInFavorites);
-            }
-            if (id) {
-                goodInFavourites = await Favourites.update(
-                    { goodId },
-                    { where: { id } }
-                );
-            }
+            const alreadyInFavorites = await Favourites.findOne({ where: { userId, goodId } })
+            if (alreadyInFavorites) return res.json(alreadyInFavorites);
             else {
                 goodInFavourites = await Favourites.create({ userId, goodId });
             }
@@ -37,7 +29,7 @@ class favouritesController {
 
     }
     async getUserFavourites(req, res, next) {
-        const { userId } = req.query;
+        const userId = req.user.id
         if (!userId) {
             next(ApiError.badRequest("Не задан userId"));
         }
@@ -72,9 +64,11 @@ class favouritesController {
         }
     }
     async isGoodInUserFavourites(req, res, next) {
-        const { userId, goodId } = req.query;
+        const { goodId } = req.query;
+        const userId = req.user.id
+
         if (!userId || !goodId) {
-            next(ApiError.badRequest("Не переданы userId и goodId"));
+            next(ApiError.badRequest("Не передан goodId"));
         }
         try {
             const goodInFavourites = await Favourites.findOne({ where: { userId, goodId } })
@@ -89,10 +83,13 @@ class favouritesController {
     }
     async deleteGoodInFavourites(req, res, next) {
         try {
-            const { id } = req.body;
+            const { goodId } = req.body;
+            const userId = req.user.id
+
             const goodInFavourites = await Favourites.destroy({
                 where: {
-                    id: id
+                    goodId,
+                    userId
                 }
             });
             return res.json(goodInFavourites);

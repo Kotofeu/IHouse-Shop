@@ -6,22 +6,26 @@ const favouritesController = require('../controllers/favouritesController')
 const authMiddleware = require('../middleware/authMiddleware')
 const checkRole = require('../middleware/checkRoleMiddleware')
 
+
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
 router.get('/auth', authMiddleware, userController.check)
-router.get('/auth', authMiddleware, userController.edit)
+router.post('/edit', authMiddleware, userController.edit)
+router.post('/create-admin', checkRole('ADMIN'), userController.createAdmin)
 
 
 
-router.post('/basket', basketController.postGoogInBasket);
-router.get('/basket', basketController.getUserBasket);
-router.delete('/basket', basketController.deleteGoodInBasket);
-router.get('/basket/find-good', basketController.isGoodInUserBasket);
+router.post('/basket', authMiddleware, basketController.postGoogInBasket);
+router.get('/basket',authMiddleware, basketController.getUserBasket);
+router.delete('/basket', authMiddleware, basketController.deleteGoodInBasket);
+router.get('/basket/find-good',authMiddleware, basketController.isGoodInUserBasket);
 
 
-router.post('/favourites', favouritesController.postGoogInFavourites);
-router.get('/favourites', favouritesController.getUserFavourites);
-router.delete('/favourites', favouritesController.deleteGoodInFavourites);
-router.get('/favourites/find-good', favouritesController.isGoodInUserFavourites);
+router.post('/favourite',authMiddleware, favouritesController.postGoogInFavourites);
+router.get('/favourite',authMiddleware, favouritesController.getUserFavourites);
+router.delete('/favourite',authMiddleware, favouritesController.deleteGoodInFavourites);
+router.get('/favourite/find-good',authMiddleware, favouritesController.isGoodInUserFavourites);
+
+router.get('/:id', userController.getById);
 
 module.exports = router

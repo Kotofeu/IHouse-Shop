@@ -1,11 +1,10 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const uuid = require('uuid')
-const path = require('path');
-const fs = require('fs')
+const staticManagement = require('../helpers/staticManagement')
+
 const {
-    User
+    User, UserAuthorization
 } = require('../modules/models');
 const generateJwt = (id, email, role) => {
     return jwt.sign(
@@ -17,55 +16,103 @@ const generateJwt = (id, email, role) => {
 
 class userController {
     async registration(req, res, next) {
-        const { email, password, role } = req.body
-        if (!email || !password) {
-            return next(ApiError.badRequest('Некорректный email или password'))
+        try {
+
+            const { email, password } = req.body
+            if (!email || !password) {
+                return next(ApiError.badRequest('Некорректный email или password'))
+            }
+            const candidate = await UserAuthorization.findOne({ where: { email } })
+            if (candidate) {
+                return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+            }
+            const hashPassword = await bcrypt.hash(password, 5)
+            const user = await User.create({ name: email })
+            const userAuth = await UserAuthorization.create({ email, password: hashPassword, userId: user.id })
+            const token = generateJwt(user.id, userAuth.email, userAuth.role)
+            return res.json({ token })
         }
-        const candidate = await User.findOne({ where: { email } })
-        if (candidate) {
-            return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+        catch (e) {
+            next(ApiError.badRequest(e.message));
         }
-        const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({ email, role, password: hashPassword, name: email })
-        const token = generateJwt(user.id, user.email, user.role)
-        return res.json({ token })
     }
 
     async login(req, res, next) {
-        const { email, password } = req.body
-        const user = await User.findOne({ where: { email } })
-        if (!user) {
-            return next(ApiError.internal('Пользователь не найден'))
+        try {
+            const { email, password } = req.body
+            const user = await UserAuthorization.findOne({ where: { email } })
+            if (!user) {
+                return next(ApiError.internal('Пользователь не найден'))
+            }
+            let comparePassword = bcrypt.compareSync(password, user.password)
+            if (!comparePassword) {
+                return next(ApiError.internal('Указан неверный пароль'))
+            }
+            const token = generateJwt(user.userId, user.email, user.role)
+            return res.json({ token })
         }
-        let comparePassword = bcrypt.compareSync(password, user.password)
-        if (!comparePassword) {
-            return next(ApiError.internal('Указан неверный пароль'))
+        catch (e) {
+            next(ApiError.badRequest(e.message));
         }
-        const token = generateJwt(user.id, user.email, user.role)
-        return res.json({ token })
+    }
+    async createAdmin(req, res, next) {
+        try {
+
+            const { email, password } = req.body
+            if (!email || !password) {
+                return next(ApiError.badRequest('Некорректный email или password'))
+            }
+            const candidate = await UserAuthorization.findOne({ where: { email } })
+            if (candidate) {
+                return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+            }
+            const hashPassword = await bcrypt.hash(password, 5)
+            const user = await User.create({ name: email })
+            const userAuth = await UserAuthorization.create({ email, role: "ADMIN", password: hashPassword, userId: user.id })
+
+            return res.json(userAuth)
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
     }
     async edit(req, res, next) {
         try {
             const {
-                id,
                 name,
-                email,
-                password,
+                newEmail,
+                newPassword,
                 phone,
                 isSubscribed,
             } = req.body;
+            const user = await UserAuthorization.findOne({ where: { userId:req.user.id} })
+            if (!user) {
+                return next(ApiError.internal('Пользователь не найден'))
+            }
+
             let image;
             let fileName
-            if (req.files && req.files.image){
+            let hashPassword
+            if (req.files && req.files.image) { 
                 image = req.files.image
                 fileName = staticManagement.staticCreate(image)
+                staticManagement.staticDelete(await User.findOne({ where: { id: req.user.id } }))
             }
-            staticManagement.staticDelete(await User.findOne({ where: { id: id } }))
+            
+            if (newPassword){
+                hashPassword = await bcrypt.hash(newPassword, 5)
+            }
 
-            const user = await User.update({
-                name, email, password, phone, isSubscribed, image: fileName
-            }, {where: id})
-            return res.json(user);
+            const updatedUser = await User.update({
+                name, phone, isSubscribed, image: fileName
+            }, { where: { id: user.userId } })
+            const userAuthorization = await UserAuthorization.update({
+                email: newEmail, password: hashPassword
+            }, { where: { id: user.userId } })
+
+            const newAuth = await UserAuthorization.findOne({ where: { userId:req.user.id} })
+            const token = generateJwt(req.user.id, newAuth.email, newAuth.password)
+            return res.json({ token })
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
@@ -74,6 +121,21 @@ class userController {
     async check(req, res, next) {
         const token = generateJwt(req.user.id, req.user.email, req.user.role)
         return res.json({ token })
+    }
+    async getById(req, res, next) {
+        try {
+
+            const { id } = req.params
+            const user = await User.findOne(
+                {
+                    where: { id }
+                },
+            )
+            return res.json(user)
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
     }
 }
 
