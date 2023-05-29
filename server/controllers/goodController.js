@@ -168,36 +168,40 @@ class goodController {
             } = req.body;
             let imagesNames = [];
             let images;
-            if (req.files && req.files.images ){
+            if (req.files && req.files.images) {
                 images = req.files.images
                 imagesNames = staticManagement.manyStaticCreate(images);
             }
             let goods;
 
             if (id) {
+                const goodExists = await Good.findOne({ where: { id: id } })
+                if (!goodExists) next(ApiError.badRequest(`Товара id${id} не существует`));
+                else {
+                    if (images) {
+                        staticManagement.manyStaticDelete(await GoodImages.findAll({ where: { goodId: id } }))
+                        GoodImages.destroy({ where: { goodId: id } })
+                        imagesNames.forEach(image => GoodImages.create(
+                            {
+                                goodId: id,
+                                image
+                            }
+                        ))
+                    }
+                    if (info) {
+                        GoodInfo.destroy({ where: { goodId: id } })
+                        info.forEach(info => GoodInfo.create({
+                            name: info.name,
+                            description: info.description,
+                            goodId: id
+                        }))
+                    }
+                    goods = await Good.update(
+                        { name, price, oldPrice, isPromotion, categoryId, typeId, brandId },
+                        { where: { id } }
+                    );
+                }
 
-                if (images) {
-                    staticManagement.manyStaticDelete(await GoodImages.findAll({ where: { goodId: id } }))
-                    GoodImages.destroy({ where: { goodId: id } })
-                    imagesNames.forEach(image => GoodImages.create(
-                        {
-                            goodId: id,
-                            image
-                        }
-                    ))
-                }
-                if (info) {
-                    GoodInfo.destroy({ where: { goodId: id } })
-                    info.forEach(info => GoodInfo.create({
-                        name: info.name,
-                        description: info.description,
-                        goodId: id
-                    }))
-                }
-                goods = await Good.update(
-                    { name, price, oldPrice, isPromotion, categoryId, typeId, brandId },
-                    { where: { id } }
-                );
             }
             else {
                 goods = await Good.create({
@@ -286,7 +290,7 @@ class goodController {
                     order: order,
                     include: [
                         { model: GoodImages },
-                        { model: Rating},
+                        { model: Rating },
                         { model: Category },
                         { model: Type },
                         { model: Brand },
@@ -303,7 +307,7 @@ class goodController {
                     order: order,
                     include: [
                         { model: GoodImages },
-                        { model: Rating},
+                        { model: Rating },
                         { model: Category },
                         { model: Type },
                         { model: Brand },
@@ -331,7 +335,7 @@ class goodController {
                     include: [
                         { model: GoodImages },
                         { model: GoodInfo },
-                        { model: Rating  },
+                        { model: Rating, include: {model: User} },
                         { model: Category },
                         { model: Type },
                         { model: Brand },

@@ -12,7 +12,7 @@ class basketController {
         try {
             const {
                 goodId,
-                count
+                count = 1
             } = req.body;
             const userId = req.user.id
 

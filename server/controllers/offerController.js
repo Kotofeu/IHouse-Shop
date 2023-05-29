@@ -15,12 +15,14 @@ class offerController {
             let { id, name, price, description, goods } = req.body;
             let image;
             let fileName
-            if (req.files && req.files.image){
+
+            if (req.files && req.files.image) {
                 image = req.files.image
                 fileName = staticManagement.staticCreate(image)
             }
             let complexOffer;
             if (id) {
+
                 staticManagement.staticDelete(await ComplexOffer.findOne({ where: { id: id } }))
                 complexOffer = await ComplexOffer.update(
                     {
@@ -37,12 +39,17 @@ class offerController {
                 );
                 if (goods) {
                     ComplexOfferGoods.destroy({ where: { complexOfferId: id } })
-                    goods.forEach(good => {
-                        ComplexOfferGoods.create({
-                            count: good.count,
-                            goodId: good.goodId,
-                            complexOfferId: id
-                        })
+                    goods.forEach(async good => {
+                        const goodExists = await Good.findOne({ where: { id: good.goodId } })
+                        if (!goodExists) next(ApiError.badRequest("Товара не существует"));
+                        else {
+                            ComplexOfferGoods.create({
+                                count: good.count,
+                                goodId: good.goodId,
+                                complexOfferId: id
+                            })
+                        }
+
                     })
                 }
             }
@@ -55,11 +62,17 @@ class offerController {
                 });
 
                 if (goods) {
-                    goods.forEach(good => ComplexOfferGoods.create({
-                        count: good.count,
-                        goodId: good.goodId,
-                        complexOfferId: complexOffer.id
-                    }))
+                    goods.forEach(async good => {
+                        const goodExists = await Good.findOne({ where: { id: good.goodId } })
+                        if (!goodExists) next(ApiError.badRequest("Товара не существует"));
+                        else {
+                            ComplexOfferGoods.create({
+                                count: good.count,
+                                goodId: good.goodId,
+                                complexOfferId: complexOffer.id
+                            })
+                        }
+                    })
                 }
             }
             return res.json(complexOffer);
