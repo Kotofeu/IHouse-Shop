@@ -1,17 +1,21 @@
 const { Category, Type } = require('../modules/models');
 const ApiError = require('../error/ApiError');
+
+const staticManagement = require('../helpers/staticManagement')
+
 class categoryController {
     async post(req, res, next) {
         try {
             let { id, name } = req.body;
-            const { image } = req.files;
-            const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
-            image.mv(path.resolve(__dirname, '..', 'static', fileName));
+            let image;
+            let fileName
+            if (req.files && req.files.image){
+                image = req.files.image
+                fileName = staticManagement.staticCreate(image)
+            }
             let category;
             if (id) {
-                const imagesForDelete = Category.findOne({ where: id })
-                fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
-
+                staticManagement.staticDelete(await Category.findOne({ where: { id: id } }))
                 category = await Category.update({ name, image: fileName }, { where: { id } });
             }
             else {
@@ -55,8 +59,7 @@ class categoryController {
     async delete(req, res, next) {
         try {
             let { id } = req.body;
-            const imagesForDelete = Category.findOne({ where: id })
-            fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+            staticManagement.staticDelete(await Category.findOne({ where: { id: id } }))
             const category = await Category.destroy({
                 where: {
                     id: id

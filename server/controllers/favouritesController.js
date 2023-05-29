@@ -16,6 +16,10 @@ class favouritesController {
                 userId
             } = req.body;
             let goodInFavourites;
+            if (!id) {
+                const alreadyInFavorites = await Favourites.findOne({ where: { userId, goodId } })
+                if (alreadyInFavorites) return res.json(alreadyInFavorites);
+            }
             if (id) {
                 goodInFavourites = await Favourites.update(
                     { goodId },
@@ -34,6 +38,9 @@ class favouritesController {
     }
     async getUserFavourites(req, res, next) {
         const { userId } = req.query;
+        if (!userId) {
+            next(ApiError.badRequest("Не задан userId"));
+        }
         let goodInFavourites;
         try {
             if (userId) {
@@ -48,7 +55,7 @@ class favouritesController {
                         ]
                     }],
                     distinct: true,
-                    where: {userId}
+                    where: { userId }
                 })
 
             }
@@ -65,22 +72,22 @@ class favouritesController {
         }
     }
     async isGoodInUserFavourites(req, res, next) {
-        const { userId, goodId} = req.query;
-        if (!userId || !goodId){
+        const { userId, goodId } = req.query;
+        if (!userId || !goodId) {
             next(ApiError.badRequest("Не переданы userId и goodId"));
         }
         try {
-            goodInFavourites = await Favourites.findOne({where: {userId, goodId}})
+            const goodInFavourites = await Favourites.findOne({ where: { userId, goodId } })
             if (!goodInFavourites) {
-                return false
+                return res.json(0);
             }
-            return true
+            return res.json(1);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
     }
-    async deleteGoodInfo(req, res, next) {
+    async deleteGoodInFavourites(req, res, next) {
         try {
             const { id } = req.body;
             const goodInFavourites = await Favourites.destroy({
@@ -95,7 +102,7 @@ class favouritesController {
         }
 
     }
-   
+
 }
 
 module.exports = new favouritesController();

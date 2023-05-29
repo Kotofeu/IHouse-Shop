@@ -219,7 +219,7 @@ const ComplexOffer = sequelize.define('complex_offer', {
         allowNull: false,
         unique: true
     },
-    desc: {
+    description: {
         type: DataTypes.TEXT,
         allowNull: false
     },
@@ -245,26 +245,6 @@ const ComplexOfferGoods = sequelize.define('complex_offer_goods', {
         allowNull: false,
     }
 });
-const Partner = sequelize.define('partner', {
-    id:
-    {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    name:
-    {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    image:
-    {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-});
-
 
 User.hasMany(Basket, {
     foreignKey: {
@@ -402,6 +382,5 @@ module.exports = {
     GoodInfo,
     Brand,
     ComplexOffer,
-    ComplexOfferGoods,
-    Partner
+    ComplexOfferGoods
 }

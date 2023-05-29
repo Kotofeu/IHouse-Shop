@@ -3,10 +3,7 @@ const {
     RatingImage,
     Rating
 } = require('../modules/models');
-const uuid = require('uuid')
-const path = require('path');
-const fs = require('fs')
-const { Op, where } = require("sequelize");
+const staticManagement = require('../helpers/staticManagement')
 
 const ApiError = require('../error/ApiError');
 class goodController {
@@ -19,13 +16,30 @@ class goodController {
                 goodId,
                 comment
             } = req.body;
-            const { images } = req.files;
+            let oldRating;
+            if (!id){
+                oldRating = await Rating.findOne({ where: { userId, goodId } })
+            }
+            if (oldRating) {
+
+                const newRating = await Rating.update(
+                    {
+                        rating,
+                        comment
+                    },
+                    { where: { id: oldRating.id } }
+                );
+                return res.json(newRating);
+            }
+
             let imagesNames = [];
-            images.forEach(image => {
-                const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
-                imagesNames.push(fileName)
-                image.mv(path.resolve(__dirname, '..', 'static', fileName))
-            })
+            let images;
+
+            if (req.files && req.files.images ){
+
+                images = req.files.images
+                imagesNames = staticManagement.manyStaticCreate(images);
+            }
             let ratingModel;
             if (id) {
                 ratingModel = await Rating.update(
@@ -35,11 +49,8 @@ class goodController {
                     },
                     { where: { id: id } }
                 );
-                if (imagesNames) {
-                    const imagesForDelete = RatingImage.findAll({ where: { ratingId: id } })
-                    imagesForDelete.row.map(image => image.image).forEach(image => (
-                        fs.unlink(path.resolve(__dirname, '..', 'static', image), () => null)
-                    ))
+                if (images) {
+                    staticManagement.manyStaticDelete(await RatingImage.findAll({ where: { ratingId: id } }))
                     RatingImage.destroy({ where: { ratingId: id } })
                     imagesNames.forEach(image => RatingImage.create(
                         {
@@ -58,10 +69,10 @@ class goodController {
                         goodId
                     }
                 );
-                if (imagesNames) {
+                if (images) {
                     imagesNames.forEach(image => RatingImage.create(
                         {
-                            ratingId: id,
+                            ratingId: ratingModel.id,
                             image
                         }
                     ))
@@ -88,7 +99,7 @@ class goodController {
             if (rating) where.rating = rating
             ratingModel = await Rating.findAndCountAll({
                 order: [['id', 'ASC']],
-                include: [{ model: RatingImage }, {model: User}],
+                include: [{ model: RatingImage }, { model: User }],
                 distinct: true,
                 where,
                 limit,
@@ -125,16 +136,29 @@ class goodController {
     async deleteRating(req, res, next) {
         try {
             const { id } = req.body;
-            const imagesForDelete = RatingImage.findAll({ where: { ratingId: id } })
-            imagesForDelete.row.map(image => image.image).forEach(image => (
-                fs.unlink(path.resolve(__dirname, '..', 'static', image), () => null)
-            ))
+            staticManagement.manyStaticDelete(await RatingImage.findAll({ where: { ratingId: id } }))
             const ratingModel = await Rating.destroy({
                 where: {
                     id: id
                 }
             });
             return res.json(ratingModel);
+        }
+        catch (e) {
+            next(ApiError.badRequest(e.message));
+        }
+
+    }
+    async deleteRatingImage(req, res, next) {
+        try {
+            let { id } = req.body;
+            staticManagement.staticDelete(await RatingImage.findOne({ where: { id: id } }))
+            const goodImage = await RatingImage.destroy({
+                where: {
+                    id: id
+                }
+            });
+            return res.json(goodImage);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));

@@ -3,44 +3,64 @@ const {
     ComplexOfferGoods,
     Good,
     Brand,
-    Category,
     Rating,
-    Type
+    GoodImages
 } = require('../modules/models');
-
 const ApiError = require('../error/ApiError');
+const staticManagement = require('../helpers/staticManagement')
 
 class offerController {
     async postOffer(req, res, next) {
         try {
-            let { id, name, price, desc } = req.body;
-            const { image } = req.files;
-            const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
-            image.mv(path.resolve(__dirname, '..', 'static', fileName));
+            let { id, name, price, description, goods } = req.body;
+            let image;
+            let fileName
+            if (req.files && req.files.image){
+                image = req.files.image
+                fileName = staticManagement.staticCreate(image)
+            }
             let complexOffer;
             if (id) {
-                const imagesForDelete = ComplexOffer.findOne({ where: id })
-                fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
-
-                complexOffer = await ComplexOffer.update({
-                    name: name,
-                    price: price,
-                    desc: desc,
-                    image: fileName
-                },
+                staticManagement.staticDelete(await ComplexOffer.findOne({ where: { id: id } }))
+                complexOffer = await ComplexOffer.update(
+                    {
+                        name: name,
+                        price: price,
+                        description: description,
+                        image: fileName
+                    },
                     {
                         where: {
                             id: id
                         }
-                    });
+                    }
+                );
+                if (goods) {
+                    ComplexOfferGoods.destroy({ where: { complexOfferId: id } })
+                    goods.forEach(good => {
+                        ComplexOfferGoods.create({
+                            count: good.count,
+                            goodId: good.goodId,
+                            complexOfferId: id
+                        })
+                    })
+                }
             }
             else {
                 complexOffer = await ComplexOffer.create({
                     name: name,
                     price: price,
-                    desc: desc,
+                    description: description,
                     image: fileName
                 });
+
+                if (goods) {
+                    goods.forEach(good => ComplexOfferGoods.create({
+                        count: good.count,
+                        goodId: good.goodId,
+                        complexOfferId: complexOffer.id
+                    }))
+                }
             }
             return res.json(complexOffer);
 
@@ -50,59 +70,13 @@ class offerController {
         }
 
     }
-    async postGoodsAtOffer(req, res, next) {
-        try {
-            let { id, complexOfferId, goodId, count } = req.body;
-            let complexOfferGoods;
-            if (id) {
-                complexOfferGoods = await ComplexOfferGoods.update({
-                    goodId: goodId,
-                    count: count
-                },
-                    {
-                        where: {
-                            id: id
-                        }
-                    });
-            }
-            else {
-                complexOfferGoods = await ComplexOfferGoods.create({
-                    complexOfferId: complexOfferId,
-                    goodId: goodId,
-                    count: count
-                });
-            }
-            return res.json(complexOfferGoods);
 
-        }
-        catch (e) {
-            next(ApiError.badRequest(e.message));
-        }
-
-    }
     async getAll(req, res, next) {
         try {
             const complexOffer = await ComplexOffer.findAndCountAll({
                 order: [
                     ['name', 'ASC']],
-                include: [
-                    {
-                        model: ComplexOfferGoods,
-                        include: [{
-                            model: Good,
-                            include: [
-                                { model: Brand },
-                                { model: Category },
-                                { model: Type },
-                                { model: Rating }
-                            ]
-
-                        }]
-                    },
-
-                ],
                 distinct: true
-
             })
             return res.json(complexOffer);
         }
@@ -117,14 +91,14 @@ class offerController {
                 {
                     where: { id },
                     include: [{
-                        model: Good,
-                        include: [
-                            { model: Brand },
-                            { model: Category },
-                            { model: Type },
-                            { model: Rating }
-                        ]
-
+                        model: ComplexOfferGoods,
+                        include: [{
+                            model: Good, include: [
+                                { model: Brand },
+                                { model: Rating },
+                                { model: GoodImages }
+                            ]
+                        }]
                     }]
                 },
             )
@@ -138,8 +112,7 @@ class offerController {
     async deleteOffer(req, res, next) {
         try {
             let { id } = req.body;
-            const imagesForDelete = ComplexOffer.findOne({ where: id })
-            fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+            staticManagement.staticDelete(await ComplexOffer.findOne({ where: { id: id } }))
 
             const complexOffer = await ComplexOffer.destroy({
                 where: {

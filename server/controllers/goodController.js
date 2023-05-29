@@ -7,9 +7,7 @@ const {
     Brand,
     Rating
 } = require('../modules/models');
-const uuid = require('uuid')
-const path = require('path');
-const fs = require('fs')
+const staticManagement = require('../helpers/staticManagement')
 const { Op } = require("sequelize");
 
 const ApiError = require('../error/ApiError');
@@ -120,10 +118,7 @@ class goodController {
     async deleteGoodImage(req, res, next) {
         try {
             let { id } = req.body;
-            const imageName = await GoodImages.findOne({
-                where: { id: id }
-            })
-            fs.unlink(path.resolve(__dirname, '..', 'static', imageName.image), () => null)
+            staticManagement.staticDelete(await GoodImages.findOne({ where: { id: id } }))
             const goodImage = await GoodImages.destroy({
                 where: {
                     id: id
@@ -148,11 +143,10 @@ class goodController {
      * @param {number} categoryId id категории
      * @param {number} typeId id типа товара
      * @param {number} brandId id бренда
-     * @param {info[]} infos массив информации об объекте
+     * @param {info[]} info массив информации об объекте
      * {
         * @var {string} name название зарактеристики, 
         * @var {string} description описание характеристики, 
-        * @var {integer} goodId id товара 
      * }
      * 
      * Переменные приходящие в req.files
@@ -169,55 +163,52 @@ class goodController {
                 categoryId,
                 typeId,
                 brandId,
-                infos
+                info
             } = req.body;
-            const { images } = req.files;
             let imagesNames = [];
-            images.forEach(image => {
-                const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
-                imagesNames.push(fileName)
-                image.mv(path.resolve(__dirname, '..', 'static', fileName))
-            })
+            let images;
+            if (req.files && req.files.images ){
+                images = req.files.images
+                imagesNames = staticManagement.manyStaticCreate(images);
+            }
             let goods;
 
             if (id) {
-                goods = await Good.update(
-                    { name, price, oldPrice, isPromotion, categoryId, typeId, brandId },
-                    { where: { id } }
-                );
-                if (imagesNames) {
-                    const imagesForDelete = GoodImages.findAll({ where: { goodId: id } })
-                    imagesForDelete.row.map(image => image.image).forEach(image => (
-                        fs.unlink(path.resolve(__dirname, '..', 'static', image), () => null)
-                    ))
+
+                if (images) {
+                    staticManagement.manyStaticDelete(await GoodImages.findAll({ where: { goodId: id } }))
                     GoodImages.destroy({ where: { goodId: id } })
-                    imagesNames.forEach(image => RatingImage.create(
+                    imagesNames.forEach(image => GoodImages.create(
                         {
                             goodId: id,
                             image
                         }
                     ))
                 }
-                if (infos) {
+                if (info) {
                     GoodInfo.destroy({ where: { goodId: id } })
-                    infos.forEach(info => GoodInfo.create({
+                    info.forEach(info => GoodInfo.create({
                         name: info.name,
                         description: info.description,
                         goodId: id
                     }))
                 }
+                goods = await Good.update(
+                    { name, price, oldPrice, isPromotion, categoryId, typeId, brandId },
+                    { where: { id } }
+                );
             }
             else {
                 goods = await Good.create({
-                    name: name,
-                    price: price,
-                    oldPrice: oldPrice,
-                    isPromotion: isPromotion,
-                    categoryId: categoryId,
-                    typeId: typeId,
-                    brandId: brandId
+                    name,
+                    price,
+                    oldPrice,
+                    isPromotion,
+                    categoryId,
+                    typeId,
+                    brandId
                 });
-                if (imagesNames) {
+                if (images) {
                     imagesNames.forEach(image => GoodImages.create(
                         {
                             goodId: goods.id,
@@ -225,8 +216,8 @@ class goodController {
                         }
                     ))
                 }
-                if (infos) {
-                    infos.forEach(info => GoodInfo.create({
+                if (info) {
+                    info.forEach(info => GoodInfo.create({
                         name: info.name,
                         description: info.description,
                         goodId: goods.id
@@ -361,10 +352,7 @@ class goodController {
     async deleteGood(req, res, next) {
         try {
             let { id } = req.body;
-            const imagesForDelete = GoodImages.findAll({ where: { goodId: id } })
-            imagesForDelete.row.map(image => image.image).forEach(image => (
-                fs.unlink(path.resolve(__dirname, '..', 'static', image), () => null)
-            ))
+            staticManagement.manyStaticDelete(await GoodImages.findAll({ where: { goodId: id } }))
             const goods = await Good.destroy({
                 where: {
                     id: id

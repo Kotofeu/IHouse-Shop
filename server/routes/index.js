@@ -2,7 +2,6 @@ const Router = require('express');
 const router = new Router();
 const goodRouter = require('./goodRouter');
 const offerRouter = require('./offerRouter');
-const partnerRouter = require('./partnerRouter');
 const brandRouter = require('./brandRouter');
 const categoryRouter = require('./categoryRouter');
 const typeRouter = require('./typeRouter');
@@ -13,7 +12,6 @@ const userRouter = require('./userRouter');
 
 router.use('/good', goodRouter);
 router.use('/offer', offerRouter);
-router.use('/partner', partnerRouter);
 router.use('/brand', brandRouter);
 router.use('/category', categoryRouter);
 router.use('/type', typeRouter);

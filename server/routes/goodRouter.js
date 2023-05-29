@@ -53,11 +53,10 @@ router.get('/image/:id', goodController.getGoodImageById);
  * @param {number} categoryId id категории
  * @param {number} typeId id типа товара
  * @param {number} brandId id бренда
- * @param {info[]} infos массив информации об объекте
+ * @param {info[]} info массив информации об объекте
  * {
     * @var {string} name название зарактеристики, 
     * @var {string} description описание характеристики, 
-    * @var {number} goodId id товара 
  * }
  * 
  * Переменные приходящие в req.files

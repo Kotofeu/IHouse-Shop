@@ -1,16 +1,20 @@
 const { Brand } = require('../modules/models');
 const ApiError = require('../error/ApiError');
+const staticManagement = require('../helpers/staticManagement')
+
 class brandController {
     async post(req, res, next) {
         try {
             let { id, name } = req.body;
-            const { image } = req.files;
-            const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
-            image.mv(path.resolve(__dirname, '..', 'static', fileName));
+            let image;
+            let fileName
+            if (req.files && req.files.image){
+                image = req.files.image
+                fileName = staticManagement.staticCreate(image)
+            }
             let brand;
             if (id) {
-                const imagesForDelete = Brand.findOne({ where: id })
-                fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+                staticManagement.staticDelete(await Brand.findOne({ where: { id: id } }))
                 brand = await Brand.update({name,image: fileName},{where: {id: id}});
             }
             else {
@@ -50,8 +54,7 @@ class brandController {
     async delete(req, res, next) {
         try {
             let { id } = req.body;
-            const imagesForDelete = Brand.findOne({ where: id })
-            fs.unlink(path.resolve(__dirname, '..', 'static', imagesForDelete), () => null)
+            staticManagement.staticDelete(await Brand.findOne({ where: { id: id } }))
             const brand = await Brand.destroy({
                 where: {
                     id: id

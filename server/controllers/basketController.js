@@ -17,6 +17,21 @@ class basketController {
                 count
             } = req.body;
             let goodInBasket;
+            let oldCount;
+
+            if (!id){
+                oldCount = await Basket.findOne({ where: { userId, goodId } })
+            }
+            if (oldCount) {
+
+                const newCount = await Basket.update(
+                    {
+                        count
+                    },
+                    { where: { id: oldCount.id } }
+                );
+                return res.json(newCount);
+            }
             if (id) {
                 goodInBasket = await Basket.update(
                     { goodId, count },
@@ -36,6 +51,9 @@ class basketController {
     async getUserBasket(req, res, next) {
         const { userId } = req.query;
         let goodInBasket;
+        if (!userId){
+            next(ApiError.badRequest("Не задан userId"));
+        }
         try {
             if (userId) {
                 goodInBasket = await Basket.findAndCountAll({
@@ -71,17 +89,17 @@ class basketController {
             next(ApiError.badRequest("Не переданы userId и goodId"));
         }
         try {
-            goodInBasket = await Basket.findOne({where: {userId, goodId}})
+            const goodInBasket = await Basket.findOne({where: {userId, goodId}})
             if (!goodInBasket) {
-                return false
+                return res.json(0);
             }
-            return true
+            return res.json(1);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
         }
     }
-    async deleteGoodInfo(req, res, next) {
+    async deleteGoodInBasket(req, res, next) {
         try {
             const { id } = req.body;
             const goodInBasket = await Basket.destroy({

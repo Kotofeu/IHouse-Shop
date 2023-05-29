@@ -1,6 +1,9 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const uuid = require('uuid')
+const path = require('path');
+const fs = require('fs')
 const {
     User
 } = require('../modules/models');
@@ -51,14 +54,18 @@ class userController {
                 phone,
                 isSubscribed,
             } = req.body;
-            const { image } = req.files;
-            const fileName = `${uuid.v4()}.${image.name.split('.').pop()}`
-            image.mv(path.resolve(__dirname, '..', 'static', fileName));
+            let image;
+            let fileName
+            if (req.files && req.files.image){
+                image = req.files.image
+                fileName = staticManagement.staticCreate(image)
+            }
+            staticManagement.staticDelete(await User.findOne({ where: { id: id } }))
+
             const user = await User.update({
                 name, email, password, phone, isSubscribed, image: fileName
             }, {where: id})
             return res.json(user);
-
         }
         catch (e) {
             next(ApiError.badRequest(e.message));
