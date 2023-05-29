@@ -1,6 +1,7 @@
 const Router = require('express');
 const router = new Router();
 const goodController = require('../controllers/goodController');
+const checkRole = require('../middleware/checkRoleMiddleware')
 
 /**
  * Возвращает всю информацию о товарах / товаре
@@ -15,7 +16,7 @@ router.get('/info', goodController.getAllGoodInfo);
  * Переменные приходящие в req.body
  * @param {number} id id строки информации
 */
-router.delete('/info', goodController.deleteGoodInfo);
+router.delete('/info',checkRole('ADMIN'), goodController.deleteGoodInfo);
 
 
 /**
@@ -31,7 +32,7 @@ router.get('/image', goodController.getAllGoodImage);
  * Переменные приходящие в req.body
  * @param {number} id id изображения
 */
-router.delete('/image', goodController.deleteGoodImage);
+router.delete('/image',checkRole('ADMIN'), goodController.deleteGoodImage);
 
 
 /**
@@ -62,7 +63,7 @@ router.get('/image/:id', goodController.getGoodImageById);
  * Переменные приходящие в req.files
  * @param {image[]} images картинки товара
 */
-router.post('/', goodController.postGood);
+router.post('/',checkRole('ADMIN'), goodController.postGood);
 
 
 /**
@@ -87,7 +88,7 @@ router.get('/', goodController.getAllGoods);
  * Переменные приходящие в req.body
  * @param {number} id id товара
 */
-router.delete('/', goodController.deleteGood);
+router.delete('/',checkRole('ADMIN'), goodController.deleteGood);
 
 
 /**

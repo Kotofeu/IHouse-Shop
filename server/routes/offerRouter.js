@@ -1,10 +1,11 @@
 const Router = require('express');
 const router = new Router();
-const contactController = require('../controllers/offerController');
+const offerController = require('../controllers/offerController');
+const checkRole = require('../middleware/checkRoleMiddleware')
 
-router.post('/', contactController.postOffer);
-router.delete('/', contactController.deleteOffer);
-router.delete('/goods', contactController.deleteGoodsAtOffer);
-router.get('/', contactController.getAll);
-router.get('/:id', contactController.getById);
+router.post('/',checkRole('ADMIN'), offerController.postOffer);
+router.delete('/',checkRole('ADMIN'), offerController.deleteOffer);
+router.delete('/goods',checkRole('ADMIN'), offerController.deleteGoodsAtOffer);
+router.get('/', offerController.getAll);
+router.get('/:id', offerController.getById);
 module.exports = router;

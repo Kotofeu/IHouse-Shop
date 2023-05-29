@@ -1,9 +1,10 @@
 const Router = require('express');
 const router = new Router();
 const typeController = require('../controllers/typeController');
+const checkRole = require('../middleware/checkRoleMiddleware')
 
-router.post('/', typeController.post);
-router.delete('/', typeController.delete);
+router.post('/',checkRole('ADMIN'), typeController.post);
+router.delete('/',checkRole('ADMIN'), typeController.delete);
 router.get('/', typeController.getAll);
 router.get('/:id', typeController.getById);
 module.exports = router;
