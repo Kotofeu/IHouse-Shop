@@ -124,11 +124,12 @@ class userController {
     }
     async getById(req, res, next) {
         try {
-
             const { id } = req.params
             const user = await User.findOne(
                 {
-                    where: { id }
+                    where: { id },
+                    include: {model: UserAuthorization, attributes: ["role", "email"]}
+                    
                 },
             )
             return res.json(user)
