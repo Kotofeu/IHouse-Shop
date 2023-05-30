@@ -6,9 +6,9 @@ export interface IAuthAttributes {
 }
 export interface IUser extends IBaseTable {
     name: string;
-    phone: string | null;
-    image: string | null;
-    isSubscribed: boolean | null;
+    phone?: string | null;
+    image?: string | null;
+    isSubscribed?: boolean | null;
     users_authorization?: IAuthAttributes;
 }
 

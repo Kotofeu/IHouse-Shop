@@ -2,6 +2,7 @@ const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const staticManagement = require('../helpers/staticManagement')
+const validationManagement = require('../helpers/validationManagement')
 
 const {
     User, UserAuthorization
@@ -17,10 +18,13 @@ const generateJwt = (id, email, role) => {
 class userController {
     async registration(req, res, next) {
         try {
-
             const { email, password } = req.body
-            if (!email || !password) {
-                return next(ApiError.badRequest('Некорректный email или password'))
+            if (!validationManagement.isEmailValid(email)) {
+                return next(ApiError.badRequest('Некорректный email'))
+            }
+            if (!validationManagement.isPasswordValid(password)) {
+                return next(ApiError.badRequest("Пароль должен иметь минимум одну заглавную " +
+                    "и строчную букву, одно чило и сотоять от 6 до 20 символов"))
             }
             const candidate = await UserAuthorization.findOne({ where: { email } })
             if (candidate) {
@@ -59,9 +63,14 @@ class userController {
         try {
 
             const { email, password } = req.body
-            if (!email || !password) {
-                return next(ApiError.badRequest('Некорректный email или password'))
+            if (!validationManagement.isEmailValid(email)) {
+                return next(ApiError.badRequest('Некорректный email'))
             }
+            if (!validationManagement.isPasswordValid(password)) {
+                return next(ApiError.badRequest("Пароль должен иметь минимум одну заглавную " +
+                    "и строчную букву, одно чило и сотоять от 6 до 20 символов"))
+            }
+
             const candidate = await UserAuthorization.findOne({ where: { email } })
             if (candidate) {
                 return next(ApiError.badRequest('Пользователь с таким email уже существует'))
@@ -85,21 +94,32 @@ class userController {
                 phone,
                 isSubscribed,
             } = req.body;
-            const user = await UserAuthorization.findOne({ where: { userId:req.user.id} })
+
+            const user = await UserAuthorization.findOne({ where: { userId: req.user.id } })
             if (!user) {
                 return next(ApiError.internal('Пользователь не найден'))
             }
-
+            if (!validationManagement.isEmailValid(newEmail) && newEmail) {
+                return next(ApiError.badRequest('Некорректный email'))
+            }
+            if (!validationManagement.isPasswordValid(newPassword) && newPassword) {
+                return next(ApiError.badRequest("Пароль должен иметь минимум одну заглавную " +
+                    "и строчную букву, одно чило и сотоять от 6 до 20 символов"))
+            }
+            const candidate = await UserAuthorization.findOne({ where: { email } })
+            if (candidate) {
+                return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+            }
             let image;
             let fileName
             let hashPassword
-            if (req.files && req.files.image) { 
+            if (req.files && req.files.image) {
                 image = req.files.image
                 fileName = staticManagement.staticCreate(image)
                 staticManagement.staticDelete(await User.findOne({ where: { id: req.user.id } }))
             }
-            
-            if (newPassword){
+
+            if (newPassword) {
                 hashPassword = await bcrypt.hash(newPassword, 5)
             }
 
@@ -110,7 +130,7 @@ class userController {
                 email: newEmail, password: hashPassword
             }, { where: { id: user.userId } })
 
-            const newAuth = await UserAuthorization.findOne({ where: { userId:req.user.id} })
+            const newAuth = await UserAuthorization.findOne({ where: { userId: req.user.id } })
             const token = generateJwt(req.user.id, newAuth.email, newAuth.password)
             return res.json({ token })
         }
@@ -128,8 +148,8 @@ class userController {
             const user = await User.findOne(
                 {
                     where: { id },
-                    include: {model: UserAuthorization, attributes: ["role", "email"]}
-                    
+                    include: { model: UserAuthorization, attributes: ["role", "email"] }
+
                 },
             )
             return res.json(user)

@@ -83,9 +83,9 @@ class basketController {
         try {
             const goodInBasket = await Basket.findOne({where: {userId, goodId}})
             if (!goodInBasket) {
-                return res.json(0);
+                return res.json(false);
             }
-            return res.json(1);
+            return res.json(true);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));

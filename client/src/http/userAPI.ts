@@ -1,20 +1,44 @@
-import {$authHost, $host} from "./index";
+import { IUser } from "../store/UserStore";
+import { $authHost, $host, baseUser } from "./index";
 import jwt_decode from "jwt-decode";
 
-export const registration = async (email: string, password: string) => {
-    const {data} = await $host.post('api/user/registration', {email, password})
+interface IEditParams extends IUser {
+    newEmail?:string,
+    newPassword?:string
+}
+
+const catchTokenError = (data: any) : boolean => {
+    if (!data || !data.token) {
+        return false
+    }
     localStorage.setItem('token', data.token)
+    return true
+}
+
+export const registration = async (email: string, password: string) => {
+    const { data } = await $host.post(`${baseUser}registration`, { email, password })
+    if (!catchTokenError(data)) return null
     return jwt_decode(data.token)
 }
 
 export const login = async (email: string, password: string) => {
-    const {data} = await $host.post('api/user/login', {email, password})
-    localStorage.setItem('token', data.token)
+    const { data } = await $host.post(`${baseUser}login`, { email, password })
+    if (!catchTokenError(data)) return null
+    return jwt_decode(data.token)
+}
+export const edit = async (params: IEditParams) => {
+    const { data } = await $authHost.post(`${baseUser}edit`, { ...params })
+    if (!catchTokenError(data)) return null
+    return jwt_decode(data.token)
+}
+export const check = async () => {
+    const { data } = await $authHost.get(`${baseUser}auth`)
+    if (!catchTokenError(data)) return null
     return jwt_decode(data.token)
 }
 
-export const check = async () => {
-    const {data} = await $authHost.get('api/user/auth' )
-    localStorage.setItem('token', data.token)
-    return jwt_decode(data.token)
+export const createAdmin = async (email: string, password: string) => {
+    const { data } = await $authHost.post(`${baseUser}create-admin`, { email, password })
+    return data
 }
+

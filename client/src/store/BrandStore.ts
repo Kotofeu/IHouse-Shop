@@ -1,0 +1,19 @@
+import { makeAutoObservable } from "mobx";
+import { IBaseTable, IGetAllJSON, IUniversalTable } from ".";
+export interface IBrandTable extends IBaseTable{
+    name: string,
+    image: string
+}
+export class BrandStore {
+    private _brands: IGetAllJSON<IBrandTable> | null = null;
+    constructor() {
+        makeAutoObservable(this, {}, { deep: true })
+    }
+    setBrands(brands: IGetAllJSON<IBrandTable>) {
+        this._brands = brands
+    }
+    get brands() {
+        return this._brands
+    }
+
+}

@@ -118,7 +118,7 @@ class goodController {
         }
         try {
             ratingModel = await Rating.findAndCountAll({
-                order: [['id', 'ASC']],
+                order: [['createdAt', 'ASC']],
                 include: [{ model: RatingImage }],
                 distinct: true,
                 where: {

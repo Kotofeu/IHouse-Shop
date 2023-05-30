@@ -1,257 +1,185 @@
 import { makeAutoObservable } from "mobx";
-import { IUser } from "./UserStore";
 import { GoodOrderBy, IBaseTable, IGetAllJSON, IGoodToUser, IUniversalTable } from "./index.js";
+import { IRating } from "./RatingStore";
 
 
-
-export interface IGood extends IBaseTable {
+export interface ICategoryTable extends IBaseTable {
     name: string;
-    price: number;
-    oldPrice: number | null;
-    isPromotion: boolean | null;
-    categoryId: number | null;
-    typeId: number | null;
-    brandId: number | null;
-    good_images: IUniversalTable[];
-    good_infos?: IGoodInfo[];
+    image: string;
+}
+export interface IGoodJSON extends IGoodTable {
     ratings: IRating[];
-    category: ICategory | null;
+    category: ICategoryTable | null;
     type: IType | null;
     brand: IUniversalTable | null;
 }
-export interface IType extends IBaseTable {
+export interface IGoodTable extends IBaseTable {
     name: string;
-    categoryId: number;
+    price: number;
+    oldPrice?: number | null;
+    isPromotion?: boolean | null;
+    categoryId?: number | null;
+    typeId?: number | null;
+    brandId?: number | null;
+    good_images?: IUniversalTable[];
+    good_infos?: IGoodInfo[];
 }
 export interface IGoodInfo extends IBaseTable {
     name: string;
     description: string;
     goodId: number;
 }
-export interface ICategory extends IBaseTable {
+
+export interface IType extends IBaseTable {
     name: string;
-    image: string;
+    categoryId: number;
+}
+
+export interface ICategoryJSON extends ICategoryTable {
     types?: IUniversalTable[];
 }
-export interface RatingImage extends IBaseTable {
-    image: string;
-    ratingId: number;
-}
-export interface IRating extends IBaseTable, IGoodToUser {
-    rating: number;
-    comment: null | string;
-    user?: IUser;
-    rating_images?: RatingImage[];
-}
 
 
 
-export interface IBasket extends IBaseTable, IGoodToUser {
-    count: number;
-    good: IGood;
-}
-export interface IFavourite extends IBaseTable, IGoodToUser {
-    good: IGood;
-}
-export interface IComprehensiveOfferGoods extends IBaseTable {
-    count: number;
-    goodId: number;
-    complexOfferId: number;
-    good: IGood;
-}
 
-export interface IComprehensiveOffer extends IBaseTable {
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    complex_offer_goods?: IComprehensiveOfferGoods[];
+export interface IGoodGetParams {
+    page?: number;
+    limit?: number;
+    selectedCategoryId?: number;
+    selectedTypeId?: number;
+    selectedBrandId?: number;
+    minPrice?: number;
+    maxPrice?: number;
+    name?: string;
+    orderBy?: GoodOrderBy
+    isPromotion?: boolean;
 }
-
 
 export class GoodStore {
-    private _categories: IGetAllJSON<ICategory> | null = null;
+    private _categories: IGetAllJSON<ICategoryJSON> | null = null;
     private _types: IGetAllJSON<IType> | null = null;
-    private _brands: IGetAllJSON<IUniversalTable> | null = null;
-    private _goods: IGetAllJSON<IGood> | null = null;
-    private _ratings: IGetAllJSON<IRating> | null = null;
-    private _comprehensiveOffers: IGetAllJSON<IComprehensiveOffer> | null = null
+    private _goods: IGetAllJSON<IGoodJSON> | null = null;
 
-    private _basket: IGetAllJSON<IBasket> | null = null;
-    private _favourite: IGetAllJSON<IFavourite> | null = null;
-
+    private _defaultGoodGetParameters: IGoodGetParams = {
+        page: 1,
+        limit: 10,
+        selectedBrandId: undefined,
+        selectedCategoryId: undefined,
+        selectedTypeId: undefined,
+        minPrice: 1,
+        maxPrice: 9999999,
+        name: '',
+        orderBy: GoodOrderBy.id,
+        isPromotion: undefined
+    }
     // Параметры для запроса товаров
-    private _page: number = 1
-    private _limit: number = 10
-    private _selectedCategoryId: number | null = null
-    private _selectedTypeId: number | null = null
-    private _selectedBrandId: number | null = null
-    private _minPrice: number | null = 0
-    private _maxPrice: number | null = 9999999
-
-    private _name: string = ''
-
-    private _orderBy: GoodOrderBy = GoodOrderBy.id
-
-    private _isPromotion: boolean | null = null
-
+    private _goodGetParameters: IGoodGetParams = this.defaultGoodGetParameters
 
     constructor() {
         makeAutoObservable(this, {}, { deep: true })
     }
 
-    setCategories(categories: IGetAllJSON<ICategory>) {
+    setCategories(categories: IGetAllJSON<ICategoryJSON>) {
         this._categories = categories
     }
     setTypes(types: IGetAllJSON<IType>) {
         this._types = types
     }
 
-    setBrands(brands: IGetAllJSON<IUniversalTable>) {
-        this._brands = brands
-    }
-
-    setGoods(goods: IGetAllJSON<IGood>) {
+    setGoods(goods: IGetAllJSON<IGoodJSON>) {
         this._goods = goods
     }
 
-    setRatings(ratings: IGetAllJSON<IRating>) {
-        this._ratings = ratings
-    }
-    setComprehensiveOffers(comprehensiveOffers: IGetAllJSON<IComprehensiveOffer>) {
-        this._comprehensiveOffers = comprehensiveOffers
-    }
-    setBasket(basket: IGetAllJSON<IBasket>) {
-        this._basket = basket
-    }
-    setFavourite(favourite: IGetAllJSON<IFavourite>) {
-        this._favourite = favourite
-    }
 
 
+    setGoodGetParameters(params: IGoodGetParams) {
+        this._goodGetParameters = {
+            page: params.page,
+            limit: params.limit,
+            selectedBrandId: params.selectedBrandId,
+            selectedCategoryId: params.selectedCategoryId,
+            selectedTypeId: params.selectedTypeId,
+            minPrice: params.maxPrice,
+            maxPrice: params.maxPrice,
+            name: params.name,
+            orderBy: params.orderBy,
+            isPromotion: params.isPromotion
+        }
+    }
     setPage(page: number) {
-        this._page = page
+        this._goodGetParameters.page = page
     }
 
     setLimit(limit: number) {
         this.setPage(1)
-        this._limit = limit
+        this._goodGetParameters.limit = limit
     }
-    setSelectedCategoryId(selectedCategoryId: number | null) {
+    setSelectedCategoryId(selectedCategoryId: number | undefined) {
         this.setPage(1)
-        this._selectedCategoryId = selectedCategoryId
+        this._goodGetParameters.selectedCategoryId = selectedCategoryId
     }
-    setSelectedTypeId(selectedTypeId: number | null) {
+    setSelectedTypeId(selectedTypeId: number | undefined) {
         this.setPage(1)
-        this._selectedTypeId = selectedTypeId
+        this._goodGetParameters.selectedTypeId = selectedTypeId
     }
-    setSelectedBrandId(selectedBrandId: number | null) {
+    setSelectedBrandId(selectedBrandId: number | undefined) {
         this.setPage(1)
-        this._selectedBrandId = selectedBrandId
+        this._goodGetParameters.selectedBrandId = selectedBrandId
     }
     setMinPrice(minPrice: number) {
         this.setPage(1)
-        this._minPrice = minPrice
+        this._goodGetParameters.minPrice = minPrice
     }
-    setMaxPrice(maxPrice: number) {
+    setMaxPrice(maxPrice: number | undefined) {
         this.setPage(1)
-        this._maxPrice = maxPrice
+        this._goodGetParameters.maxPrice = maxPrice
     }
     setName(name: string) {
         this.setPage(1)
-        this._name = name
+        this._goodGetParameters.name = name
     }
     setOrderBy(orderBy: GoodOrderBy) {
         this.setPage(1)
-        this._orderBy = orderBy
+        this._goodGetParameters.orderBy = orderBy
     }
-    setIsPromotion(isPromotion: boolean | null) {
+    setIsPromotion(isPromotion: boolean | undefined) {
         this.setPage(1)
-        this._isPromotion = isPromotion
+        this._goodGetParameters.isPromotion = isPromotion
     }
-
     dropFields() {
-        this.setPage(1);
-        this.setLimit(10);
-        this.setSelectedBrandId(null);
-        this.setSelectedCategoryId(null);
-        this.setSelectedTypeId(null);
-        this.setMinPrice(0);
-        this.setMaxPrice(9999999);
-        this.setName('');
-        this.setOrderBy(GoodOrderBy.id);
-        this.setIsPromotion(null);
-    }
-    get categories() {
-        return this._categories;
-    }
-    get types() {
-        return this._types
+        this._goodGetParameters = this.defaultGoodGetParameters;
     }
 
-    get brands() {
-        return this._brands
-    }
+    get categories() { return this._categories; }
 
-    get goods() {
-        return this._goods
-    }
+    get types() { return this._types }
 
-    get ratings() {
-        return this._ratings
-    }
-
-    get comprehensiveOffers() {
-        return this._comprehensiveOffers
-    }
-
-    get basket() {
-        return this._basket
-    }
-
-    get favourite() {
-        return this._favourite
-    }
+    get goods() { return this._goods }
 
 
-    get page() {
-        return this._page
-    }
 
+    get goodGetParameters() { return this._goodGetParameters }
 
-    get limit() {
-        return this._limit
-    }
+    get page() { return this._goodGetParameters.page }
 
-    get selectedBrandId() {
-        return this._selectedBrandId
-    }
+    get limit() { return this._goodGetParameters.limit }
 
-    get selectedCategoryId() {
-        return this._selectedCategoryId
-    }
+    get selectedBrandId() { return this._goodGetParameters.selectedBrandId }
 
-    get selectedTypeId() {
-        return this._selectedTypeId
-    }
+    get selectedCategoryId() { return this._goodGetParameters.selectedCategoryId }
 
-    get minPrice() {
-        return this._minPrice
-    }
-
-    get maxPrice() {
-        return this._maxPrice
-    }
-
-    get name() {
-        return this._name
-    }
-
-    get orderBy() {
-        return this._orderBy
-    }
-
-    get isPromotion() {
-        return this._isPromotion
-    }
+    get selectedTypeId() { return this._goodGetParameters.selectedTypeId }
+    
+    get minPrice() { return this._goodGetParameters.minPrice }
+    
+    get maxPrice() { return this._goodGetParameters.maxPrice }
+    
+    get name() { return this._goodGetParameters.name }
+    
+    get orderBy() { return this._goodGetParameters.orderBy }
+    
+    get isPromotion() { return this._goodGetParameters.isPromotion }
+    
+    get defaultGoodGetParameters() { return this._defaultGoodGetParameters }
+    
 }

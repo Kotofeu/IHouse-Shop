@@ -138,7 +138,7 @@ class offerController {
             next(ApiError.badRequest(e.message));
         }
     }
-    async deleteGoodsAtOffer(req, res, next) {
+    async deleteGoodAtOffer(req, res, next) {
         try {
             let { id } = req.body;
             const complexOfferGoods = await ComplexOfferGoods.destroy({
