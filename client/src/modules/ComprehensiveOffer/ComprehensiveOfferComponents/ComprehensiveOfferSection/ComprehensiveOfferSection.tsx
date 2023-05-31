@@ -3,7 +3,7 @@ import Title, { TitleType } from '../../../../UI/Title/Title'
 
 
 import { IGetAllJSON, comprehensiveOfferStore } from '../../../../store'
-import useRequest from '../../../../hooks/useRequest'
+import useRequest from '../../../../utils/hooks/useRequest'
 import { IComprehensiveOffer } from '../../../../store/ComprehensiveOfferStore'
 import { fetchComprehensiveOffer } from '../../../../http/ComprehensiveOfferAPI'
 
@@ -16,7 +16,7 @@ export const ComprehensiveOfferSection = memo(() => {
         comprehensiveOffer,
         comprehensiveOfferIsLoading,
         comprehensiveOfferrror
-    ] = useRequest<IGetAllJSON<IComprehensiveOffer>>(fetchComprehensiveOffer);
+    ] = useRequest<IGetAllJSON<IComprehensiveOffer>>(fetchComprehensiveOffer());
     useEffect(() => {
         if (comprehensiveOffer) {
             comprehensiveOfferStore.setComprehensiveOffers(comprehensiveOffer)

@@ -4,7 +4,7 @@ export interface IBrandTable extends IBaseTable{
     name: string,
     image: string
 }
-export class BrandStore {
+class BrandStore {
     private _brands: IGetAllJSON<IBrandTable> | null = null;
     constructor() {
         makeAutoObservable(this, {}, { deep: true })
@@ -17,3 +17,5 @@ export class BrandStore {
     }
 
 }
+export const brandStore = new BrandStore()
+

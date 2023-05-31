@@ -1,1 +1,0 @@
-export {PromotionSection} from './GoodsComponents/PromotionSection/PromotionSection'

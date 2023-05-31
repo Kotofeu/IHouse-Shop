@@ -18,38 +18,9 @@
     padding-bottom: 10px;
 }
 
-
-
-.partners_list {
+.partners_list{
     width: 100%;
-    position: relative;
 
-    &::after,
-    &::before {
-        content: '';
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        bottom: 0;
-        width: 20px;
-    }
-
-    &::after {
-        right: 0;
-        background: linear-gradient(to right, rgba($neutral-color, 0), $neutral-color);
-        // filter: blur(100%);
-    }
-
-    &::before {
-        left: 0;
-        background: linear-gradient(to left, rgba($neutral-color, 0), $neutral-color);
-
-    }
 }
-.partners_parallax {
-    padding-bottom: 5px;
 
-    &:last-child {
-        padding-bottom: 0;
-    }
-}
+

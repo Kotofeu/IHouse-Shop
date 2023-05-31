@@ -1,6 +1,6 @@
 import { memo, FC } from 'react'
 
-import Container from '../../../../components/Container/Container'
+import Container from '../../../../UI/Container/Container'
 import { NavLink } from 'react-router-dom'
 import HeaderButton from '../HeaderButton/HeaderButton'
 import HeaderSearchForm from '../HeaderSearchForm/HeaderSearchForm'

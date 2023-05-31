@@ -1,8 +1,9 @@
-import { BrandStore } from "./BrandStore";
-import { ComprehensiveOfferStore } from "./ComprehensiveOfferStore";
-import { GoodStore } from "./GoodStore";
-import { RatingStore } from "./RatingStore";
-import { UserStore } from "./UserStore";
+export {goodStore} from './GoodStore'
+export {userStore} from './UserStore'
+export {brandStore} from './BrandStore'
+export {comprehensiveOfferStore} from './ComprehensiveOfferStore'
+export {ratingStore} from './RatingStore'
+export {promotionStore} from './PromotionStore'
 
 export interface IBaseTable {
     id: number;
@@ -17,12 +18,4 @@ export interface IGoodToUser {
     userId: number;
     goodId: number;
 }
-
-export enum GoodOrderBy {"name", "price", "id"}
-
-export const goodStore = new GoodStore()
-export const userStore = new UserStore()
-export const brandStore = new BrandStore()
-export const comprehensiveOfferStore = new ComprehensiveOfferStore()
-export const ratingStore = new RatingStore()
 

@@ -1,4 +1,4 @@
-import Container from '../../../../components/Container/Container'
+import Container from '../../../../UI/Container/Container'
 
 import FooterTitle, { FooterTitleType } from '../FooterTitle/FooterTitle'
 import FooterLink, { FooterLinkType } from '../FooterLink/FooterLink'

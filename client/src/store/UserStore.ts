@@ -12,7 +12,7 @@ export interface IUser extends IBaseTable {
     users_authorization?: IAuthAttributes;
 }
 
-export class UserStore {
+class UserStore {
     private _user: IUser | null = null;
     private _isAuth: boolean = false;
     constructor() {
@@ -33,3 +33,4 @@ export class UserStore {
         return this._user
     }
 }
+export const userStore = new UserStore()

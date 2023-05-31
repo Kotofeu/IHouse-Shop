@@ -16,7 +16,7 @@ export interface IComprehensiveOffer extends IBaseTable {
     image: string;
     complex_offer_goods?: IComprehensiveOfferGoods[];
 }
-export class ComprehensiveOfferStore {
+class ComprehensiveOfferStore {
     private _comprehensiveOffers: IGetAllJSON<IComprehensiveOffer> | null = null
     constructor() {
         makeAutoObservable(this, {}, { deep: true })
@@ -30,3 +30,4 @@ export class ComprehensiveOfferStore {
     }
 
 }
+export const comprehensiveOfferStore = new ComprehensiveOfferStore()

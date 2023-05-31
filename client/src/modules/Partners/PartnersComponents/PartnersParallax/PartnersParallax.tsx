@@ -1,8 +1,8 @@
 import { FC, memo } from 'react'
 import ScrollParallax from '../../../../components/ScrollParallax/ScrollParallax'
 import classes from './PartnersParallax.module.scss'
-import PartnersImage from '../PartnersImage/PartnersImage'
 import { IBrandTable } from '../../../../store/BrandStore'
+import ServerImage from '../../../../UI/ServerImage/ServerImage'
 interface IPartnersParallaxProps {
     brands: IBrandTable[],
     className: string,
@@ -22,11 +22,12 @@ const PartnersParallax: FC<IPartnersParallaxProps> = memo(({ brands, className, 
         <ScrollParallax baseVelocity={baseVelocity} className={className}>
             <div className={classes.parallax_inner}>
                 {brands.map(brand => (
-                    <PartnersImage
-                        width={`${imageWidth}%`}
-                        src={`${process.env.REACT_APP_API_URL}${brand.image}`}
+                    <ServerImage
+                        className={classes.partnerImage}
+                        style={{ width: `${imageWidth}%` }}
+                        src={brand.image}
                         key={brand.name}
-                        name={brand.name}
+                        alt={brand.name}
                     />
                 ))}
             </div>

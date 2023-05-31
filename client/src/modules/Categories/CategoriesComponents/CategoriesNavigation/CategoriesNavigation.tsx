@@ -1,15 +1,28 @@
-import { memo } from 'react'
+import { memo, useEffect} from 'react'
 import { observer } from 'mobx-react-lite'
 
 import Category from '../Category/Category'
 
-import { goodStore } from '../../../../store'
+import { IGetAllJSON, goodStore } from '../../../../store'
 import otherImage from '../../../../assets/icons/other.svg'
 
 import classes from './CategoriesNavigation.module.scss'
+import useRequest from '../../../../utils/hooks/useRequest'
+import { ICategoryJSON } from '../../../../store/GoodStore'
+import { fetchCategory } from '../../../../http/CategoryAPI'
 
-export const CategoriesNavigation = memo(observer(() => {
+export const CategoriesNavigation = observer(() => {
+  const [
+    categories,
+    categoriesIsLoading,
+    categoriesError
+  ] = useRequest<IGetAllJSON<ICategoryJSON>>(fetchCategory());
 
+  useEffect(() => {
+    if (categories && (categories !== goodStore.categories)) {
+      goodStore.setCategories(categories)
+    }
+  }, [categories])
   return (
     <nav className={classes.categories}>
       {
@@ -30,4 +43,4 @@ export const CategoriesNavigation = memo(observer(() => {
         key="Другое"/>
     </nav>
   )
-}))
+})

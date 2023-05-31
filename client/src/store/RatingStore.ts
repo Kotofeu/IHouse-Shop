@@ -18,7 +18,7 @@ export interface IRatingGetByGoodParams{
     goodId?: number;
     rating?: number;
 }
-export class RatingStore {
+class RatingStore {
 
     private _ratings: IGetAllJSON<IRating> | null = null;
 
@@ -90,3 +90,4 @@ export class RatingStore {
         return this._defaultRatingGetParameters
     }
 }
+export const ratingStore = new RatingStore()

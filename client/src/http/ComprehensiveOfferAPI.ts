@@ -10,6 +10,7 @@ export const fetchComprehensiveOffer = async () => {
     const { data } = await $host.get(baseComprehensiveOffer)
     return data
 }
+
 export const fetchOneComprehensiveOffer = async (id: number) => {
     const { data } = await $host.get(baseComprehensiveOffer + id)
     return data

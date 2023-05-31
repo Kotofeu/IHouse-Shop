@@ -1,29 +1,37 @@
-import { memo } from 'react'
-import { observer } from 'mobx-react-lite'
+import { useEffect, memo} from 'react'
 
 import PartnersParallax from '../PartnersParallax/PartnersParallax'
 import Title, { TitleType } from '../../../../UI/Title/Title'
 
 
 import classes from './PartnersSection.module.scss'
-import { brandStore } from '../../../../store'
+import { IGetAllJSON, brandStore } from '../../../../store'
 import { IBrandTable } from '../../../../store/BrandStore'
+import { fetchBrand } from '../../../../http/BrandAPI'
+import useRequest from '../../../../utils/hooks/useRequest'
+import { SliceTableArray } from '../../PartnersHelpers/SliceTableArray'
+import PartnersList from '../PartnersList/PartnersList'
 
-export const PartnersSection = observer(() => {
-    const brands = brandStore.brands;
+export const PartnersSection = memo(() => {
+    const
+        [
+            partners,
+            brandsIsLoading,
+            brandsError
+        ] = useRequest<IGetAllJSON<IBrandTable>>(fetchBrand());
 
-    if (!brands) {
+    useEffect(() => {
+        if (partners) {
+            brandStore.setBrands(partners)
+        }
+    }, [partners])
+
+
+    if (! partners?.rows) {
         return null
     }
+    const slicedBrand = SliceTableArray<IBrandTable>(partners, 3)
 
-    const brandsLength = Math.ceil(brands.count / 2);
-    const slicedBrand: IBrandTable[][] = []
-    if (brandsLength < 6) {
-        const slicedBrandLeft = brands.rows.slice(0, brandsLength);
-        const slicedBrandRight = brands.rows.slice(brandsLength, brands.count);
-        slicedBrand.push(slicedBrandLeft)
-        slicedBrand.push(slicedBrandRight)
-    }
     return (
         <section className={classes.partners}>
             <div className={classes.partners_inner}>
@@ -33,34 +41,7 @@ export const PartnersSection = observer(() => {
                 >
                     Наши партнёры
                 </Title>
-                <div className={classes.partners_list}>
-                    {
-                        slicedBrand
-                            ?
-                            slicedBrand.map((brands, index) => {
-                                let velocity = 2
-                                if (index % 2 === 0){
-                                    velocity = -2
-                                }
-                                else {
-                                    velocity = 2
-                                }
-                                return (
-                                    <PartnersParallax
-                                        className={classes.partners_parallax}
-                                        brands={brands}
-                                        baseVelocity={velocity}
-                                        key={index}
-                                    />
-                                )
-                            })
-                            : <PartnersParallax
-                                className={classes.partners_parallax}
-                                brands={brands.rows}
-                                baseVelocity={2}
-                            />
-                    }
-                </div>
+                <PartnersList slicedBrand={slicedBrand} className = {classes.partners_list}/>
             </div>
         </section>
 

@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { GoodOrderBy, IBaseTable, IGetAllJSON } from "./index";
+import {  IBaseTable, IGetAllJSON } from "./index";
 import { IRating } from "./RatingStore";
 import { IBrandTable } from "./BrandStore";
 
@@ -47,7 +47,6 @@ export interface ICategoryJSON extends ICategoryTable {
 
 
 
-
 export interface IGoodGetParams {
     page?: number;
     limit?: number;
@@ -60,8 +59,9 @@ export interface IGoodGetParams {
     orderBy?: GoodOrderBy
     isPromotion?: boolean;
 }
+export enum GoodOrderBy {"name", "price", "id"}
 
-export class GoodStore {
+class GoodStore {
     private _categories: IGetAllJSON<ICategoryJSON> | null = null;
     private _types: IGetAllJSON<IType> | null = null;
     private _goods: IGetAllJSON<IGoodJSON> | null = null;
@@ -189,3 +189,5 @@ export class GoodStore {
     get defaultGoodGetParameters() { return this._defaultGoodGetParameters }
 
 }
+
+export const goodStore = new GoodStore();
