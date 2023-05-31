@@ -5,7 +5,7 @@ import { RatingStore } from "./RatingStore";
 import { UserStore } from "./UserStore";
 
 export interface IBaseTable {
-    id?: number;
+    id: number;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -16,13 +16,6 @@ export interface IGetAllJSON<T> {
 export interface IGoodToUser {
     userId: number;
     goodId: number;
-}
-
-export interface IUniversalTable extends IBaseTable {
-    name?: string;
-    image?: string | null;
-    goodId?: number;
-    categoryId?: number;
 }
 
 export enum GoodOrderBy {"name", "price", "id"}

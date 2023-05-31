@@ -1,208 +1,36 @@
+import { observer } from 'mobx-react-lite'
+
 import GoodCard, { IGoodCard } from '../GoodCard/GoodCard'
 import Title, { TitleType } from '../../../../UI/Title/Title'
-
-import releImage from '../../../../assets/images/1.png'
-import curtainImage from '../../../../assets/images/2.png'
-import HDL from '../../../Partners/PartnersImages/hdl.png'
-import Jung from '../../../Partners/PartnersImages/jung.png'
-
-import classes from './PromotionSection.module.scss'
 import MySlider from '../../../../components/MySlider/MySlider'
 
-export const PromotionSection = () => {
-    const goods: IGoodCard[] = [
-        {
-            id: 1,
-            goodImages: releImage,
-            goodDesc: `Диммер 4 - канальный, 
-            0-10В с 4-канальным релейным актуатором,
-            16А на канал`,
-            cost: 3333333,
-            oldCost: 9999999,
-            rating: 4.5,
-            ratingsCount: 39,
-            brandImage: HDL,
-        },
-        {
-            id: 2,
-            goodImages: curtainImage,
-            goodDesc: `Актуатор 6 - канальный, 
-            20 А на канал, 
-            с модулем входов`,
-            cost: 564.99,
-            oldCost: 34,
-            rating: 3.5,
-            ratingsCount: 4,
-            brandImage: Jung,
-        },
-        {
-            id: 4,
-            goodImages: curtainImage,
-            goodDesc: `Актуатор 6 - канальный, 
-            20 А на канал, 
-            с модулем входов`,
-            cost: 564.99,
-            oldCost: 34,
-            rating: 3.5,
-            ratingsCount: 4,
-            brandImage: Jung,
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        },
-        {
-            id: 5,
-            goodImages: curtainImage,
-            goodDesc: `dfdfbdf gdfg df[g dfgdf gdfg dfgd f]`,
-            cost: 564
-        }
-    ]
+import { goodStore } from '../../../../store'
+import noImage from '../../../../assets/images/NoPhoto.jpg'
+import classes from './PromotionSection.module.scss'
+import { averageRating } from '../../../../components/StarRating/averageRating'
+
+export const PromotionSection = observer(() => {
+    const goods = goodStore.goods?.rows
+    if (!goods) return null
     return (
         <section className={classes.promotion}>
             <Title className={classes.promotion_title} titleType={[TitleType.sectionTitle]}>Акции</Title>
             <MySlider
                 items={goods}
-                renderItem={item =>
-                    <GoodCard
-                        className={classes.promotion_good}
-                        id={item.id}
-                        goodImages={item.goodImages}
-                        goodDesc={item.goodDesc}
-                        cost={item.cost}
-                        oldCost={item.oldCost}
-                        rating={item.rating}
-                        ratingsCount={item.ratingsCount}
-                        brandImage={item.brandImage}
-                    />
-                }
+                renderItem={good => {
+                    return (
+                        <GoodCard
+                            key={good.id}
+                            {...good}
+                            className={classes.promotion_good}
+                        />
+                    )
+                }}
                 settings={{
                     slidesPerView: 1,
                     spaceBetween: 10,
-                    navigation: { enabled: true},
-                    scrollbar: {draggable: true},
+                    navigation: { enabled: true },
+                    scrollbar: { draggable: true },
                     autoHeight: true,
                     breakpoints: {
                         900: {
@@ -219,5 +47,4 @@ export const PromotionSection = () => {
             />
         </section>
     )
-}
-
+})

@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { GoodOrderBy, IBaseTable, IGetAllJSON, IGoodToUser, IUniversalTable } from "./index.js";
+import { GoodOrderBy, IBaseTable, IGetAllJSON } from "./index";
 import { IRating } from "./RatingStore";
+import { IBrandTable } from "./BrandStore";
 
 
 export interface ICategoryTable extends IBaseTable {
@@ -11,7 +12,7 @@ export interface IGoodJSON extends IGoodTable {
     ratings: IRating[];
     category: ICategoryTable | null;
     type: IType | null;
-    brand: IUniversalTable | null;
+    brand: IBrandTable | null;
 }
 export interface IGoodTable extends IBaseTable {
     name: string;
@@ -21,13 +22,18 @@ export interface IGoodTable extends IBaseTable {
     categoryId?: number | null;
     typeId?: number | null;
     brandId?: number | null;
-    good_images?: IUniversalTable[];
+    good_images?: IGoodImage[];
     good_infos?: IGoodInfo[];
 }
-export interface IGoodInfo extends IBaseTable {
+export interface IGoodAddedTables extends IBaseTable {
     name: string;
-    description: string;
     goodId: number;
+}
+export interface IGoodImage extends IGoodAddedTables {
+    image: string;
+}
+export interface IGoodInfo extends IGoodAddedTables {
+    description: string;
 }
 
 export interface IType extends IBaseTable {
@@ -36,7 +42,7 @@ export interface IType extends IBaseTable {
 }
 
 export interface ICategoryJSON extends ICategoryTable {
-    types?: IUniversalTable[];
+    types?: IType[];
 }
 
 
@@ -169,17 +175,17 @@ export class GoodStore {
     get selectedCategoryId() { return this._goodGetParameters.selectedCategoryId }
 
     get selectedTypeId() { return this._goodGetParameters.selectedTypeId }
-    
+
     get minPrice() { return this._goodGetParameters.minPrice }
-    
+
     get maxPrice() { return this._goodGetParameters.maxPrice }
-    
+
     get name() { return this._goodGetParameters.name }
-    
+
     get orderBy() { return this._goodGetParameters.orderBy }
-    
+
     get isPromotion() { return this._goodGetParameters.isPromotion }
-    
+
     get defaultGoodGetParameters() { return this._defaultGoodGetParameters }
-    
+
 }

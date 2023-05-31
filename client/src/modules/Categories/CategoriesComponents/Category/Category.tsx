@@ -6,10 +6,11 @@ import arrowImage from '../../../../assets/icons/Arrow.svg'
 import classes from './Category.module.scss'
 interface IGoodType {
     id: number,
-    typeName: string
+    name: string,
+    categoryId?: number,
 }
 interface ICategory {
-    id: number,
+    id?: number,
     categoryName: string,
     imageSrc: string,
     types?: IGoodType[]
@@ -29,7 +30,7 @@ const Category: FC<ICategory> = memo((props) => {
         >
             <NavLink
                 className={classes.category_link}
-                to={`/catalog/${categoryName}`}
+                to={`/catalog/${id}`}
             >
                 <img className={classes.category_image} src={imageSrc} alt={categoryName} />
                 <span className={classes.category_text}>{categoryName}</span>
@@ -67,9 +68,9 @@ const Category: FC<ICategory> = memo((props) => {
                                     <div className={classes.category_type} key={type.id}>
                                         <NavLink
                                             className={classes.category_typeLink}
-                                            to={`/catalog/${categoryName}/${type.typeName}`}
+                                            to={`/catalog/${id}/${type.name}`}
                                         >
-                                            {type.typeName}
+                                            {type.name}
                                         </NavLink>
                                     </div>
 

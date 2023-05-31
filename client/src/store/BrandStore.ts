@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { IBaseTable, IGetAllJSON, IUniversalTable } from ".";
+import { IBaseTable, IGetAllJSON } from ".";
 export interface IBrandTable extends IBaseTable{
     name: string,
     image: string

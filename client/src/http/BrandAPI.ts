@@ -1,7 +1,10 @@
-import { IBaseTable, IUniversalTable } from "../store";
 import { $authHost, $host, baseBrand } from "./index";
-
-export const postBrand = async (brand: IBaseTable) => {
+interface IPostBrandParams {
+    id?: number;
+    name: string;
+    image: string;
+}
+export const postBrand = async (brand?: IPostBrandParams) => {
     const { data } = await $authHost.post(baseBrand, {...brand})
     return data
 }

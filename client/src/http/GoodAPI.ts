@@ -9,7 +9,7 @@ export const postGood = async (good: IGoodTable) => {
     const { data } = await $authHost.post(baseGood, {...good})
     return data
 }
-export const fetchGood = async (params: IGoodGetParams) => {
+export const fetchGood = async (params?: IGoodGetParams) => {
     const { data } = await $host.get(baseGood, {
         params: {
             ...params
