@@ -10,13 +10,15 @@ import catalogImage from '../../../../assets/icons/Catalog.svg'
 import aboutImage from '../../../../assets/icons/AboutUs.svg'
 import favouritesImage from '../../../../assets/icons/Favourites.svg'
 import basketImage from '../../../../assets/icons/Basket.svg'
-import testIam from '../../../../assets/testIam.jpg'
 
 import classes from './Header.module.scss'
 import HeaderUser from '../HeaderUser/HeaderUser'
+import { userStore } from '../../../../store'
+import { observer } from 'mobx-react-lite'
 
-export const Header: FC = memo(() => {
-
+export const Header: FC = observer(() => {
+  const user = userStore.user;
+  const userImage = user?.image ? user.image : undefined
   return (
     <header className={classes.header}>
       <Container>
@@ -39,7 +41,7 @@ export const Header: FC = memo(() => {
                 link='/about'
               />
             </div>
-            <HeaderSearchForm/>
+            <HeaderSearchForm />
             <div className={classes.header_linkButtons}>
               <HeaderButton
                 className={classes.header_link}
@@ -55,7 +57,7 @@ export const Header: FC = memo(() => {
               />
             </div>
           </nav>
-          <HeaderUser className={classes.header_user} userImage={testIam}/>
+          <HeaderUser className={classes.header_user} userImage={userImage} />
 
         </div>
       </Container>

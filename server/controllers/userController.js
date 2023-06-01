@@ -7,9 +7,9 @@ const validationManagement = require('../helpers/validationManagement')
 const {
     User, UserAuthorization
 } = require('../modules/models');
-const generateJwt = (id, email, role) => {
+const generateJwt = (id, email, role, image = '') => {
     return jwt.sign(
-        { id, email, role },
+        { id, email, role, image },
         process.env.SECRET_KEY,
         { expiresIn: '24h' }
     )
@@ -44,15 +44,16 @@ class userController {
     async login(req, res, next) {
         try {
             const { email, password } = req.body
-            const user = await UserAuthorization.findOne({ where: { email } })
-            if (!user) {
+            const userAuthorization = await UserAuthorization.findOne({ where: { email } })
+            if (!userAuthorization) {
                 return next(ApiError.internal('Пользователь не найден'))
             }
-            let comparePassword = bcrypt.compareSync(password, user.password)
+            let comparePassword = bcrypt.compareSync(password, userAuthorization.password)
             if (!comparePassword) {
                 return next(ApiError.internal('Указан неверный пароль'))
             }
-            const token = generateJwt(user.userId, user.email, user.role)
+            const user = await User.findOne({ where: { id: userAuthorization.userId } })
+            const token = generateJwt(user.id, userAuthorization.email, userAuthorization.role, user.image)
             return res.json({ token })
         }
         catch (e) {
@@ -61,7 +62,6 @@ class userController {
     }
     async createAdmin(req, res, next) {
         try {
-
             const { email, password } = req.body
             if (!validationManagement.isEmailValid(email)) {
                 return next(ApiError.badRequest('Некорректный email'))
@@ -78,7 +78,6 @@ class userController {
             const hashPassword = await bcrypt.hash(password, 5)
             const user = await User.create({ name: email })
             const userAuth = await UserAuthorization.create({ email, role: "ADMIN", password: hashPassword, userId: user.id })
-
             return res.json(userAuth)
         }
         catch (e) {
@@ -106,9 +105,11 @@ class userController {
                 return next(ApiError.badRequest("Пароль должен иметь минимум одну заглавную " +
                     "и строчную букву, одно чило и сотоять от 6 до 20 символов"))
             }
-            const candidate = await UserAuthorization.findOne({ where: { email } })
-            if (candidate) {
-                return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+            if (newEmail){
+                const candidate = await UserAuthorization.findOne({ where: { email: newEmail } })
+                if (candidate) {
+                    return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+                }
             }
             let image;
             let fileName
@@ -131,7 +132,9 @@ class userController {
             }, { where: { id: user.userId } })
 
             const newAuth = await UserAuthorization.findOne({ where: { userId: req.user.id } })
-            const token = generateJwt(req.user.id, newAuth.email, newAuth.password)
+            const newUser = await User.findOne({ where: { id: user.userId } })
+
+            const token = generateJwt(req.user.id, newAuth.email, newAuth.password, newUser.image)
             return res.json({ token })
         }
         catch (e) {
@@ -139,7 +142,7 @@ class userController {
         }
     }
     async check(req, res, next) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        const token = generateJwt(req.user.id, req.user.email, req.user.role, req.user.image)
         return res.json({ token })
     }
     async getById(req, res, next) {

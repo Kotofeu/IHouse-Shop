@@ -5,7 +5,7 @@ export interface IAuthAttributes {
     email: string;
 }
 export interface IUser extends IBaseTable {
-    name: string;
+    name?: string;
     phone?: string | null;
     image?: string | null;
     isSubscribed?: boolean | null;
@@ -15,6 +15,7 @@ export interface IUser extends IBaseTable {
 class UserStore {
     private _user: IUser | null = null;
     private _isAuth: boolean = false;
+    private _isAdmin: boolean = false;
     constructor() {
         makeAutoObservable(this, {}, { deep: true })
     }
@@ -22,12 +23,18 @@ class UserStore {
     setIsAuth(isAuth: boolean) {
         this._isAuth = isAuth
     }
+    setIsAdmin(role: string) {
+        this._isAdmin = role === "ADMIN"?true:false
+    }
     setUser(user: IUser) {
         this._user = user
     }
 
     get isAuth() {
         return this._isAuth
+    }
+    get isAdmin() {
+        return this._isAdmin
     }
     get user() {
         return this._user

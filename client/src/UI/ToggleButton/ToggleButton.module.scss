@@ -4,6 +4,10 @@
     display: block;
     background-color: transparent;
     border: 1px solid $text-color;
+    &:hover{
+        border-width: 4px;
+        border-color: $secondary-color;
+    }
 }
 
 .button___isActive {

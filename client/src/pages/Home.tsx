@@ -1,5 +1,4 @@
 import Container from '../UI/Container/Container';
-
 import { CategoriesNavigation } from '../modules/Categories';
 import { ComprehensiveOfferSection } from '../modules/ComprehensiveOffer';
 import { PartnersSection } from '../modules/Partners'
@@ -8,7 +7,6 @@ import { PromotionSection } from '../modules/Promotion';
 import classes from "./example.module.scss";
 
 const Home = () => {
-
   return (
     <div className={classes.home}>
       <Container>
@@ -22,7 +20,6 @@ const Home = () => {
 
           </div>
         </div>
-
       </Container>
 
     </div>

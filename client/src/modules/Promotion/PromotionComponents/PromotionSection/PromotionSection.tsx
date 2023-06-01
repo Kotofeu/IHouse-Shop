@@ -9,6 +9,7 @@ import { IGoodJSON } from '../../../../store/GoodStore'
 
 import classes from './PromotionSection.module.scss'
 import { fetchGood } from '../../../../http/GoodAPI'
+import Loader from '../../../../components/Loader/Loader'
 
 export const PromotionSection = memo(() => {
     const [
@@ -23,7 +24,9 @@ export const PromotionSection = memo(() => {
             
         }
     }, [goods])
-
+    if(goodsIsLoading){
+        return (<Loader/>)
+    }
     return (
         <section className={classes.promotion}>
             <Title className={classes.promotion_title} titleType={[TitleType.sectionTitle]}>Акции</Title>

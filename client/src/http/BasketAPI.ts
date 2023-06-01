@@ -1,11 +1,8 @@
 import { $authHost, baseBasket } from "./index";
 
-interface IPostGoodInBasket {
-    goodId: number;
-    count?: number
-}
-export const postBasket = async (basket: IPostGoodInBasket) => {
-    const { data } = await $authHost.post(baseBasket, {...basket})
+
+export const postBasket = async (goodId: number, count?: number) => {
+    const { data } = await $authHost.post(baseBasket, {goodId, count})
     return data
 }
 export const fetchBasket  = async () => {

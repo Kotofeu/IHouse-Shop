@@ -1,4 +1,3 @@
-import { memo, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import MySlider from '../../../../components/MySlider/MySlider'
