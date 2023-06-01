@@ -31,35 +31,21 @@ const AuthModal: FC<IAuthModal> = observer((props) => {
     })
     const [isShowPass, setIsShowPass] = useState<boolean>(false);
     const [isLogin, setIsLogin] = useState<boolean>(false);
-    const [reqData, setReqData] = useState<any>(null);
-    useEffect(() => {
-        if (reqData?.id) {
-            if (reqData.role) {
-              userStore.setIsAdmin(reqData.role)
-            }
-            userStore.setUser(
-              {
-                id: reqData.id,
-                users_authorization: { role: reqData.role, email: reqData.email },
-                image: reqData.image
-              })
-          }
-    }, [reqData])
     const onChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setFields(prev => ({ ...prev, [event.target.name]: event.target.value }))
     }, []);
-
     const showPass = () => {
         setIsShowPass(prev => !prev)
     }
     const handleAction = async () => {
+        let data: any;
         try {
             if (isLogin) {
-                await login(fields.email, fields.password).then(data => setReqData(data))
+                data = await login(fields.email, fields.password)
             }
             else {
                 if (!isShowPass && fields.password === fields.confirmPassword) {
-                    await registration(fields.email, fields.password).then(data => setReqData(data))
+                    data = await registration(fields.email, fields.password)
                 }
                 else {
                     alert("Пароли не совпадает")
@@ -69,8 +55,16 @@ const AuthModal: FC<IAuthModal> = observer((props) => {
         catch (e: any) {
             alert(e.response.data.message)
         }
-    }
+        if (data?.id) {
+            userStore.setUser({
+                id: data.id,
+                users_authorization: { role: data.role, email: data.email },
+                image: data.image
+            })
+            closeModal()
+        }
 
+    }
     return (
         <Modal selectedId={isOpen} closeModal={closeModal}>
             <motion.div className={
