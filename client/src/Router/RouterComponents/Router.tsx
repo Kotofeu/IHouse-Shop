@@ -28,9 +28,11 @@ const Blogs = lazy(() =>
 );
 */
 import Layout from './Layout'
+import ScrollToTop from '../../components/ScrollToTop'
 export const Router = () => {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />

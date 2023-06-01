@@ -1,4 +1,4 @@
-import { memo, FormEvent, useCallback, useState, FC } from 'react'
+import { memo, FormEvent, useCallback, useState, FC, InputHTMLAttributes } from 'react'
 
 import FooterTitle, { FooterTitleType } from '../FooterTitle/FooterTitle'
 import Form from '../../../../components/Form/From'
@@ -18,8 +18,8 @@ const FooterSubscribe: FC<IFooterSubscribe> = memo((props) => {
             //Отправка на сервер
         }, []
     )
-    const subscribeFormChange = (event: FormEvent<HTMLInputElement>) => {
-        setEmail(event.currentTarget.value)
+    const subscribeFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value)
     }
 
     return (
@@ -28,13 +28,17 @@ const FooterSubscribe: FC<IFooterSubscribe> = memo((props) => {
             <Form
                 className={classes.footer_subscribeForm}
                 onFormSubmit={subscribeFormSubmit}
-                inputValue={email}
-                inputType='text'
-                inputTitle='Поле электронной почты'
-                inputAutoComplete='off'
-                placeholder='Введите вашу почту'
-                inputOnChange={subscribeFormChange}
-                buttonTitle='Подписаться'
+                inputProps={{
+                    value:email,
+                    type:'text',
+                    title:'Поле электронной почты',
+                    autoComplete:'off',
+                    placeholder:'Введите вашу почту',
+                    onChange: subscribeFormChange,
+                }}
+                buttonProps={{
+                    buttonTitle: 'Подписаться'
+                }}
             />
         </div>)
 })

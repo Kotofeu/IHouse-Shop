@@ -2,10 +2,10 @@ import {
     memo,
     useCallback,
     useState,
-    FormEvent
+    FormEvent,
+    ChangeEvent
 } from 'react'
-import  Form  from '../../../../components/Form/From'
-import image from '../../../../assets/testIam.jpg'
+import Form from '../../../../components/Form/From'
 
 import classes from './HeaderSearchForm.module.scss'
 
@@ -18,20 +18,24 @@ const HeaderSearchForm = memo(() => {
             //Отправка на сервер
         }, []
     )
-    const searchFormChange = (event: FormEvent<HTMLInputElement>) => {
-        setSearchValue(event.currentTarget.value)
+    const searchFormChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value)
     }
     return (
         <Form
             className={classes.header_searchForm}
             onFormSubmit={searchFormSubmit}
-            inputValue={searchValue}
-            inputType='text'
-            inputTitle='Поле поиска'
-            inputAutoComplete='off'
-            placeholder='Поиск по сайту'
-            inputOnChange={searchFormChange}
-            buttonTitle='Поиск'
+            inputProps={{
+                onChange: searchFormChange,
+                value: searchValue,
+                type: 'text',
+                title: 'Поле поиска',
+                autoComplete: 'off',
+                placeholder: 'Поиск по сайту'
+            }}
+            buttonProps={{
+                buttonTitle: "Поиск"
+            }}
         />
     )
 })

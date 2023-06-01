@@ -24,9 +24,11 @@ class UserStore {
         this._isAuth = isAuth
     }
     setIsAdmin(role: string) {
+        this.setIsAuth(true)
         this._isAdmin = role === "ADMIN"?true:false
     }
     setUser(user: IUser) {
+        this.setIsAuth(true)
         this._user = user
     }
 

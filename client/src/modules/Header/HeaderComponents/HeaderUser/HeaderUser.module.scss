@@ -1,11 +1,13 @@
 @import '../../../../styles/settings.scss';
 .user {
+
+}
+.user_openForm{
     justify-content: flex-end;
     display: flex;
     align-items: center;
     cursor: pointer;
 }
-
 .user_image {
     height: 40px;
     width: 40px;
@@ -24,3 +26,4 @@
     height: 8px;
     width: 16px;
 }
+

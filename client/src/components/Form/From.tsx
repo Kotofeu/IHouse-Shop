@@ -1,43 +1,29 @@
 import {
     FC,
     memo,
-    HTMLInputTypeAttribute,
     FormEvent
 } from 'react'
 
 import classes from './Form.module.scss'
-
-interface IForm {
-    className?: string,
-
-    inputValue: string,
-    inputTitle?: string,
-    inputType?: HTMLInputTypeAttribute,
-    placeholder?: string,
-    inputAutoComplete?: string,
-    inputOnChange: (event: FormEvent<HTMLInputElement>) => void,
-
+import Input, { IInput } from '../../UI/Input/Input'
+interface IFormButton {
     buttonTitle: string,
     buttonImage?: string,
-
+}
+interface IForm {
+    className?: string,
+    buttonProps: IFormButton,
+    inputProps: IInput
     onFormSubmit: (event: FormEvent<HTMLFormElement>) => void,
 }
 const Form: FC<IForm> = memo((props) => {
     const {
         className,
-
-        inputTitle,
-        inputType = 'text',
-        inputValue,
-        placeholder,
-        inputAutoComplete = 'off',
-        inputOnChange,
-
-        buttonTitle,
-        buttonImage,
-
-        onFormSubmit,
+        buttonProps,
+        inputProps,
+        onFormSubmit
     } = props
+    const { buttonTitle, buttonImage } = buttonProps
     return (
         <form
             className={
@@ -46,19 +32,14 @@ const Form: FC<IForm> = memo((props) => {
             }
             onSubmit={onFormSubmit}
         >
-            <input
+            <Input
                 className={classes.form_input}
-                type={inputType}
-                autoComplete={inputAutoComplete}
-                title={inputTitle}
-                value={inputValue}
-                onChange={inputOnChange}
-                placeholder={placeholder}
+                {...inputProps}
             />
             <button
                 className={classes.form_button}
                 type='submit'
-                title={buttonTitle}
+                title={buttonProps.buttonTitle}
             >
                 {
                     buttonImage

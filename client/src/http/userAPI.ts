@@ -8,11 +8,11 @@ interface IEditParams extends IUser {
 }
 
 const catchTokenError = (data: any): unknown => {
-    if (!data || !data.token) {
-        return null
+    if (data && data?.token) {
+        localStorage.setItem('token', data.token)
+        return jwt_decode(data.token)
     }
-    localStorage.setItem('token', data.token)
-    return jwt_decode(data.token)
+    return null
 }
 
 export const registration = async (email: string, password: string) => {
@@ -21,7 +21,7 @@ export const registration = async (email: string, password: string) => {
 }
 
 export const login = async (email: string, password: string) => {
-
+    
     const { data } = await $host.post(`${baseUser}login`, { email, password })
     return catchTokenError(data)
 

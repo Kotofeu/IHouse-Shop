@@ -1,0 +1,16 @@
+@import '../../styles/settings.scss';
+.input {
+    display: block;
+    padding: 0 10px;
+    transition: background-color .3s ease-in-out;
+    background-color: $neutral-color;
+    border: none;
+
+    &:hover,
+    &:focus {
+        background-color: $primary-color;
+        &~.form_button {
+            background-color: $primary-color;
+        }
+    }
+}

@@ -15,7 +15,6 @@ const App = observer(() => {
   ] = useRequest<any>(check());
   useEffect(() => {
     if (user?.id && !userError) {
-      userStore.setIsAuth(true)
       if (user.role) {
         userStore.setIsAdmin(user.role)
       }
@@ -26,7 +25,6 @@ const App = observer(() => {
           image: user.image
         })
     }
-
   }, [user])
   if (userIsLoading) {
     return (
