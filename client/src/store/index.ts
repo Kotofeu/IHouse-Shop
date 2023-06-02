@@ -4,7 +4,7 @@ export {brandStore} from './BrandStore'
 export {comprehensiveOfferStore} from './ComprehensiveOfferStore'
 export {ratingStore} from './RatingStore'
 export {promotionStore} from './PromotionStore'
-
+export {favouriteStore} from './FavouriteStore'
 export interface IBaseTable {
     id: number;
     createdAt?: Date;

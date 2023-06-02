@@ -24,6 +24,10 @@
     object-fit: fill;
     display: block;
     height: 8px;
-    width: 16px;
+    width: 14px;
+    transition: transform .2s ease-in-out;
+    &___active{
+        transform: rotateZ(180deg);
+    }
 }
-
+.user_menu{ position: relative;}

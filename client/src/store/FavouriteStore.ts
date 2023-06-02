@@ -4,7 +4,7 @@ import { IGoodJSON } from "./GoodStore";
 export interface IFavourite extends IBaseTable, IGoodToUser {
     good: IGoodJSON;
 }
-export class BasketStore {
+class FavouriteStore {
     private _favourite: IGetAllJSON<IFavourite> | null = null;
     constructor() {
         makeAutoObservable(this, {}, { deep: true })
@@ -16,6 +16,5 @@ export class BasketStore {
     get favourite() {
         return this._favourite
     }
-
-
 }
+export const favouriteStore = new FavouriteStore();

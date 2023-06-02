@@ -9,13 +9,19 @@ interface IServerImage {
     style?: React.CSSProperties
 }
 const ServerImage: FC<IServerImage> = memo((props) => {
-    const { src = noPhoto, className, alt, style, altSrc = noPhoto} = props
-    const serverSrc = `${process.env.REACT_APP_API_URL}${src}`
+    const { src, className, alt, style, altSrc } = props
+    const serverSrc = src ? `${process.env.REACT_APP_API_URL}${src}` : altSrc
     const imgBroke = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-        event.currentTarget.src = altSrc
+        event.currentTarget.src = noPhoto
     }
     return (
-        <img className={className} src={serverSrc} alt={alt} onError={imgBroke} style={style}/>
+        <img
+            className={className}
+            src={serverSrc}
+            alt={alt}
+            onError={imgBroke}
+            style={{ fontSize: 0, ...style }}
+        />
     )
 })
 

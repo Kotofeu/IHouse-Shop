@@ -10,7 +10,7 @@ class PromotionStore {
         makeAutoObservable(this, {}, { deep: true })
     }
 
-    setPromotionGoods(goods: IGetAllJSON<IGoodJSON>) {
+    setPromotionGoods(goods: IGetAllJSON<IGoodJSON> | null) {
         this._promotionGoods = goods
     }
 

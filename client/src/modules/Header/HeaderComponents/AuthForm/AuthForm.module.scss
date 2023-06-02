@@ -1,6 +1,6 @@
 @import '../../../../styles/settings.scss';
 
-.authModal {
+.authForm {
     padding: 20px 30px;
     background-color: $primary-color;
     border-radius: 20px;
@@ -28,7 +28,7 @@
     // }
 }
 
-.authModal_inner {
+.authForm_inner {
     position: relative;
     z-index: 1;
     display: flex;
@@ -38,7 +38,7 @@
 
 }
 
-.authModal_tabs {
+.authForm_tabs {
     width: 100%;
     display: flex;
     gap: 15px;
@@ -46,7 +46,7 @@
     align-self: center
 }
 
-.authModal_tabButton {
+.authForm_tabButton {
     border: none;
     background-color: transparent;
     color: $text-color;
@@ -60,13 +60,13 @@
     }
 }
 
-.authModal_fields {
+.authForm_fields {
     display: flex;
     flex-direction: column;
     gap: 7px;
 }
 
-.authModal_input {
+.authForm_input {
     display: block;
     width: 100%;
     border-radius: 4px;
@@ -76,14 +76,14 @@
     &___pass {}
 }
 
-.authModal_passwordBox {
+.authForm_passwordBox {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 5px;
 }
 
-.authModal_showPassBtn {
+.authForm_showPassBtn {
     height: 35px;
     width: 35px;
     border: none;
@@ -109,13 +109,13 @@
         }
     }
 }
-.authModal_action{
+.authForm_action{
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 5px;
 }
-.authModal_actionButton{
+.authForm_actionButton{
     display: block;
     border: none;
     background-color: transparent;
@@ -123,6 +123,6 @@
     color: $title-color;
     font-weight: 500;
 }
-.authModal_actionButton___exite{
+.authForm_actionButton___exite{
     color: $text-color;
 }

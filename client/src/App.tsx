@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { userStore } from './store';
 import Loader from './components/Loader/Loader';
 const App = observer(() => {
-
   const [
     user,
     userIsLoading,
