@@ -37,7 +37,7 @@ export const Header: FC = memo(() => {
                 className={classes.header_link}
                 imageSrc={aboutImage}
                 title='О нас'
-                link='/about'
+                link='/about-us'
               />
             </div>
             <HeaderSearchForm />

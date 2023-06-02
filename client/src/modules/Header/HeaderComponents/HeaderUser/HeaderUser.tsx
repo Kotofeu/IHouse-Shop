@@ -1,8 +1,6 @@
 import { FC, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { motion } from 'framer-motion'
 import defaultUserImage from '../../../../assets/icons/User-icon.svg'
-import ArrowImage from '../../../../assets/icons/Arrow.svg'
 
 import classes from './HeaderUser.module.scss'
 import ServerImage from '../../../../UI/ServerImage/ServerImage'
@@ -38,40 +36,32 @@ const HeaderUser: FC<IHeaderUser> = observer(
                     onClick={toggleModal}
                 >
                     <ServerImage
-                        className={classes.user_image}
+                        className={
+                            [
+                                classes.user_image,
+                                isModalOpen ? classes.user_image___active : ''
+                            ].join(' ')}
                         src={userStore.user?.image || undefined}
                         altSrc={defaultUserImage}
                         alt='user'
                     />
                     {
-                        IsUserAuth &&
-                        <img
-                            className={
-                                [
-                                    classes.user_arrow,
-                                    isModalOpen ? classes.user_arrow___active : ''
-                                ].join(' ')}
-                            src={ArrowImage}
-                            alt="arrow"
-                        />
-
-                    }
-
-                </div>
-                <div className={classes.user_menu}>
-                    {
-                        !IsUserAuth
-                            ? <Modal selectedId={isModalOpen} closeModal={toggleModal}>
-                                <AuthForm formClose={toggleModal} setUser={connetcion} />
-                            </Modal>
-                            : null
-                    }
-                    {
                         IsUserAuth
-                            ? <GuestMenu isOpen={isModalOpen} onExitClick={() => connetcion(null)} />
+                            ? <GuestMenu
+                                className={classes.user_guestMenu}
+                                isOpen={isModalOpen}
+                                onExitClick={() => connetcion(null)}
+                            />
                             : null
                     }
                 </div>
+                {
+                    !IsUserAuth
+                        ? <Modal selectedId={isModalOpen} closeModal={toggleModal}>
+                            <AuthForm formClose={toggleModal} setUser={connetcion} />
+                        </Modal>
+                        : null
+                }
             </div>
         )
     }
