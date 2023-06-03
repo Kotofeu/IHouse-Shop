@@ -1,7 +1,7 @@
 import { memo, useEffect } from 'react'
 
 import { IGetAllJSON, promotionStore } from '../../../../store'
-import Title, { TitleType } from '../../../../UI/Title/Title'
+import Title from '../../../../UI/Title/Title'
 import PromotionSlider from '../PromotionSlider/PromotionSlider'
 import useRequest from '../../../../utils/hooks/useRequest'
 import { IGoodJSON } from '../../../../store/GoodStore'
@@ -29,7 +29,7 @@ export const PromotionSection = memo(() => {
     }
     return (
         <section className={classes.promotion}>
-            <Title className={classes.promotion_title} titleType={[TitleType.sectionTitle]}>Акции</Title>
+            <Title className={classes.promotion_title}>Акции</Title>
             <PromotionSlider />
         </section>
     )

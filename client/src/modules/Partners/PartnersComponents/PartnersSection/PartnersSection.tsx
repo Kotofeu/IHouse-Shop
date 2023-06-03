@@ -1,7 +1,6 @@
 import { useEffect, memo} from 'react'
 
-import PartnersParallax from '../PartnersParallax/PartnersParallax'
-import Title, { TitleType } from '../../../../UI/Title/Title'
+import Title from '../../../../UI/Title/Title'
 
 
 import classes from './PartnersSection.module.scss'
@@ -37,7 +36,6 @@ export const PartnersSection = memo(() => {
             <div className={classes.partners_inner}>
                 <Title
                     className={classes.partners_title}
-                    titleType={[TitleType.sectionTitle]}
                 >
                     Наши партнёры
                 </Title>

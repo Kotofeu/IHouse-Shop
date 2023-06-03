@@ -5,7 +5,7 @@
   position: relative;
   line-height: 1.1em;
   color: $title-color;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .title___posCetner {
@@ -14,27 +14,25 @@
 }
 
 .title___sectionTitle {
-  font-size: 24px;
+  font-size: 34px;
 
 }
 
 @media (min-width: 479.98px) {
   .title___sectionTitle {
-    //letter-spacing: .16em;
+    font-size: 28px;
   }
 }
 
 @media (min-width: 575.98px) {
   .title___sectionTitle {
-   // letter-spacing: .15em;
+    font-size: 30px;
   }
 }
 
 @media (min-width: 767.98px) {
   .title___sectionTitle {
-   /* line-height: 1.18em;
-    font-size: 24px;
-    letter-spacing: .16em;*/
+    font-size: 32px;
   }
 }
 

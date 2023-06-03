@@ -1,5 +1,5 @@
 import {memo, useEffect} from 'react'
-import Title, { TitleType } from '../../../../UI/Title/Title'
+import Title from '../../../../UI/Title/Title'
 
 
 import { IGetAllJSON, comprehensiveOfferStore } from '../../../../store'
@@ -27,7 +27,6 @@ export const ComprehensiveOfferSection = memo(() => {
         <section className={classes.comprehensiveOffer}>
             <Title
                 className={classes.comprehensiveOffer_title}
-                titleType={[TitleType.sectionTitle]}
             >
                 Комплексные предложения
             </Title>

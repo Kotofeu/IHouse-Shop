@@ -10,8 +10,11 @@ const universalSchedule = "Шоурум работает с 9.00 до 18.00 \n  
 export const OurOffice = memo((props) => {
     const { } = props
     return (
-        <div className={classes.ourOffice}>
-            <Title className={classes.ourOffice_title} titleType={[TitleType.posCetner]}>
+        <section className={classes.ourOffice}>
+            <Title
+                className={classes.ourOffice_title}
+                titleType={[TitleType.posCetner, TitleType.sectionTitle]}
+            >
                 Ждём вас в гости
             </Title>
             <OurOfficeCard
@@ -33,7 +36,7 @@ export const OurOffice = memo((props) => {
                 telNumbers={["+7 (911) 851-10-37"]}
                 email="e.marchenko@ihouse39.ru"
             />
-        </div>
+        </section>
     )
 })
 
