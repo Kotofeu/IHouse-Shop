@@ -47,17 +47,21 @@ class basketController {
         try {
             if (userId) {
                 goodInBasket = await Basket.findAndCountAll({
-                    order: [['id', 'ASC']],
                     include: [{
                         model: Good,
                         include: [
                             { model: Brand },
                             { model: Rating },
                             { model: GoodImages }
+                        ],
+                        order: [
+                            [{ model: GoodImages }, "id", 'ASC']
                         ]
                     }],
                     distinct: true,
-                    where: {userId}
+                    where: { userId },
+                    order: [['id', 'ASC']],
+
                 })
 
             }

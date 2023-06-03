@@ -36,20 +36,27 @@ class favouritesController {
         let goodInFavourites;
         try {
             if (userId) {
-                goodInFavourites = await Favourites.findAndCountAll({
-                    order: [['id', 'ASC']],
-                    include: [{
-                        model: Good,
-                        include: [
-                            { model: Brand },
-                            { model: Rating },
-                            { model: GoodImages }
-                        ]
-                    }],
-                    distinct: true,
-                    where: { userId }
-                })
-
+                goodInFavourites = await Favourites.findAndCountAll({  
+                    include: [{  
+                      model: Good,  
+                      include: [  
+                        { 
+                          model: Brand 
+                        },  
+                        { 
+                          model: Rating 
+                        },  
+                        { 
+                          model: GoodImages, 
+                          order: [['id', 'ASC']]
+                        },  
+                      ],
+                      order: [['id', 'ASC']]  
+                    }],  
+                    distinct: true,  
+                    where: { userId },  
+                    order: [['id', 'ASC']],  
+                  })
             }
             else {
                 goodInFavourites = await Favourites.findAndCountAll({

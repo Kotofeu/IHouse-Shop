@@ -1,4 +1,4 @@
-import { memo, FC, useState } from 'react'
+import { memo, FC, ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import classes from './GoodCard.module.scss'
@@ -8,7 +8,6 @@ import { averageRating } from '../GoodHelpers/averageRating';
 import StarRating from '../../../UI/StarRating/StarRating';
 import PriceBox from '../../../UI/PriceBox/PriceBox';
 import GoodCardButtons from '../GoodButtons/GoodButtons';
-import Input from '../../../UI/Input/Input';
 
 export enum GoodCardType {
     horizontalItem = classes.card___horizontal
@@ -19,9 +18,9 @@ interface IGoodCard extends IGoodJSON {
     isFavouriteDefault?: boolean;
     isInBasketDefault?: boolean;
     cardType?: GoodCardType;
+    counter?: ReactNode
 }
 export const GoodCard: FC<IGoodCard> = memo((props) => {
-
     const {
         id,
         good_images,
@@ -31,12 +30,14 @@ export const GoodCard: FC<IGoodCard> = memo((props) => {
         className = '',
         ratings,
         brand,
-        cardType = ''
+        cardType = '',
+        counter
     } = props
+
 
     let preview;
     if (good_images && good_images[0]) {
-        preview = good_images[0].image
+        preview = good_images.sort((a, b) => a.id - b.id)[0].image
     }
     const classNameJoin = [classes.card, cardType, className].join(' ')
     return (
@@ -55,15 +56,8 @@ export const GoodCard: FC<IGoodCard> = memo((props) => {
                     </div>
                 </div>
                 {
-                    cardType === GoodCardType.horizontalItem
-                        ? <div className={classes.card_count}>
-                            <div className={classes.card_countField}>
-                                <button className={classes.card_countButton}>{'<'}</button>
-                                <Input value='122' onChange={() => null} className={classes.card_countInput} type="number" />
-                                <button className={classes.card_countButton}>{'>'}</button>
-                            </div>
-
-                        </div>
+                    counter
+                        ? counter
                         : null
                 }
                 <div className={classes.card_infoBox}>

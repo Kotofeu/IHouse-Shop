@@ -1,5 +1,6 @@
 @import '../../../styles/settings.scss';
 
+
 .card {
     padding: 15px;
     border-radius: 10px;
@@ -48,11 +49,6 @@
             gap: 10px;
 
         }
-        & .card_count{
-            display: inline-flex;
-            align-items: flex-start;
-            justify-content: flex-start;
-        }
     }
 }
 
@@ -99,8 +95,10 @@
             opacity: 0;
         }
     }
+
     & a {
         transition: color .13s ease-in-out;
+
         &:hover {
             color: $secondary-color;
         }
@@ -118,50 +116,8 @@
         background: linear-gradient(rgba($primary-color, 0), $primary-color)
     }
 }
-.card_count {
-    display: none;
-
-}
-.card_countField{
-    border: 1px solid  $text-color;
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 7px;
-    position: relative;
-    height: 44px;
-    width: 90px;
 
 
-}
-.card_countInput{
-    position: absolute;
-    top: 0;
-    left: 0px;
-    right: 0px;
-    bottom: 0;
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0 30px;
-    margin: 0 auto;
-    text-align: center;
-    border: none;
-    background: transparent;
-    font-size: 17px;
-    color: $text-color;
-}
-.card_countButton{
-    position: relative;
-    z-index: 1;
-    font-size: 32px;
-    border: none;
-    padding: 0;
-    background-color: transparent;
-    font-weight: 400;
-    color: $text-color;
-}
 .card_infoBox {
     display: flex;
     flex-direction: column;

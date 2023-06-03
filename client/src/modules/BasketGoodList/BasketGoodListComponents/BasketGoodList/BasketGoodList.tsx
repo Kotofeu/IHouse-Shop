@@ -40,6 +40,7 @@ export const BasketGoodList = observer(() => {
                         className={classes.basketList_goodCard}
                         good={good.good}
                         key={good.id}
+                        goodCount = {good.count}
                     />
                 ))
             }
