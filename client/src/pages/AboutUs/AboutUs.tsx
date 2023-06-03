@@ -9,7 +9,7 @@ import { Certificate } from '../../modules/Сertificate'
 
 export const AboutUs = memo(() => {
     return (
-        <div style={{ paddingTop: "30px" }}>
+        <div className={classes.aboutUs}>
             <Container>
                 <OurOffice />
                 <Certificate />
