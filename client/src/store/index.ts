@@ -5,6 +5,7 @@ export {comprehensiveOfferStore} from './ComprehensiveOfferStore'
 export {ratingStore} from './RatingStore'
 export {promotionStore} from './PromotionStore'
 export {favouriteStore} from './FavouriteStore'
+export {basketStore} from './BasketStore'
 export interface IBaseTable {
     id: number;
     createdAt?: Date;

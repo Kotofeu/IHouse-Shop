@@ -5,6 +5,8 @@ import Layout from './Layout'
 import ScrollToTop from '../../components/ScrollToTop'
 import { Home } from '../../pages/Home'
 import { AboutUs } from '../../pages/AboutUs'
+import { Basket } from '../../pages/Basket'
+import { Favourite } from '../../pages/Favourite'
 export const Router = () => {
     return (
         <BrowserRouter>
@@ -13,6 +15,8 @@ export const Router = () => {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="about-us" element={<AboutUs />} />
+                    <Route path="basket" element={<Basket />} />
+                    <Route path="favourite" element={<Favourite />} />
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -1,4 +1,4 @@
-import { memo, FC } from 'react'
+import { memo } from 'react'
 
 import Container from '../../../../UI/Container/Container'
 import { NavLink } from 'react-router-dom'
@@ -16,7 +16,7 @@ import HeaderUser from '../HeaderUser/HeaderUser'
 
 import classes from './Header.module.scss'
 
-export const Header: FC = memo(() => {
+export const Header = memo(() => {
 
   return (
     <header className={classes.header}>
@@ -46,7 +46,7 @@ export const Header: FC = memo(() => {
                 className={classes.header_link}
                 imageSrc={favouritesImage}
                 title='Избранное'
-                link='/about'
+                link='/favourite'
               />
               <HeaderButton
                 className={classes.header_link}

@@ -5,7 +5,7 @@ export interface IBasket extends IBaseTable, IGoodToUser {
     count: number;
     good: IGoodJSON;
 }
-export class BasketStore {
+class BasketStore {
     private _basket: IGetAllJSON<IBasket> | null = null;
     constructor() {
         makeAutoObservable(this, {}, { deep: true })
@@ -18,3 +18,4 @@ export class BasketStore {
     }
 
 }
+export const basketStore = new BasketStore();

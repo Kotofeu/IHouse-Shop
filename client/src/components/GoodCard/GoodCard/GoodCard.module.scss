@@ -5,6 +5,55 @@
     border-radius: 10px;
     background-color: $primary-color;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .16);
+
+    &___horizontal {
+        & .card_inner {
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        & .card_link {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        & .card_imageBox {
+            height: 120px;
+            align-self: center;
+            min-width: 150px;
+            width: 150px;
+        }
+
+        & .card_name {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        & .card_infoBox {
+            width: 30%;
+            min-width: 250px;
+            padding-top: 0;
+
+        }
+
+        & .card_info {
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            gap: 10px;
+
+        }
+        & .card_count{
+            display: inline-flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+    }
 }
 
 .card_inner {
@@ -13,7 +62,8 @@
     justify-content: space-between;
     height: 100%;
 }
-.card_link{
+
+.card_link {
     position: relative;
 }
 
@@ -30,7 +80,9 @@
 }
 
 
-.card_desc {
+.card_name {
+    height: 100%;
+    width: 100%;
     min-height: 82px;
     padding-top: 7px;
     font-size: 18px;
@@ -41,11 +93,19 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
-    &:hover{
-        &::after{
+
+    &:hover {
+        &::after {
             opacity: 0;
         }
     }
+    & a {
+        transition: color .13s ease-in-out;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+
     &::after {
         position: absolute;
         content: '';
@@ -58,18 +118,64 @@
         background: linear-gradient(rgba($primary-color, 0), $primary-color)
     }
 }
+.card_count {
+    display: none;
+
+}
+.card_countField{
+    border: 1px solid  $text-color;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 7px;
+    position: relative;
+    height: 44px;
+    width: 90px;
+
+
+}
+.card_countInput{
+    position: absolute;
+    top: 0;
+    left: 0px;
+    right: 0px;
+    bottom: 0;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 30px;
+    margin: 0 auto;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 17px;
+    color: $text-color;
+}
+.card_countButton{
+    position: relative;
+    z-index: 1;
+    font-size: 32px;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    font-weight: 400;
+    color: $text-color;
+}
 .card_infoBox {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding-top: 10px;
     flex-grow: 1;
+
     &:first-child {
         padding-top: 0px;
         justify-content: flex-start;
 
     }
 }
+
 .card_info {
     display: flex;
     //justify-content: space-between;
