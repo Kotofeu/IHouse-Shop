@@ -1,10 +1,10 @@
-import { memo, FC } from 'react'
+import { memo, FC, MouseEvent } from 'react'
 import classes from './GuestMenu.module.scss'
 import { NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 interface IGuestMenu {
   className?: string;
-  onExitClick: () => void;
+  onExitClick: (event: MouseEvent<HTMLButtonElement>) => void;
   isOpen: boolean
 }
 const animationVariant = {
@@ -30,11 +30,21 @@ const GuestMenu: FC<IGuestMenu> = memo((props) => {
         animate={animationVariant.open}
       >
         <nav className={classes.guestMenu_nav}>
-          <NavLink className={classes.guestMenu_link} to={'/'}>Мои отзывы</NavLink>
-          <NavLink className={classes.guestMenu_link} to={'/'}>Настройки</NavLink>
+          <NavLink className={classes.guestMenu_link} to={'/'}>
+            Мои отзывы
+          </NavLink>
+          <NavLink className={classes.guestMenu_link} to={'/'}>
+            Настройки
+          </NavLink>
         </nav>
 
-        <button className={classes.guestMenu_button} type='button' onClick={onExitClick}>Выйти</button>
+        <button
+          className={classes.guestMenu_button}
+          type='button'
+          onClick={onExitClick}
+        >
+          Выйти
+        </button>
       </motion.div>
       }
 

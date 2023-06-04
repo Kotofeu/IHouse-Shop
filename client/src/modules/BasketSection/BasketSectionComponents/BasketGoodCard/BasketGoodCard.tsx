@@ -4,10 +4,11 @@ import { GoodCard, GoodCardType } from '../../../../components/GoodCard'
 
 import { IGoodJSON } from '../../../../store/GoodStore'
 import useDebounce from '../../../../utils/hooks/useDebounce';
-import { postBasket } from '../../../../http/BasketAPI';
+import { fetchBasket, postBasket } from '../../../../http/BasketAPI';
 import Counter, { CounterButtonType } from '../../../../components/Counter/Counter';
 
 import classes from './BasketGoodCard.module.scss'
+import { basketStore } from '../../../../store';
 
 
 interface IBasketGoodCard {
@@ -19,11 +20,13 @@ interface IBasketGoodCard {
 const BasketGoodCard: FC<IBasketGoodCard> = memo((props) => {
     const { className = '', good, goodCount } = props
     const [count, setCount] = useState<number>(goodCount || 1);
-    const debouncedValue = useDebounce<number>(count, 1000)
+    const debouncedValue = useDebounce<number>(count, 500)
     useEffect(() => {
-        postBasket(good.id, debouncedValue)
+        postBasket(good.id, count)
+            .then(() => fetchBasket()
+                .then(data => basketStore.setBasket(data)))
     }, [debouncedValue])
-    const joinClassName = [classes.basketgoodCard, className].join(' ')
+    const joinClassName = [classes.goodCard, className].join(' ')
     return (
         <GoodCard
             className={joinClassName}
@@ -31,7 +34,7 @@ const BasketGoodCard: FC<IBasketGoodCard> = memo((props) => {
             cardType={GoodCardType.horizontalItem}
             counter={
                 <Counter
-                    className={classes.basketgoodCard_counter}
+                    className={classes.goodCard_counter}
                     count={count}
                     setCount={setCount}
                     maxCount={99}

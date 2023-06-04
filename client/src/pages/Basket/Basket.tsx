@@ -1,13 +1,13 @@
 import { memo } from 'react'
 import Container from '../../UI/Container/Container'
-import { BasketGoodList } from '../../modules/BasketGoodList'
+import { BasketSection } from '../../modules/BasketSection'
 
 export const Basket = memo(() => {
 
     return (
         <div>
             <Container>
-                <BasketGoodList/>
+                <BasketSection/>
             </Container>
         </div>
     )

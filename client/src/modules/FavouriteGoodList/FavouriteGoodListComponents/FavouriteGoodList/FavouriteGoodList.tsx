@@ -5,47 +5,43 @@ import { observer } from 'mobx-react-lite'
 import useRequest from '../../../../utils/hooks/useRequest'
 import { IGetAllJSON, favouriteStore } from '../../../../store'
 
-import Title, { TitleType } from '../../../../UI/Title/Title'
-import Loader from '../../../../components/Loader/Loader'
-
 import { fetchFavourite } from '../../../../http/FavouriteAPI'
 import { IFavourite } from '../../../../store/FavouriteStore'
 import { GoodCard, GoodCardType } from '../../../../components/GoodCard'
 
 import classes from './FavouriteGoodList.module.scss'
+import SectionList from '../../../../components/SectionList/SectionList'
 
 
-export const FavouriteGoodList = observer(() => {
+export const FavouriteGoodList =  observer(() => {
     const [
         favourite,
         isFavouriteLoading,
         favouriteError
     ] = useRequest<IGetAllJSON<IFavourite>>(fetchFavourite())
     useEffect(() => {
-        if (favourite) (
+        if (favourite) {
             favouriteStore.setFavourite(favourite)
-        )
+        }
     }, [favourite])
-    if (isFavouriteLoading) return <Loader />
-    if (favouriteError) return null
 
     return (
         <div className={classes.favouriteList}>
-            <Title
-                className={classes.favouriteList_title}
-                titleType={[TitleType.posCetner, TitleType.sectionTitle]}>
-                Ваше избранное
-            </Title>
-            {
-                favouriteStore.favourite?.rows.map(favourite => (
+            <SectionList
+                title='Ваше избранное'
+                error={favouriteError}
+                emptySubtitle='У вас нет избранных товаров'
+                isLoading={isFavouriteLoading}
+                items={favouriteStore.favourite?.rows || []}
+                renderItem={(item: IFavourite) => (
                     <GoodCard
                         className={classes.favouriteList_goodCard}
                         cardType={GoodCardType.horizontalItem}
-                        {...favourite.good}
-                        key={favourite.id}
+                        {...item.good}
+                        key={item.id}
                     />
-                ))
-            }
+                )}
+            />
         </div>
     )
 })

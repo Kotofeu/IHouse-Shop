@@ -5,9 +5,9 @@ import ToggleButton from '../../../UI/ToggleButton/ToggleButton'
 import favouritesImage from '../../../assets/icons/Favourites.svg'
 import basketImage from '../../../assets/icons/Basket.svg'
 
-import { userStore } from '../../../store'
-import { deleteBasket, isGoodInBasket, postBasket } from '../../../http/BasketAPI'
-import { deleteFavourite, isGoodInFavourite, postFavourite } from '../../../http/FavouriteAPI'
+import { basketStore, favouriteStore, userStore } from '../../../store'
+import { deleteBasket, fetchBasket, isGoodInBasket, postBasket } from '../../../http/BasketAPI'
+import { deleteFavourite, fetchFavourite, isGoodInFavourite, postFavourite } from '../../../http/FavouriteAPI'
 
 interface IGoodCardButtons {
     goodId: number;
@@ -34,16 +34,18 @@ const GoodCardButtons: FC<IGoodCardButtons> = observer((props) => {
 
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement>, action: GoodButtonAction) => {
         event.preventDefault();
+        const favouriteAction = isFavouriteActive ? deleteFavourite : postFavourite
+        const basketAction = isBasketActive ? deleteBasket : postBasket
         try {
             if (action === GoodButtonAction.FAVOURITE_ACTION) {
-                isFavouriteActive
-                    ? await deleteFavourite(goodId)
-                    : await postFavourite(goodId)
+                await favouriteAction(goodId)
+                    .then(() => fetchFavourite()
+                        .then(data => favouriteStore.setFavourite(data)))
                 setIsFavouriteActive(prev => !prev)
             } else if (action === GoodButtonAction.BASKET_ACTION) {
-                isBasketActive
-                    ? await deleteBasket(goodId)
-                    : await postBasket(goodId)
+                await basketAction(goodId)
+                    .then(() => fetchBasket()
+                        .then(data => basketStore.setBasket(data)))
                 setIsBasketActive(prev => !prev)
             }
         } catch (error) {

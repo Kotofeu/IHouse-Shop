@@ -6,26 +6,6 @@
     border-radius: 20px;
     position: relative;
     overflow: hidden;
-
-    // &::before {
-    //     content: "";
-    //     position: absolute;
-    //     transition: transform .2s ease-in-out;
-    //     width: 100%;
-    //     top: 0;
-    //     bottom: 0;
-    //     left: 0;
-    //     right: 0;
-    //     background-color: $secondary-color;
-    //     transform: translateX(-50%);
-    // }
-
-    // &___isLogin {
-    //     &::before {
-    //         transform: translateX(50%);
-    //     }
-
-    // }
 }
 
 .authForm_inner {
@@ -89,7 +69,9 @@
     border: none;
     padding: 0;
     position: relative;
-
+    &:hover{
+        border: none;
+    }
     &::after {
         content: "";
         position: absolute;

@@ -1,11 +1,11 @@
 @import '../../../../styles/settings.scss';
 
-.basketGoodCard {}
+.goodCard {}
 
 
-.basketgoodCard_counter {
+.goodCard_counter {
     border: 1px solid $text-color;
     border-radius: 10px;
-    height: 44px;
-    width: 130px;
+    height: 42.2px;
+    min-width: 90px;
 }

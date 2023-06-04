@@ -1,0 +1,12 @@
+.sectionList{
+    padding-top: 30px;
+    min-height: calc(100vh - 105px);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+
+}
+.sectionList_title{
+    padding-bottom: 20px;
+}

@@ -10,9 +10,10 @@ class BasketStore {
     constructor() {
         makeAutoObservable(this, {}, { deep: true })
     }
-    setBasket(basket: IGetAllJSON<IBasket>) {
+    setBasket(basket: IGetAllJSON<IBasket> | null) {
         this._basket = basket
     }
+    
     get basket() {
         return this._basket
     }

@@ -10,7 +10,7 @@ class FavouriteStore {
         makeAutoObservable(this, {}, { deep: true })
     }
 
-    setFavourite(favourite: IGetAllJSON<IFavourite>) {
+    setFavourite(favourite: IGetAllJSON<IFavourite> | null) {
         this._favourite = favourite
     }
     get favourite() {

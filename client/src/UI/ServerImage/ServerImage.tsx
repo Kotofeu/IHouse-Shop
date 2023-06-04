@@ -17,7 +17,7 @@ const ServerImage: FC<IServerImage> = memo((props) => {
     return (
         <img
             className={className}
-            src={serverSrc}
+            src={serverSrc || noPhoto}
             alt={alt}
             onError={imgBroke}
             style={{ fontSize: 0, ...style }}

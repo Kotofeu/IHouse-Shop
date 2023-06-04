@@ -24,7 +24,6 @@ const StarRating: FC<IStarRating> = memo((props) => {
     
     return (
         <div className={className}>
-            
             <Rating
                 rating={rating}
                 changeRating={setRating}

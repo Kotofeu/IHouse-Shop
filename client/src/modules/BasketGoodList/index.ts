@@ -1,1 +1,0 @@
-export {BasketGoodList} from './BasketGoodListComponents/BasketGoodList/BasketGoodList'

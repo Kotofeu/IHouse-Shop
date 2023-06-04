@@ -2,10 +2,10 @@ import { Router } from './Router';
 import { observer } from 'mobx-react-lite'
 import './styles/style.scss'
 import useRequest from './utils/hooks/useRequest';
-import { check, getUserById } from './http/userAPI';
+import { check } from './http/userAPI';
 import { useEffect } from 'react';
 import { userStore } from './store';
-import Loader from './components/Loader/Loader';
+import Loader from './UI/Loader/Loader';
 const App = observer(() => {
   const [
     user,

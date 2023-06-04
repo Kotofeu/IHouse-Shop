@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, MouseEvent, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import defaultUserImage from '../../../../assets/icons/User-icon.svg'
 
@@ -22,10 +22,17 @@ const HeaderUser: FC<IHeaderUser> = observer(
             setIsModalOpen(false)
             userStore.setIsAuth(!!user)
             userStore.setUser(user)
-            if (!user) localStorage.setItem('token', '')
+            if (!user) {
+                localStorage.setItem('token', '')
+                
+            }
         }
         const toggleModal = () => {
             setIsModalOpen(prev => !prev)
+        }
+        const handleExit = (event: MouseEvent<HTMLButtonElement>) => {
+            event.stopPropagation();
+            connetcion(null)
         }
         return (
             <div
@@ -50,7 +57,7 @@ const HeaderUser: FC<IHeaderUser> = observer(
                             ? <GuestMenu
                                 className={classes.user_guestMenu}
                                 isOpen={isModalOpen}
-                                onExitClick={() => connetcion(null)}
+                                onExitClick={handleExit}
                             />
                             : null
                     }

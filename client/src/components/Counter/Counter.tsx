@@ -72,6 +72,7 @@ const Counter: FC<ICounter> = memo((props) => {
                 onChange={handleChange}
                 className={classes.counter_input}
                 type="number"
+                title='Количество'
             />
             <button
                 className={[
