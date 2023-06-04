@@ -1,7 +1,4 @@
-import { memo, useEffect, useState } from 'react'
-import Title, { TitleType } from '../../../../UI/Title/Title'
-import { BasketGoodList } from '../BasketGoodList/BasketGoodList'
-import Loader from '../../../../UI/Loader/Loader'
+import {  useEffect, useState } from 'react'
 import useRequest from '../../../../utils/hooks/useRequest'
 import { IGetAllJSON } from '../../../../store'
 import { IBasket, basketStore } from '../../../../store/BasketStore'
@@ -34,28 +31,27 @@ export const BasketSection = observer(() => {
         }
     }, [basketStore.basket])
     return (
-        <div className={classes.basket}>
-            <SectionList
-                title="Ваша корзина"
-                error={basketError}
-                emptySubtitle='Ваша корзина пуста'
-                isLoading={isBasketLoading}
-                items={basketStore.basket?.rows || []}
-                renderItem={(item: IBasket) => (
-                    <BasketGoodCard
-                        className={classes.basket_goodCard}
-                        good={item.good}
-                        key={item.id}
-                        goodCount={item.count}
-                    />
-                )}
-                footer={
-                    amount && !isBasketLoading
-                        ? <TotalAmount className={classes.basket_footer} amountString={`Всего: ${amount} ₽`} />
-                        : null
-                }
-            />
+        <SectionList
+            className={classes.basket}
+            title="Ваша корзина"
+            error={basketError}
+            emptySubtitle='Ваша корзина пуста'
+            isLoading={isBasketLoading}
+            items={basketStore.basket?.rows || []}
+            renderItem={(item: IBasket) => (
+                <BasketGoodCard
+                    className={classes.basket_goodCard}
+                    good={item.good}
+                    key={item.id}
+                    goodCount={item.count}
+                />
+            )}
+            footer={
+                amount && !isBasketLoading
+                    ? <TotalAmount className={classes.basket_footer} amountString={`Всего: ${amount} ₽`} />
+                    : null
+            }
+        />
 
-        </div>
     )
 })

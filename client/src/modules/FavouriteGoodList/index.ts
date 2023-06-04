@@ -1,1 +1,0 @@
-export {FavouriteGoodList} from './FavouriteGoodListComponents/FavouriteGoodList/FavouriteGoodList'

@@ -1,12 +1,12 @@
 import {memo} from 'react'
 import Container from '../../UI/Container/Container'
-import { FavouriteGoodList } from '../../modules/FavouriteGoodList'
+import { FavouriteSection } from '../../modules/FavouriteSection'
 
 export const Favourite = memo(() => {
     return (
         <div>
             <Container>
-                <FavouriteGoodList/>
+                <FavouriteSection/>
             </Container>
         </div>
     )

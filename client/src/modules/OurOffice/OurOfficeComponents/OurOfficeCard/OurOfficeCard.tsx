@@ -74,6 +74,7 @@ const OurOfficeCard: FC<IOurOfficeCard> = memo((props) => {
                         src={mapSrc}
                         width='100%'
                         height='350px'
+                        name = {title}
                     />
 
                 </div>
@@ -82,7 +83,7 @@ const OurOfficeCard: FC<IOurOfficeCard> = memo((props) => {
             {
                 imageSrc
                     ? <div className={classes.officeCard_imageBox}>
-                        <img className={classes.officeCard_image} src={imageSrc} />
+                        <img className={classes.officeCard_image} src={imageSrc}  alt={title}/>
                     </div>
                     : null
             }
