@@ -10,6 +10,7 @@ export const postGood = async (good: IGoodTable) => {
     return data
 }
 export const fetchGood = async (params?: IGoodGetParams) => {
+   // console.log(params)
     const { data } = await $host.get(baseGood, {
         params: {
             ...params

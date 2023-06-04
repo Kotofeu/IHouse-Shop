@@ -7,6 +7,7 @@ import { Home } from '../../pages/Home'
 import { AboutUs } from '../../pages/AboutUs'
 import { Basket } from '../../pages/Basket'
 import { Favourite } from '../../pages/Favourite'
+import { Catalog } from '../../pages/Catalog'
 export const Router = () => {
     return (
         <BrowserRouter>
@@ -17,6 +18,7 @@ export const Router = () => {
                     <Route path="about-us" element={<AboutUs />} />
                     <Route path="basket" element={<Basket />} />
                     <Route path="favourite" element={<Favourite />} />
+                    <Route path="catalog" element={<Catalog />} />
                 </Route>
             </Routes>
         </BrowserRouter>

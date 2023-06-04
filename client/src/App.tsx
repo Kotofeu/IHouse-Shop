@@ -10,8 +10,12 @@ const App = observer(() => {
   const [
     user,
     userIsLoading,
-    userError
-  ] = useRequest<any>(check());
+    userError,
+    userChekExecute
+  ] = useRequest<any>(check);
+  useEffect(() => {
+    userChekExecute();
+  }, [])
   useEffect(() => {
     if (user?.id && !userError) {
       if (user.role) {

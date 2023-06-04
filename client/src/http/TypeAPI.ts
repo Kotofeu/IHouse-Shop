@@ -5,6 +5,10 @@ export const postType = async (type: IType) => {
     const { data } = await $authHost.post(baseType, {...type})
     return data
 }
+export const fetchTypes  = async () => {
+    const { data } = await $host.get(baseType)
+    return data
+}
 export const fetchTypesByCategory  = async (categoryId?: number) => {
     const { data } = await $host.get(baseType, {
         params: {categoryId}

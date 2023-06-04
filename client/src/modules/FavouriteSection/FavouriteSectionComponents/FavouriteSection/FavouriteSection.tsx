@@ -18,7 +18,7 @@ export const FavouriteSection = observer(() => {
         favourite,
         isFavouriteLoading,
         favouriteError
-    ] = useRequest<IGetAllJSON<IFavourite>>(fetchFavourite())
+    ] = useRequest<IGetAllJSON<IFavourite>>(fetchFavourite)
     useEffect(() => {
         if (favourite) {
             favouriteStore.setFavourite(favourite)

@@ -88,7 +88,6 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    overflow: hidden;
 
     &:hover {
         &::after {
@@ -97,6 +96,8 @@
     }
 
     & a {
+        overflow: hidden;
+
         transition: color .13s ease-in-out;
 
         &:hover {

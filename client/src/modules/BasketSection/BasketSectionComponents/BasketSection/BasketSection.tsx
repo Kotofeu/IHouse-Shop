@@ -15,7 +15,7 @@ export const BasketSection = observer(() => {
         basket,
         isBasketLoading,
         basketError
-    ] = useRequest<IGetAllJSON<IBasket>>(fetchBasket())
+    ] = useRequest<IGetAllJSON<IBasket>>(fetchBasket)
     const [amount, setAmount] = useState<number>(0)
     useEffect(() => {
         if (basket) {

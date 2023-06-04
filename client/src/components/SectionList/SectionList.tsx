@@ -9,6 +9,7 @@ import classes from './SectionList.module.scss'
 
 interface ISectionList<T> {
     className?: string;
+    listClassName?: string;
     title: string;
     error: any;
     emptySubtitle: string;
@@ -20,6 +21,7 @@ interface ISectionList<T> {
 export default function SectionList<T>(props: ISectionList<T>) {
     const {
         className,
+        listClassName = '',
         title,
         error,
         emptySubtitle,
@@ -44,7 +46,12 @@ export default function SectionList<T>(props: ISectionList<T>) {
                 isLoading && !items?.length ? <Loader /> : null
             }
             {
-                items && items.map(renderItem)}
+                items ?
+                    <div className={listClassName}>
+                        {items.map(renderItem)}
+                    </div>
+                    : null
+            }
             {
                 !items?.length && !isLoading
                     ? <Title titleType={[TitleType.posCetner]}>{emptySubtitle}</Title>

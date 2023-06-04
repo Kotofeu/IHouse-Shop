@@ -1,10 +1,10 @@
-import { memo, useEffect } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { IGetAllJSON, promotionStore } from '../../../../store'
 import Title from '../../../../UI/Title/Title'
 import PromotionSlider from '../PromotionSlider/PromotionSlider'
 import useRequest from '../../../../utils/hooks/useRequest'
-import { IGoodJSON } from '../../../../store/GoodStore'
+import { IGoodGetParams, IGoodJSON } from '../../../../store/GoodStore'
 
 
 import classes from './PromotionSection.module.scss'
@@ -16,12 +16,10 @@ export const PromotionSection = memo(() => {
         goods,
         goodsIsLoading,
         goodsError
-    ] = useRequest<IGetAllJSON<IGoodJSON>>(fetchGood());
-    
+    ] = useRequest<IGetAllJSON<IGoodJSON>, IGoodGetParams>(fetchGood, {isPromotion: true});
     useEffect(() => {
-        if (goods) {
+        if (goods?.rows && !promotionStore.promotionGoods?.rows) {
             promotionStore.setPromotionGoods(goods)
-            
         }
     }, [goods])
     if(goodsIsLoading){

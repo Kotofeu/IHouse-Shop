@@ -15,12 +15,12 @@ export const PartnersSection = memo(() => {
     const
         [
             partners,
-            brandsIsLoading,
-            brandsError
-        ] = useRequest<IGetAllJSON<IBrandTable>>(fetchBrand());
+            partnersIsLoading,
+            partnersError
+        ] = useRequest<IGetAllJSON<IBrandTable>>(fetchBrand);
 
     useEffect(() => {
-        if (partners) {
+        if (partners?.rows && !brandStore.brands?.rows) {
             brandStore.setBrands(partners)
         }
     }, [partners])

@@ -9,8 +9,6 @@
 }
 
 .category_link {
-    position: relative;
-    z-index: 1;
     display: flex;
     align-items: center;
     background-color: $neutral-color;
@@ -37,25 +35,8 @@
     color: $title-color;
 }
 
-.category_openButton {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    border: none;
-    background-color: transparent;
-    padding: 0 15px;
-    transition: transform .3s ease-in-out;
-    will-change: transform;
-    &___active {
-        transform: rotate(180deg);
-
-    }
-}
-
 .category_typeList {
     padding-left: 10px;
-    overflow: hidden;
 }
 
 .category_type {

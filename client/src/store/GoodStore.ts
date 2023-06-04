@@ -50,9 +50,9 @@ export interface ICategoryJSON extends ICategoryTable {
 export interface IGoodGetParams {
     page?: number;
     limit?: number;
-    selectedCategoryId?: number;
-    selectedTypeId?: number;
-    selectedBrandId?: number;
+    categoryId?: number;
+    typeId?: number;
+    brandId?: number;
     minPrice?: number;
     maxPrice?: number;
     name?: string;
@@ -69,14 +69,10 @@ class GoodStore {
     private _defaultGoodGetParameters: IGoodGetParams = {
         page: 1,
         limit: 10,
-        selectedBrandId: undefined,
-        selectedCategoryId: undefined,
-        selectedTypeId: undefined,
         minPrice: 1,
         maxPrice: 9999999,
         name: '',
         orderBy: GoodOrderBy.id,
-        isPromotion: undefined
     }
     // Параметры для запроса товаров
     private _goodGetParameters: IGoodGetParams = this.defaultGoodGetParameters
@@ -102,9 +98,9 @@ class GoodStore {
         this._goodGetParameters = {
             page: params.page,
             limit: params.limit,
-            selectedBrandId: params.selectedBrandId,
-            selectedCategoryId: params.selectedCategoryId,
-            selectedTypeId: params.selectedTypeId,
+            brandId: params.brandId,
+            categoryId: params.categoryId,
+            typeId: params.typeId,
             minPrice: params.maxPrice,
             maxPrice: params.maxPrice,
             name: params.name,
@@ -120,17 +116,17 @@ class GoodStore {
         this.setPage(1)
         this._goodGetParameters.limit = limit
     }
-    setSelectedCategoryId(selectedCategoryId: number | undefined) {
+    setCategoryId(categoryId: number | undefined) {
         this.setPage(1)
-        this._goodGetParameters.selectedCategoryId = selectedCategoryId
+        this._goodGetParameters.categoryId = categoryId
     }
-    setSelectedTypeId(selectedTypeId: number | undefined) {
+    setTypeId(typeId: number | undefined) {
         this.setPage(1)
-        this._goodGetParameters.selectedTypeId = selectedTypeId
+        this._goodGetParameters.typeId = typeId
     }
-    setSelectedBrandId(selectedBrandId: number | undefined) {
+    setBrandId(brandId: number | undefined) {
         this.setPage(1)
-        this._goodGetParameters.selectedBrandId = selectedBrandId
+        this._goodGetParameters.brandId = brandId
     }
     setMinPrice(minPrice: number) {
         this.setPage(1)
@@ -170,11 +166,11 @@ class GoodStore {
 
     get limit() { return this._goodGetParameters.limit }
 
-    get selectedBrandId() { return this._goodGetParameters.selectedBrandId }
+    get brandId() { return this._goodGetParameters.brandId }
 
-    get selectedCategoryId() { return this._goodGetParameters.selectedCategoryId }
+    get categoryId() { return this._goodGetParameters.categoryId }
 
-    get selectedTypeId() { return this._goodGetParameters.selectedTypeId }
+    get typeId() { return this._goodGetParameters.typeId }
 
     get minPrice() { return this._goodGetParameters.minPrice }
 

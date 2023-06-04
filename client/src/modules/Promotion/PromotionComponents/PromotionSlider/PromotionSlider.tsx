@@ -9,7 +9,7 @@ import { promotionStore } from '../../../../store'
 const PromotionSlider = observer(() => {
     const goods = promotionStore.promotionGoods?.rows
 
-    if (!goods) return null
+    if (!goods?.length) return null
     return (
         <MySlider
             items={goods}

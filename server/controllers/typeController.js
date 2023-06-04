@@ -28,7 +28,7 @@ class typeController {
             next(ApiError.badRequest(e.message));
         }
     }
-    async getAll(req, res, next) {
+    async getByCategory(req, res, next) {
         try {
             let { categoryId } = req.query;
             let type;
@@ -39,11 +39,11 @@ class typeController {
                     distinct:true
 
                 })
+                return res.json(type)
             }
             else {
-                type = await Type.findAndCountAll()
+               return res.json(0)
             }
-            return res.json(type);
         }
         catch (e) {
             next(ApiError.badRequest(e.message));

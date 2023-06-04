@@ -1,4 +1,4 @@
-import { memo, useEffect} from 'react'
+import { memo, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import Category from '../Category/Category'
@@ -10,37 +10,45 @@ import classes from './CategoriesNavigation.module.scss'
 import useRequest from '../../../../utils/hooks/useRequest'
 import { ICategoryJSON } from '../../../../store/GoodStore'
 import { fetchCategory } from '../../../../http/CategoryAPI'
+import Loader from '../../../../UI/Loader/Loader'
 
 export const CategoriesNavigation = observer(() => {
   const [
     categories,
     categoriesIsLoading,
     categoriesError
-  ] = useRequest<IGetAllJSON<ICategoryJSON>>(fetchCategory());
+  ] = useRequest<IGetAllJSON<ICategoryJSON>>(fetchCategory);
 
   useEffect(() => {
-    if (categories && (categories !== goodStore.categories)) {
+    if (categories?.rows && !goodStore.categories?.rows) {
       goodStore.setCategories(categories)
     }
   }, [categories])
   return (
     <nav className={classes.categories}>
       {
-        goodStore.categories
-          ? goodStore.categories.rows.map((category) => (
+        !categoriesIsLoading
+          ? <>
+            {
+              goodStore.categories
+                ? goodStore.categories.rows.map((category) => (
+                  <Category
+                    categoryName={category.name}
+                    imageSrc={`${process.env.REACT_APP_API_URL}${category.image}`}
+                    id={category.id}
+                    key={category.id}
+                    types={category.types} />
+                ))
+                : null
+            }
             <Category
-              categoryName={category.name}
-              imageSrc={`${process.env.REACT_APP_API_URL}${category.image}`}
-              id={category.id}
-              key={category.id}
-              types={category.types} />
-          ))
-          : null
+              categoryName="Другое"
+              imageSrc={otherImage}
+              key="Другое" />
+          </>
+          : <Loader />
       }
-      <Category
-        categoryName="Другое"
-        imageSrc={otherImage}
-        key="Другое"/>
+
     </nav>
   )
 })
