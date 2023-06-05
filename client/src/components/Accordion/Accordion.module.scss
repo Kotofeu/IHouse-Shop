@@ -1,12 +1,12 @@
-.accardion {}
+.accordion {}
 
-.accardion_title {
+.accordion_title {
     position: relative;
     z-index: 1;
     width: 100%;
 }
 
-.accardion_openButton {
+.accordion_openButton {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -23,7 +23,7 @@
     }
 }
 
-.accardion_typeList {
+.accordion_typeList {
     overflow: hidden;
 
 }

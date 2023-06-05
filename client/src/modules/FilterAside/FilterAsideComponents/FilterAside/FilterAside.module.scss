@@ -9,9 +9,11 @@
     position: relative;
     margin-top: 30px;
     background-color: $primary-color;
+    min-height: calc(100vh - 130px);
+    height: 100%;
 }
 
-.filterAside_accardion{
+.filterAside_accordion{
     width: 100%;
     margin-top: 10px;
 
@@ -20,7 +22,7 @@
     }
 }
 .filterAside_title {
-    
+
 }
 
 .filterAside_checkbox {
@@ -29,4 +31,9 @@
     &:first-child{
         margin-top: 8px;
     }
+}
+.filterAside_error{
+    font-size: 20px;
+    text-align: center;
+    
 }

@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react'
+import { memo, useEffect, Dispatch } from 'react'
 import { IGetAllJSON, brandStore, goodStore } from '../../../../store';
 import { ICategoryJSON, IType } from '../../../../store/GoodStore';
 import useRequest from '../../../../utils/hooks/useRequest';
@@ -7,13 +7,13 @@ import { IBrandTable } from '../../../../store/BrandStore';
 import { fetchBrand } from '../../../../http/BrandAPI';
 import { fetchTypesByCategory } from '../../../../http/TypeAPI';
 
-import Title from '../../../../UI/Title/Title';
-import Loader from '../../../../UI/Loader/Loader';
 interface IFilterAsideFetching {
     categoryId: number | undefined;
+    setIsLoading: Dispatch<React.SetStateAction<boolean>>
+    setError: Dispatch<React.SetStateAction<string>>
 }
 export const FilterAsideFetching = memo((props: IFilterAsideFetching) => {
-    const { categoryId } = props
+    const { categoryId, setIsLoading, setError } = props
     const [
         categories,
         categoriesIsLoading,
@@ -35,18 +35,23 @@ export const FilterAsideFetching = memo((props: IFilterAsideFetching) => {
     }, [categoryId])
     useEffect(() => {
         if (categories?.rows && !goodStore.categories?.rows) {
-                goodStore.setCategories(categories)
+            goodStore.setCategories(categories)
         }
         if (brands?.rows && !brandStore.brands?.rows) {
-                brandStore.setBrands(brands)
+            brandStore.setBrands(brands)
         }
         if (type) {
-                goodStore.setTypes(type)
+            goodStore.setTypes(type)
         }
     }, [categories, brands, type])
-    // if (categoriesIsLoading || brandsIsLoading) return <Loader />
-    // if (categoriesError || brandsError || typeError) {
-    //     return <Title>Ошибка подключения: {categoriesError?.message ?? 400}</Title>
-    // }
+
+    useEffect(() => {
+        setIsLoading(categoriesIsLoading || brandsIsLoading)
+    }, [categoriesIsLoading, brandsIsLoading])
+    useEffect(() => {
+        if (categoriesError || brandsError || typeError) {
+            setError("Ошибка подключения")
+        }
+    }, [categoriesError, brandsError, typeError])
     return null;
 })

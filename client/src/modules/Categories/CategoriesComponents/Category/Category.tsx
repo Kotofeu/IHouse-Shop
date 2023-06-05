@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 import arrowImage from '../../../../assets/icons/Arrow.svg'
 import classes from './Category.module.scss'
-import Accardion from '../../../../components/Accardion/Accardion'
+import Accordion from '../../../../components/Accordion/Accordion'
 interface IGoodType {
     id: number,
     name: string,
@@ -20,7 +20,7 @@ const Category: FC<ICategory> = memo((props) => {
     const { id, categoryName, imageSrc, types } = props
     const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
     return (
-        <Accardion
+        <Accordion
             className={classes.category}
             listClassName={classes.category_typeList}
             titleElement={(

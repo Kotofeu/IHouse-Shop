@@ -2,9 +2,9 @@ import { ReactNode, Dispatch } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import arrowImage from '../../assets/icons/Arrow.svg'
 
-import classes from './Accardion.module.scss'
+import classes from './Accordion.module.scss'
 
-interface IAccardion<T> {
+interface IAccordion<T> {
     className?: string;
     listClassName?: string;
     titleElement: ReactNode;
@@ -14,7 +14,7 @@ interface IAccardion<T> {
     setIsOpen: Dispatch<React.SetStateAction<boolean>>;
     renderItem: (item: T, index: number) => ReactNode;
 }
-function Accardion<T>(props: IAccardion<T>) {
+function Accordion<T>(props: IAccordion<T>) {
     const {
         className = '',
         listClassName = '',
@@ -30,19 +30,19 @@ function Accardion<T>(props: IAccardion<T>) {
     }
     return (
         <div
-            className={[classes.accardion, className].join(' ')}
+            className={[classes.accordion, className].join(' ')}
             onMouseEnter={isMouseReact ? () => actionHandler(true) : undefined}
             onMouseLeave={isMouseReact ? () => actionHandler(false) : undefined}
         >
-            <div className={classes.accardion_title}>
+            <div className={classes.accordion_title}>
                 {titleElement}
                 {
                     items.length
                         ? <button
                             className={
                                 [
-                                    classes.accardion_openButton,
-                                    isOpen ? classes.accardion_openButton___active : ""
+                                    classes.accordion_openButton,
+                                    isOpen ? classes.accordion_openButton___active : ""
                                 ]
                                     .join(' ')
                             }
@@ -56,7 +56,7 @@ function Accardion<T>(props: IAccardion<T>) {
                 {
                     items.length && isOpen
                         ? <motion.div
-                            className={[classes.accardion_typeList, listClassName].join(' ')}
+                            className={[classes.accordion_typeList, listClassName].join(' ')}
                             initial="collapsed"
                             animate="open"
                             exit="collapsed"
@@ -74,4 +74,4 @@ function Accardion<T>(props: IAccardion<T>) {
     )
 }
 
-export default Accardion
+export default Accordion
