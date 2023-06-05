@@ -1,0 +1,19 @@
+.filterAside_checkbox {
+    margin: 2px 0;
+    padding: 2px 0;
+
+    &:first-child {
+        margin-top: 8px;
+    }
+}
+
+.filterAside_accordion {
+    width: 100%;
+    margin-top: 10px;
+
+    &:first-child {
+        margin-top: 0px;
+    }
+}
+
+.filterAside_title {}
