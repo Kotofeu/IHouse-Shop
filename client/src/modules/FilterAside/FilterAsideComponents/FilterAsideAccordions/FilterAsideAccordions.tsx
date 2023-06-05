@@ -7,6 +7,7 @@ import Accordion from '../../../../components/Accordion/Accordion';
 import { FilterTitle } from '../FilterTitle/FilterTitle';
 
 import classes from './FilterAsideAccordions.module.scss'
+import { BRAND_ID, CATEGORY_ID, TYPE_ID } from '../../../../utils/const/getGoodQueryParams';
 
 interface IFilterAsideAccordions {
     fields: IGoodGetParams;
@@ -35,7 +36,7 @@ export const FilterAsideAccordions: FC<IFilterAsideAccordions> = observer((props
             renderItems: (item: IUniversalItem) => (
                 <FilterAsideCheckbox
                     key={item.id}
-                    name="brandId"
+                    name={BRAND_ID}
                     value={item.id}
                     isChecked={item.id === fields.brandId}
                     onChange={onChangeSelectorHandler}
@@ -52,7 +53,7 @@ export const FilterAsideAccordions: FC<IFilterAsideAccordions> = observer((props
             renderItems: (item: IUniversalItem) => (
                 <FilterAsideCheckbox
                     key={item.id}
-                    name="categoryId"
+                    name={CATEGORY_ID}
                     value={item.id}
                     isChecked={item.id === fields.categoryId}
                     onChange={onChangeSelectorHandler}
@@ -69,7 +70,7 @@ export const FilterAsideAccordions: FC<IFilterAsideAccordions> = observer((props
             renderItems: (item: IUniversalItem) => (
                 <FilterAsideCheckbox
                     key={item.id}
-                    name="typeId"
+                    name={TYPE_ID}
                     value={item.id}
                     isChecked={item.id === fields.typeId}
                     onChange={onChangeSelectorHandler}

@@ -58,6 +58,7 @@ export interface IGoodGetParams {
     name?: string;
     orderBy?: GoodOrderBy
     isPromotion?: boolean;
+    
 }
 export enum GoodOrderBy {"name", "price", "id"}
 

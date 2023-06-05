@@ -29,7 +29,7 @@ export const FilterAsideFetching = memo((props: IFilterAsideFetching) => {
         typeIsLoading,
         typeError, ,
         setTypeCategoryId
-    ] = useRequest<IGetAllJSON<IType>, number>(fetchTypesByCategory, undefined, false);
+    ] = useRequest<IGetAllJSON<IType>, number>(fetchTypesByCategory, categoryId);
     useEffect(() => {
         setTypeCategoryId(categoryId ?? -1)
     }, [categoryId])
@@ -40,7 +40,7 @@ export const FilterAsideFetching = memo((props: IFilterAsideFetching) => {
         if (brands?.rows && !brandStore.brands?.rows) {
             brandStore.setBrands(brands)
         }
-        if (type) {
+        if (type?.rows) {
             goodStore.setTypes(type)
         }
     }, [categories, brands, type])

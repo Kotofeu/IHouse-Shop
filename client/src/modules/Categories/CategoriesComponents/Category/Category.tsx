@@ -1,10 +1,9 @@
 import { memo, FC, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
 
-import arrowImage from '../../../../assets/icons/Arrow.svg'
 import classes from './Category.module.scss'
 import Accordion from '../../../../components/Accordion/Accordion'
+import { CATEGORY_ID, TYPE_ID } from '../../../../utils/const/getGoodQueryParams'
 interface IGoodType {
     id: number,
     name: string,
@@ -26,7 +25,7 @@ const Category: FC<ICategory> = memo((props) => {
             titleElement={(
                 <NavLink
                     className={classes.category_link}
-                    to={`/catalog/${id ?? ''}`}
+                    to={id ? `/catalog?${CATEGORY_ID}=${id}` : '/catalog'}
                 >
                     <img className={classes.category_image} src={imageSrc} alt={categoryName} />
                     <span className={classes.category_text}>{categoryName}</span>
@@ -41,7 +40,7 @@ const Category: FC<ICategory> = memo((props) => {
                 <div className={classes.category_type} key={item.id}>
                     <NavLink
                         className={classes.category_typeLink}
-                        to={`/catalog/${id}/${item.name}`}
+                        to={`/catalog?${CATEGORY_ID}=${id}&${TYPE_ID}=${item.id}`}
                     >
                         {item.name}
                     </NavLink>

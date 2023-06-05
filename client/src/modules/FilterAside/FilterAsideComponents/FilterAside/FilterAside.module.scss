@@ -13,27 +13,44 @@
     height: 100%;
 }
 
-.filterAside_accordion{
+.filterAside_nameinputBox {
+    position: relative;
+
+    &::after {
+        content: '';
+        opacity: .5;
+        position: absolute;
+        display: block;
+        pointer-events: none;
+        top: 0;
+        right:0;
+        bottom: 0;
+        width: 18px;
+        height: 18px;
+        margin: auto 0;
+        margin-right: 10px;
+        background: url('../../../../assets/icons/other.svg') no-repeat;
+        background-size: contain;
+        background-position: center;
+
+    }
+}
+
+.filterAside_nameInput {
     width: 100%;
-    margin-top: 10px;
-
-    &:first-child {
-        margin-top: 0px;
-    }
-}
-.filterAside_title {
-
+    border: 1px solid $text-color;
+    border-radius: 10px;
+    padding: 8px 10px;
+    display: block;
+    background-color: $primary-color;
+    padding-right: 33px;
 }
 
-.filterAside_checkbox {
-    margin: 2px 0;
-    padding: 2px 0;
-    &:first-child{
-        margin-top: 8px;
-    }
+.filterAside_inputRange{
+    padding: 0;
 }
-.filterAside_error{
+.filterAside_error {
     font-size: 20px;
     text-align: center;
-    
+
 }
