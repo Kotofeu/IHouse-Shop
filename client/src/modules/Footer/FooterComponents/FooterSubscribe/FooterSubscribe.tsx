@@ -31,13 +31,13 @@ const FooterSubscribe: FC<IFooterSubscribe> = memo((props) => {
                 inputProps={{
                     value:email,
                     type:'text',
-                    title:'Поле электронной почты',
+                    title:'Поле ввода сообщения',
                     autoComplete:'off',
-                    placeholder:'Введите вашу почту',
+                    placeholder:'Введите сообщение',
                     onChange: subscribeFormChange,
                 }}
                 buttonProps={{
-                    buttonTitle: 'Подписаться'
+                    buttonTitle: 'Отправить'
                 }}
             />
         </div>)

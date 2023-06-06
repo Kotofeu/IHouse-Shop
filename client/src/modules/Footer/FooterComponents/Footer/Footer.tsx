@@ -65,7 +65,7 @@ export const Footer = () => {
                     </div>
                     <FooterSubscribe
                         className={classes.footer_subscribe}
-                        title='Подписаться на рассылку'
+                        title='Написать сообщение'
                     />
                 </div>
             </Container>
