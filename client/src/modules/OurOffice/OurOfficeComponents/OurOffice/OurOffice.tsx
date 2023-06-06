@@ -1,4 +1,4 @@
-import { memo, FC } from 'react'
+import { memo } from 'react'
 import classes from './OurOffice.module.scss'
 import OurOfficeCard from '../OurOfficeCard/OurOfficeCard'
 import { kaliningrad_map, peterburg_map } from '../../OurOfficeConst/mapsString'
@@ -7,8 +7,7 @@ import Title, { TitleType } from '../../../../UI/Title/Title'
 import vanda from '../../../../assets/images/vanda-ofice.jpg'
 
 const universalSchedule = "Шоурум работает с 9.00 до 18.00 \n  Суббота и воскресенье выходной."
-export const OurOffice = memo((props) => {
-    const { } = props
+export const OurOffice = memo(() => {
     return (
         <section className={classes.ourOffice}>
             <Title

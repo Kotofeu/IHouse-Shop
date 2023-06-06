@@ -3,19 +3,17 @@ import { NavLink } from 'react-router-dom'
 
 import classes from './Category.module.scss'
 import Accordion from '../../../../components/Accordion/Accordion'
-import { CATEGORY_ID, TYPE_ID } from '../../../../utils/const/getGoodQueryParams'
-import { createQueryParam } from '../../../../utils/helpers/createQueryParam'
 import { goodStore } from '../../../../store'
 interface IGoodType {
-    id: number,
-    name: string,
-    categoryId?: number,
+    id: number;
+    name: string;
+    categoryId?: number;
 }
 interface ICategory {
-    id?: number,
-    categoryName: string,
-    imageSrc: string,
-    types?: IGoodType[]
+    id?: number;
+    categoryName: string;
+    imageSrc: string;
+    types?: IGoodType[];
 }
 const Category: FC<ICategory> = memo((props) => {
     const { id, categoryName, imageSrc, types } = props

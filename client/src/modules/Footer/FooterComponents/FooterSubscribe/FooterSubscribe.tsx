@@ -1,12 +1,12 @@
-import { memo, FormEvent, useCallback, useState, FC, InputHTMLAttributes } from 'react'
+import { memo, FormEvent, useCallback, useState, FC } from 'react'
 
 import FooterTitle, { FooterTitleType } from '../FooterTitle/FooterTitle'
 import Form from '../../../../components/Form/From'
 
 import classes from './FooterSubscribe.module.scss'
 interface IFooterSubscribe{
-    title: string,
-    className: string,
+    title: string;
+    className: string;
 }
 const FooterSubscribe: FC<IFooterSubscribe> = memo((props) => {
     const {title, className} = props

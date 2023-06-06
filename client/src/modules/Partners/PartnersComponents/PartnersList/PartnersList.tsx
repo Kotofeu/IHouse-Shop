@@ -4,8 +4,8 @@ import { IBrandTable } from '../../../../store/BrandStore'
 import PartnersParallax from '../PartnersParallax/PartnersParallax'
 
 interface IPartnersList {
-    slicedBrand: IBrandTable[][],
-    className?: string
+    slicedBrand: IBrandTable[][];
+    className?: string;
 }
 const PartnersList: FC<IPartnersList> = (props) => {
     const {slicedBrand, className = ''} = props

@@ -6,8 +6,6 @@ import { GoodOrderBy, IGoodGetParams, IGoodJSON, goodStore } from '../../../../s
 import { fetchGood } from '../../../../http/GoodAPI'
 import SectionList from '../../../../components/SectionList/SectionList'
 import { GoodCard } from '../../../../components/GoodCard'
-import Selector from '../../../../UI/Selector/Selector'
-import { ORDER_BY } from '../../../../utils/const/getGoodQueryParams'
 import { Pagination } from '../../../../components/Pagination/Pagination'
 
 import classes from './CatalogSection.module.scss'

@@ -10,7 +10,6 @@ import { fetchComprehensiveOffer } from '../../../../http/ComprehensiveOfferAPI'
 import ComprehensiveOfferSlider from '../ComprehensiveOfferSlider/ComprehensiveOfferSlider'
 
 import classes from './ComprehensiveOfferSection.module.scss'
-import { baseUser } from '../../../../http'
 
 export const ComprehensiveOfferSection = memo(() => {
     const [

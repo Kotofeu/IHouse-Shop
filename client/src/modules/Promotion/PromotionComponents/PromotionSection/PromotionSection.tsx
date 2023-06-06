@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect } from 'react'
 
 import { IGetAllJSON, promotionStore } from '../../../../store'
 import Title from '../../../../UI/Title/Title'

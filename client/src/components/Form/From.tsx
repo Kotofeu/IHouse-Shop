@@ -7,14 +7,14 @@ import {
 import classes from './Form.module.scss'
 import Input, { IInput } from '../../UI/Input/Input'
 interface IFormButton {
-    buttonTitle: string,
-    buttonImage?: string,
+    buttonTitle: string;
+    buttonImage?: string;
 }
 interface IForm {
-    className?: string,
-    buttonProps: IFormButton,
-    inputProps: IInput
-    onFormSubmit: (event: FormEvent<HTMLFormElement>) => void,
+    className?: string;
+    buttonProps: IFormButton;
+    inputProps: IInput;
+    onFormSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 const Form: FC<IForm> = memo((props) => {
     const {

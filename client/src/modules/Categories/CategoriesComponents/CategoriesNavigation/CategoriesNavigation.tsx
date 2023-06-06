@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react'
+import { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import Category from '../Category/Category'

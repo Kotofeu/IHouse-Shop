@@ -4,8 +4,8 @@ export enum FooterTitleType {
     h4 = classes.footer_title___h4,
 }
 interface IFooterTitle {
-    children: string,
-    titleType?: FooterTitleType
+    children: string;
+    titleType?: FooterTitleType;
 }
 const FooterTitle: FC<IFooterTitle> = memo((props) => {
     const { children, titleType } = props

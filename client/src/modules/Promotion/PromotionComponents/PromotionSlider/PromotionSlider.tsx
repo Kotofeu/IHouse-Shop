@@ -1,4 +1,3 @@
-import React from 'react'
 import MySlider from '../../../../components/MySlider/MySlider'
 import { observer } from 'mobx-react-lite'
 import { GoodCard } from '../../../../components/GoodCard'

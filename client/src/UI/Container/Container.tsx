@@ -5,7 +5,7 @@ export enum ContainerType {
 }
 interface IContainerProps {
   children: ReactNode;
-  type?: ContainerType
+  type?: ContainerType;
 }
 const Container: FC<IContainerProps> = (props) => {
   const { children, type = '' } = props

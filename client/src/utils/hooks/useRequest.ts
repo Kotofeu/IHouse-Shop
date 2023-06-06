@@ -13,11 +13,11 @@ export default function useRequest<T, S = any>
             .then(response => setData(response))
             .catch(error => setError(error))
             .finally(() => setIsLoading(false));
-    }, [request, reqParams])
+    }, [request, reqParams, instate])
     useEffect(() => {
         if (instate || reqParams) {
             execute()
         }
-    }, [execute])
+    }, [execute, instate])
     return [data, isLoading, error, execute, setReqParams];
 }

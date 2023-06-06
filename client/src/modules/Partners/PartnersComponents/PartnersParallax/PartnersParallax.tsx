@@ -4,9 +4,9 @@ import classes from './PartnersParallax.module.scss'
 import { IBrandTable } from '../../../../store/BrandStore'
 import ServerImage from '../../../../UI/ServerImage/ServerImage'
 interface IPartnersParallaxProps {
-    brands: IBrandTable[],
-    className: string,
-    baseVelocity: number
+    brands: IBrandTable[];
+    className: string;
+    baseVelocity: number;
 }
 const PartnersParallax: FC<IPartnersParallaxProps> = memo(({ brands, className, baseVelocity = 3 }) => {
     if (brands.length === 0) {

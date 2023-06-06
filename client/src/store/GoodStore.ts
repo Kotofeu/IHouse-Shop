@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 import {  IBaseTable, IGetAllJSON } from "./index";
 import { IRating } from "./RatingStore";
 import { IBrandTable } from "./BrandStore";
-import { type } from "os";
 
 
 export interface ICategoryTable extends IBaseTable {

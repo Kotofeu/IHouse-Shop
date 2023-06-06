@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom'
 import classes from './HeaderButton.module.scss'
 
 interface IHeaderButton {
-  imageSrc: string,
-  title: string,
-  link: string,
+  imageSrc: string;
+  title: string;
+  link: string;
   className?: string;
 }
 const HeaderButton: FC<IHeaderButton> = memo((props) => {

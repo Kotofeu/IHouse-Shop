@@ -5,14 +5,14 @@ import SwiperCore, { SwiperOptions, Pagination, Navigation, Scrollbar, A11y,Auto
 import './MySlider.scss'
 SwiperCore.use([Pagination, Navigation, Scrollbar, A11y, Autoplay ])
 interface IMySlider<T> {
-    settings?: SwiperOptions,
+    settings?: SwiperOptions;
     items: T[];
     renderItem: (item: T, index: number) => ReactNode;
-    className?: string,
-    slideClass?: string,
-    addArrows?: boolean,
-    addDots?: boolean,
-    addScrollBar?: boolean
+    className?: string;
+    slideClass?: string;
+    addArrows?: boolean;
+    addDots?: boolean;
+    addScrollBar?: boolean;
 }
 
 export default function MySlider<T>(props: IMySlider<T>) {
