@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import {  IBaseTable, IGetAllJSON } from "./index";
 import { IRating } from "./RatingStore";
 import { IBrandTable } from "./BrandStore";
+import { type } from "os";
 
 
 export interface ICategoryTable extends IBaseTable {
@@ -58,9 +59,9 @@ export interface IGoodGetParams {
     name?: string;
     orderBy?: GoodOrderBy
     isPromotion?: boolean;
-    
+
 }
-export enum GoodOrderBy {"name", "price", "id"}
+export type GoodOrderBy = "name" | "price" | "id"
 
 class GoodStore {
     private _categories: IGetAllJSON<ICategoryJSON> | null = null;
@@ -69,11 +70,11 @@ class GoodStore {
 
     private _defaultGoodGetParameters: IGoodGetParams = {
         page: 1,
-        limit: 10,
+        limit: 12,
         minPrice: 1,
         maxPrice: 9999999,
         name: '',
-        orderBy: GoodOrderBy.id,
+        orderBy: 'id',
     }
     // Параметры для запроса товаров
     private _goodGetParameters: IGoodGetParams = this.defaultGoodGetParameters
@@ -102,7 +103,7 @@ class GoodStore {
             brandId: params.brandId,
             categoryId: params.categoryId,
             typeId: params.typeId,
-            minPrice: params.maxPrice,
+            minPrice: params.minPrice,
             maxPrice: params.maxPrice,
             name: params.name,
             orderBy: params.orderBy,
@@ -137,7 +138,7 @@ class GoodStore {
         this.setPage(1)
         this._goodGetParameters.maxPrice = maxPrice
     }
-    setName(name: string) {
+    setName(name: string | undefined) {
         this.setPage(1)
         this._goodGetParameters.name = name
     }
@@ -150,7 +151,8 @@ class GoodStore {
         this._goodGetParameters.isPromotion = isPromotion
     }
     dropFields() {
-        this._goodGetParameters = this.defaultGoodGetParameters;
+        
+        this.setGoodGetParameters(this.defaultGoodGetParameters);
     }
 
     get categories() { return this._categories; }

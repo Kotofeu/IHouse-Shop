@@ -8,12 +8,13 @@ interface ITotalAmountr {
     amount?: number
 }
 const TotalAmount: FC<ITotalAmountr> = memo((props) => {
-    const { className = '', amountString, amount } = props
+    const { className = '', amountString, amount = 0 } = props
+    const roundedAmount = Math.round(amount * 100) / 100
     return (
         <div className={[classes.totalAmount, className].join(' ')}>
             <div className={classes.totalAmount_inner}>
                 <div className={classes.totalAmount_amount}>
-                    {amount ? `${amountString}${amount}` : amountString}
+                    {roundedAmount ? `${amountString}${roundedAmount}` : amountString}
                 </div>
                 <button className={classes.totalAmount_button}>
                     КУПИТЬ

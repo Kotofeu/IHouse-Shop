@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom'
 import classes from './Category.module.scss'
 import Accordion from '../../../../components/Accordion/Accordion'
 import { CATEGORY_ID, TYPE_ID } from '../../../../utils/const/getGoodQueryParams'
+import { createQueryParam } from '../../../../utils/helpers/createQueryParam'
+import { goodStore } from '../../../../store'
 interface IGoodType {
     id: number,
     name: string,
@@ -25,7 +27,8 @@ const Category: FC<ICategory> = memo((props) => {
             titleElement={(
                 <NavLink
                     className={classes.category_link}
-                    to={id ? `/catalog?${CATEGORY_ID}=${id}` : '/catalog'}
+                    to={`/catalog`}
+                    onClick={() => {id ? goodStore.setCategoryId(id) : goodStore.setCategoryId(undefined); goodStore.setTypeId(undefined)}}
                 >
                     <img className={classes.category_image} src={imageSrc} alt={categoryName} />
                     <span className={classes.category_text}>{categoryName}</span>
@@ -40,7 +43,9 @@ const Category: FC<ICategory> = memo((props) => {
                 <div className={classes.category_type} key={item.id}>
                     <NavLink
                         className={classes.category_typeLink}
-                        to={`/catalog?${CATEGORY_ID}=${id}&${TYPE_ID}=${item.id}`}
+                        to={`/catalog`}
+                        onClick={() => { goodStore.setCategoryId(id); goodStore.setTypeId(item.id) }}
+
                     >
                         {item.name}
                     </NavLink>

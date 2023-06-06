@@ -1,1 +1,1 @@
-export {CatalogSection} from './CatalogSectionComponents/CatalogSection'
+export {CatalogSection} from './CatalogSectionComponents/CatalogSection/CatalogSection'

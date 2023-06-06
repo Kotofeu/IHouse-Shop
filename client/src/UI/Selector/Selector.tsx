@@ -33,13 +33,15 @@ const Selector: FC<ISelector> = memo((props) => {
             value={value}
             onChange={onChange}
             name={name}
-            defaultValue={defaultValue}
         >
             <option value={defaultValue}>
                 {defaultName ? defaultName : defaultValue}
             </option>
             {options.map(option =>
-                <option key={option.value} value={option.value}>
+                <option
+                    key={option.value}
+                    value={option.value}
+                >
                     {option.name}
                 </option>
             )}

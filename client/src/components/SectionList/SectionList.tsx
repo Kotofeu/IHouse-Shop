@@ -10,13 +10,14 @@ import classes from './SectionList.module.scss'
 interface ISectionList<T> {
     className?: string;
     listClassName?: string;
-    title: string;
+    title?: string;
     error: any;
     emptySubtitle: string;
     isLoading: boolean;
     items: T[];
     renderItem: (item: T, index: number) => ReactNode;
-    footer?: ReactNode
+    footer?: ReactNode;
+    navigation?: ReactNode;
 }
 export default function SectionList<T>(props: ISectionList<T>) {
     const {
@@ -28,37 +29,40 @@ export default function SectionList<T>(props: ISectionList<T>) {
         isLoading,
         items,
         renderItem,
-        footer
+        footer,
+        navigation
     } = props
     const sectionClassName = [className, classes.sectionList].join(' ')
     return (
         <section className={sectionClassName}>
-            <Title
-                className={classes.sectionList_title}
-                titleType={[TitleType.posCetner, TitleType.sectionTitle]}>
-                {
-                    error
-                        ? error.message ? error.message : "Нередвиденная ошибка"
-                        : title
-                }
-            </Title>
+            {
+                title ? <Title
+                    className={classes.sectionList_title}
+                    titleType={[TitleType.posCetner, TitleType.sectionTitle]}>
+                    {
+                        error
+                            ? error.message ? error.message : "Нередвиденная ошибка"
+                            : title
+                    }
+                </Title> : null
+
+            }
+
             {
                 isLoading && !items?.length ? <Loader /> : null
             }
             {
-                items ?
+                navigation ?? null
+            }
+            {
+                items.length ?
                     <div className={listClassName}>
                         {items.map(renderItem)}
                     </div>
-                    : null
+                    : !isLoading && <Title titleType={[TitleType.posCetner]}>{emptySubtitle}</Title>
             }
             {
-                !items?.length && !isLoading
-                    ? <Title titleType={[TitleType.posCetner]}>{emptySubtitle}</Title>
-                    : null
-            }
-            {
-                footer ? footer : null
+                footer ?? null
             }
         </section>
     )

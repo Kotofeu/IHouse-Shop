@@ -37,7 +37,7 @@ export const BasketSection = observer(() => {
             error={basketError}
             emptySubtitle='Ваша корзина пуста'
             isLoading={isBasketLoading}
-            items={basketStore.basket?.rows || []}
+            items={basket?.rows || []}
             renderItem={(item: IBasket) => (
                 <BasketGoodCard
                     className={classes.basket_goodCard}
@@ -48,7 +48,7 @@ export const BasketSection = observer(() => {
             )}
             footer={
                 amount && !isBasketLoading
-                    ? <TotalAmount className={classes.basket_footer} amountString={`Всего: ${amount} ₽`} />
+                    ? <TotalAmount className={classes.basket_footer} amountString={"Всего: "} amount={amount} />
                     : null
             }
         />

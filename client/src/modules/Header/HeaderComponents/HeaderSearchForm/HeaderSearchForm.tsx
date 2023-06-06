@@ -1,22 +1,24 @@
 import {
     memo,
-    useCallback,
     useState,
     FormEvent,
     ChangeEvent
 } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Form from '../../../../components/Form/From'
 
 import classes from './HeaderSearchForm.module.scss'
-
+import { goodStore } from '../../../../store'
 const HeaderSearchForm = memo(() => {
     const [searchValue, setSearchValue] = useState<string>('');
-
-    const searchFormSubmit = useCallback(
+    const navigate = useNavigate()
+    const searchFormSubmit = (
         (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault()
-            //Отправка на сервер
-        }, []
+            goodStore.setName(searchValue)
+            navigate(`/catalog`);
+            setSearchValue('')
+        }
     )
     const searchFormChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.target.value)

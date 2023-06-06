@@ -5,7 +5,7 @@ export default function useRequest<T, S = any>
     [T | undefined, boolean, any, () => void, Dispatch<React.SetStateAction<S | undefined>>] {
     const [data, setData] = useState<T>();
     const [reqParams, setReqParams] = useState<S | undefined>(initialParams)
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<any>();
     const execute = useCallback(async () => {
         setIsLoading(true);
