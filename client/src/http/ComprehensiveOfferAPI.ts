@@ -11,9 +11,14 @@ export const fetchComprehensiveOffer = async () => {
     return data
 }
 
-export const fetchOneComprehensiveOffer = async (id: number) => {
-    const { data } = await $host.get(baseComprehensiveOffer + id)
-    return data
+export const fetchOneComprehensiveOffer = async (id?: number) => {
+    if (id) {
+        const { data } = await $host.get(baseComprehensiveOffer + id)
+        return data
+    }
+    else{
+        return null
+    }
 }
 export const deleteComprehensiveOffer = async (id: number) => {
     const { data } = await $authHost.delete(baseComprehensiveOffer, { data: { id } });

@@ -1,6 +1,6 @@
-import {memo, FC, ChangeEvent, HTMLInputTypeAttribute} from 'react'
+import { memo, FC, ChangeEvent, HTMLInputTypeAttribute } from 'react'
 import classes from './Input.module.scss'
-export interface IInput{
+export interface IInput {
     className?: string;
     value: string;
     title?: string;

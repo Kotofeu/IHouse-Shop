@@ -8,6 +8,7 @@ import { AboutUs } from '../../pages/AboutUs'
 import { Basket } from '../../pages/Basket'
 import { Favourite } from '../../pages/Favourite'
 import { Catalog } from '../../pages/Catalog'
+import { Offer } from '../../pages/Offer'
 export const Router = () => {
     return (
         <BrowserRouter>
@@ -18,18 +19,14 @@ export const Router = () => {
                     <Route path="about-us" element={<AboutUs />} />
                     <Route path="basket" element={<Basket />} />
                     <Route path="favourite" element={<Favourite />} />
-                    <Route path="catalog" element={<Catalog />} />
+                    <Route path="offer/:id" element={<Offer />} />
+                    <Route path='catalog'>
+                        <Route index element={<Catalog />} />
+                        <Route path='*' element={<Navigate to="/catalog" replace />} />
+                    </Route>
+                    <Route path='*' element={<Navigate to="/" replace />} />
                 </Route>
             </Routes>
         </BrowserRouter>
     )
 }
-/*                    <Route path='blog'>
-                        <Route index element={<Blogs />} />
-                        <Route path=':id' element={<Blog />} />
-                    </Route>
-                    <Route path='event'>
-                        <Route index element={<Blogs />} />
-                        <Route path=':id' element={<Blog />} />
-                        <Route path='*' element={<Navigate to="/" replace />} />
-                    </Route> */

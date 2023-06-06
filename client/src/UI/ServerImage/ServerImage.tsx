@@ -1,7 +1,7 @@
-import { memo, FC } from 'react'
+import { memo, FC, AllHTMLAttributes} from 'react'
 import noPhoto from '../../assets/images/NoPhoto.jpg'
 
-interface IServerImage {
+interface IServerImage  extends AllHTMLAttributes<HTMLImageElement> {
     src?: string;
     altSrc?: string;
     className?: string;

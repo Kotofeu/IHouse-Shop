@@ -64,7 +64,7 @@ export const CatalogSection = observer(() => {
                     onChange={onPageChange}
                 />
             )}
-            navigation={(
+            header={(
                 <CatalogSectionHeader
                     className = {classes.catalogSection_header}
                     limit={goodStore.limit || 12}

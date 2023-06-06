@@ -14,6 +14,7 @@ const ComprehensiveOfferSlider = observer(() => {
             renderItem={offer =>
                 <ComprehensiveOfferCard
                     className={classes.comprehensiveOffer_offer}
+                    id={offer.id}
                     title={offer.name}
                     imageSrc={offer.image}
                 />

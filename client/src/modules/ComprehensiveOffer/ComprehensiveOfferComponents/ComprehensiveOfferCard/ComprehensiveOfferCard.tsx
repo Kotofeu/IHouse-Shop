@@ -1,17 +1,19 @@
 import { memo, FC } from 'react'
+import { NavLink } from 'react-router-dom';
 
 import classes from './ComprehensiveOfferCard.module.scss'
 import ServerImage from '../../../../UI/ServerImage/ServerImage'
 export interface IComprehensiveOfferCard {
+    id: number;
     title: string;
     imageSrc: string;
     className?: string;
 }
 const ComprehensiveOfferCard: FC<IComprehensiveOfferCard> =
     memo((props) => {
-        const { title, imageSrc, className } = props
+        const { id, title, imageSrc, className } = props
         return (
-            <div className={[classes.offer, className].join(' ')}>
+            <NavLink className={[classes.offer, className].join(' ')} to={`offer/${id}`}>
                 <span className={classes.offer_title}>
                     {title}
                 </span>
@@ -20,7 +22,7 @@ const ComprehensiveOfferCard: FC<IComprehensiveOfferCard> =
                     src={imageSrc}
                     alt={title}
                 />
-            </div>
+            </NavLink>
         )
     })
 

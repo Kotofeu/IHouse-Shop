@@ -17,7 +17,7 @@ interface ISectionList<T> {
     items: T[];
     renderItem: (item: T, index: number) => ReactNode;
     footer?: ReactNode;
-    navigation?: ReactNode;
+    header?: ReactNode;
 }
 export default function SectionList<T>(props: ISectionList<T>) {
     const {
@@ -30,7 +30,7 @@ export default function SectionList<T>(props: ISectionList<T>) {
         items,
         renderItem,
         footer,
-        navigation
+        header
     } = props
     const sectionClassName = [className, classes.sectionList].join(' ')
     return (
@@ -52,7 +52,7 @@ export default function SectionList<T>(props: ISectionList<T>) {
                 isLoading && !items?.length ? <Loader /> : null
             }
             {
-                navigation ?? null
+                header ?? null
             }
             {
                 items.length ?
