@@ -8,7 +8,7 @@ const {
 const ApiError = require('../error/ApiError');
 
 class favouritesController {
-    async postGoogInFavourites(req, res, next) {
+    async postGoodInFavourites(req, res, next) {
         try {
             const {
                 goodId

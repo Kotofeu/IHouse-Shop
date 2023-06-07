@@ -24,7 +24,7 @@ class userController {
             }
             if (!validationManagement.isPasswordValid(password)) {
                 return next(ApiError.badRequest("Пароль должен иметь минимум одну заглавную " +
-                    "и строчную букву, одно чило и сотоять от 6 до 20 символов"))
+                    "и строчную букву, одно число и состоять от 6 до 20 символов"))
             }
             const candidate = await UserAuthorization.findOne({ where: { email } })
             if (candidate) {
@@ -68,7 +68,7 @@ class userController {
             }
             if (!validationManagement.isPasswordValid(password)) {
                 return next(ApiError.badRequest("Пароль должен иметь минимум одну заглавную " +
-                    "и строчную букву, одно чило и сотоять от 6 до 20 символов"))
+                "и строчную букву, одно число и состоять от 6 до 20 символов"))
             }
 
             const candidate = await UserAuthorization.findOne({ where: { email } })

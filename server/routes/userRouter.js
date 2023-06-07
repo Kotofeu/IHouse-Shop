@@ -21,7 +21,7 @@ router.delete('/basket', authMiddleware, basketController.deleteGoodInBasket);
 router.get('/basket/find-good',authMiddleware, basketController.isGoodInUserBasket);
 
 
-router.post('/favourite',authMiddleware, favouritesController.postGoogInFavourites);
+router.post('/favourite',authMiddleware, favouritesController.postGoodInFavourites);
 router.get('/favourite',authMiddleware, favouritesController.getUserFavourites);
 router.delete('/favourite',authMiddleware, favouritesController.deleteGoodInFavourites);
 router.get('/favourite/find-good',authMiddleware, favouritesController.isGoodInUserFavourites);

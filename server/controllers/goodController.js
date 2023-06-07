@@ -240,7 +240,7 @@ class goodController {
     /**
      * Поиск товаров по параметрам 
      * Переменные приходящие в req.query
-     * @param {number} categoryId id категирии товара
+     * @param {number} categoryId id категории товара
      * @param {number} typeId id типа товара
      * @param {number} brandId id типа товара
      * @param {string} name название товара

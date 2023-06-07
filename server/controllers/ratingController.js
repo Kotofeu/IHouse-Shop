@@ -6,7 +6,7 @@ const {
 const staticManagement = require('../helpers/staticManagement')
 
 const ApiError = require('../error/ApiError');
-class goodController {
+class ratingController {
     async postRating(req, res, next) {
         try {
             let {
@@ -170,4 +170,4 @@ class goodController {
 
 }
 
-module.exports = new goodController();
+module.exports = new ratingController();
