@@ -32,11 +32,11 @@ export const FavouriteSection = observer(() => {
             error={favouriteError}
             emptySubtitle='У вас нет избранных товаров'
             isLoading={isFavouriteLoading}
-            items={favourite?.rows || []}
+            items={favouriteStore.favourite?.rows || []}
             renderItem={(item: IFavourite) => (
                 <GoodCard
                     className={classes.favourite_goodCard}
-                    cardType={GoodCardType.horizontalItem}
+                    cardType={GoodCardType.horizontalCard}
                     {...item.good}
                     key={item.id}
                 />

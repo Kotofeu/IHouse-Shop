@@ -21,6 +21,7 @@ const BasketGoodCard: FC<IBasketGoodCard> = memo((props) => {
     const { className = '', good, goodCount } = props
     const [count, setCount] = useState<number>(goodCount || 1);
     const debouncedValue = useDebounce<number>(count, 500)
+
     useEffect(() => {
         postBasket(good.id, count)
             .then(() => fetchBasket()
@@ -31,7 +32,7 @@ const BasketGoodCard: FC<IBasketGoodCard> = memo((props) => {
         <GoodCard
             className={joinClassName}
             {...good}
-            cardType={GoodCardType.horizontalItem}
+            cardType={GoodCardType.horizontalCard}
             counter={
                 <Counter
                     className={classes.goodCard_counter}

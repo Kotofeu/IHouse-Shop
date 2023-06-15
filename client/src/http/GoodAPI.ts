@@ -17,11 +17,11 @@ export const fetchGood = async (params?: IGoodGetParams) => {
     })
     return data
 }
-export const fetchOneGood = async (id: number) => {
+export const fetchOneGood = async (id?: number) => {
     const { data } = await $host.get(baseGood + id)
     return data
 }
-export const deleteGood = async (id: number) => {
+export const deleteGood = async (id?: number) => {
     const { data } = await $authHost.delete(baseGood, { data: { id } });
     return data;
 }
@@ -31,12 +31,12 @@ export const fetchGoodImage = async (goodId: number) => {
     })
     return data
 }
-export const deleteGoodImage = async (id: number) => {
+export const deleteGoodImage = async (id?: number) => {
     const { data } = await $authHost.delete(baseGoodImage, { data: { id } });
     return data;
 }
 
-export const fetchGoodInfo = async (goodId: number) => {
+export const fetchGoodInfo = async (goodId?: number) => {
     const { data } = await $host.get(baseGoodInfo, {
         params: { goodId }
     })

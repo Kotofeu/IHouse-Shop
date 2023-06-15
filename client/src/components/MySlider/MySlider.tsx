@@ -33,7 +33,7 @@ export default function MySlider<T>(props: IMySlider<T>) {
             style={{ paddingBottom: `${navigationPadding}px` }}
         >
             {
-                items.length && items.map((item, index) =>
+                items.length ? items.map((item, index) =>
                     <SwiperSlide
                         key={index}
                         className={slideClass}
@@ -41,6 +41,7 @@ export default function MySlider<T>(props: IMySlider<T>) {
                         {renderItem(item, index)}
                     </SwiperSlide>
                 )
+                : null
             }
         </Swiper>
     );

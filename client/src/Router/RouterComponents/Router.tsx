@@ -9,6 +9,9 @@ import { Basket } from '../../pages/Basket'
 import { Favourite } from '../../pages/Favourite'
 import { Catalog } from '../../pages/Catalog'
 import { Offer } from '../../pages/Offer'
+import { Good } from '../../pages/Good'
+import { Rating } from '../../pages/Rating'
+
 export const Router = () => {
     return (
         <BrowserRouter>
@@ -18,10 +21,12 @@ export const Router = () => {
                     <Route index element={<Home />} />
                     <Route path="about-us" element={<AboutUs />} />
                     <Route path="basket" element={<Basket />} />
+                    <Route path="rating" element={<Rating />} />
                     <Route path="favourite" element={<Favourite />} />
                     <Route path="offer/:id" element={<Offer />} />
                     <Route path='catalog'>
                         <Route index element={<Catalog />} />
+                        <Route path=':id' element={<Good/>} />
                         <Route path='*' element={<Navigate to="/catalog" replace />} />
                     </Route>
                     <Route path='*' element={<Navigate to="/" replace />} />

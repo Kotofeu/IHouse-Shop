@@ -1,53 +1,139 @@
 @import '../../../styles/settings.scss';
 
-
 .card {
     padding: 15px;
     border-radius: 10px;
     background-color: $primary-color;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .16);
-
     &___horizontal {
         & .card_inner {
             flex-direction: row;
             gap: 20px;
         }
 
-        & .card_link {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-        }
-
-        & .card_imageBox {
+        & .card_imageLink {
             height: 120px;
             align-self: center;
             min-width: 150px;
             width: 150px;
         }
 
-        & .card_name {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        & .card_description {
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 0;
+        }
+
+        & .card_link {
+            height: 100%;
+            padding: 0;
+            width: auto;
+            flex-grow: 1;
+            -webkit-line-clamp: 6;
 
             &::after {
                 display: none;
             }
         }
 
-        & .card_infoBox {
-            width: 30%;
+        & .card_info {
             min-width: 250px;
-            padding-top: 0;
+            height: 100%;
+            width: 35%;
+        }
 
+        & .card_goodStat {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        & .card_goodStatInfo {
+            width: auto;
+            justify-content: flex-end;
+        }
+
+        & .card_buy {}
+
+        & .card_cost {
+            width: auto;
+        }
+    }
+
+    &___full {
+        padding-top: 45px;
+        position: relative;
+        & .card_inner {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card_imageLink {
+            height: auto;
+            align-self: center;
+            width: 100%;
+            padding: 5px;
+            border-radius: 3px;
+            box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.16);
+        }
+        & .card_imageSlider {
+            width: 100%;
+            height: 100%;
+        }
+        & .card_description {
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 0;
+        }
+        & .card_image{
+            background-color: $neutral-color;
+            border-radius: 2px;
+            max-height: 400px;
+        }
+        & .card_link {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            width: 100%;
+            min-height: auto;
+            padding: 10px 15px 0;
+            display: block; 
+            font-size: 22px;  
+            cursor:default;      
+            &::after {
+                display: none;
+            }
+            &:hover{
+                color: $title-color;
+            }
         }
 
         & .card_info {
+            height: 100%;
+            width: 100%;
+            flex-direction: row;
             justify-content: space-between;
-            flex-wrap: nowrap;
-            gap: 10px;
+            align-items: center;
+        }
 
+        & .card_goodStat {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        & .card_goodStatInfo {
+            width: auto;
+        }
+
+        & .card_buy {
+            padding: 0;
+            width: auto;
+            flex-wrap: nowrap;
+            min-width: 250px;
+        }
+
+        & .card_cost {
         }
     }
 }
@@ -59,15 +145,13 @@
     height: 100%;
 }
 
-.card_link {
-    position: relative;
-}
-
-.card_imageBox {
+.card_imageLink {
     width: 100%;
     height: 150px;
 
 }
+
+.card_imageSlider {}
 
 .card_image {
     width: 100%;
@@ -76,7 +160,19 @@
 }
 
 
-.card_name {
+.card_description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+
+.card_link {
+    position: relative;
     width: 100%;
     min-height: 82px;
     padding-top: 7px;
@@ -87,20 +183,15 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    overflow: hidden;
+
+    transition: color .13s ease-in-out;
 
     &:hover {
+        color: $secondary-color;
+
         &::after {
             opacity: 0;
-        }
-    }
-
-    & a {
-        overflow: hidden;
-
-        transition: color .13s ease-in-out;
-
-        &:hover {
-            color: $secondary-color;
         }
     }
 
@@ -117,28 +208,29 @@
     }
 }
 
-
-.card_infoBox {
+.card_info {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-top: 10px;
-    flex-grow: 1;
-
-    &:first-child {
-        padding-top: 0px;
-        justify-content: flex-start;
-
-    }
+    align-items: center;
 }
 
-.card_info {
+.card_goodStat {
+    width: 100%;
     display: flex;
-    //justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.card_goodStatInfo {
+    width: 100%;
+    display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    row-gap: 4px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .card_rating,
@@ -147,6 +239,7 @@
     border: 1px solid $text-color;
     border-radius: 7px;
 }
+
 .card_rating___empty {
     padding: 11px;
 }
@@ -188,7 +281,7 @@
     height: 100%;
 }
 
-.card_menu {
+.card_buy {
     display: flex;
     width: 100%;
     align-items: center;

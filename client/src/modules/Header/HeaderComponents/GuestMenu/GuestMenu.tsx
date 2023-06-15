@@ -30,7 +30,7 @@ const GuestMenu: FC<IGuestMenu> = memo((props) => {
         animate={animationVariant.open}
       >
         <nav className={classes.guestMenu_nav}>
-          <NavLink className={classes.guestMenu_link} to={'/'}>
+          <NavLink className={classes.guestMenu_link} to={'/rating'}>
             Мои отзывы
           </NavLink>
           <NavLink className={classes.guestMenu_link} to={'/'}>

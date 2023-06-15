@@ -1,19 +1,20 @@
-import { useState, ChangeEvent, useEffect, useCallback, memo } from 'react'
+import { useState, ChangeEvent, useEffect, useCallback } from 'react'
 import { goodStore } from '../../../../store';
 import { IGoodGetParams } from '../../../../store/GoodStore';
 import { FilterAsideFetching } from '../FilterAsideFetching/FilterAsideFetching';
-
 
 import Loader from '../../../../UI/Loader/Loader';
 import Title from '../../../../UI/Title/Title';
 import { FilterAsideAccordions } from '../FilterAsideAccordions/FilterAsideAccordions';
 import { NAME } from '../../../../utils/const/getGoodQueryParams';
 
-import classes from './FilterAside.module.scss'
 import useDebounce from '../../../../utils/hooks/useDebounce';
 import Input from '../../../../UI/Input/Input';
 import { RangeSlider } from '../../../../components/RangeSlider/RangeSlider';
 import { observer } from 'mobx-react-lite';
+
+import classes from './FilterAside.module.scss'
+
 interface ISliderRange {
     min: number;
     max: number;

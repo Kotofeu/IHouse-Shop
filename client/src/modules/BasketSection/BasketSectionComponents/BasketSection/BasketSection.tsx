@@ -36,8 +36,8 @@ export const BasketSection = observer(() => {
             title="Ваша корзина"
             error={basketError}
             emptySubtitle='Ваша корзина пуста'
-            isLoading={isBasketLoading}
-            items={basket?.rows || []}
+            isLoading={isBasketLoading }
+            items={basketStore.basket?.rows || []}
             renderItem={(item: IBasket) => (
                 <BasketGoodCard
                     className={classes.basket_goodCard}
