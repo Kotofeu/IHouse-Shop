@@ -24,7 +24,7 @@ const ContactLink: FC<IContactLink> = memo((props) => {
                 className={joinClass}
                 href={`${contactType}${href}`}
             >
-                {href}
+                {children ?? href}
             </a>
         )
     }

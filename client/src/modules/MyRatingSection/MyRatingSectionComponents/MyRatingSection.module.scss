@@ -1,0 +1,75 @@
+@import '../../../styles/settings.scss';
+
+.rating {
+    padding-top: 30px;
+
+}
+
+.rating_card {
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.rating_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    gap: 40px;
+    background-color: $primary-color;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+.rating_headerMain{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 17px;
+    row-gap: 7px;
+}
+.rating_user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.rating_userImage {
+    height: 30px;
+    width: 30px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+}
+
+.rating_username {
+    font-size: 20px;
+    font-weight: 600;
+}
+.rating_userCreatedAt{
+    font-weight: 500;
+    padding-left: 6px;
+}
+
+.rating_userRole {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.rating_contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.rating_userContact {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 2px;
+}

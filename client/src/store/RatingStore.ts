@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { IUser } from "./UserStore";
 import { IBaseTable, IGetAllJSON, IGoodToUser } from "./index.js";
+import { IGoodTable } from "./GoodStore";
 
 export interface RatingImage extends IBaseTable {
     image: string;
@@ -10,6 +11,7 @@ export interface IRating extends IBaseTable, IGoodToUser {
     rating: number;
     comment: null | string;
     user?: IUser;
+    good?: IGoodTable;
     rating_images?: RatingImage[];
 }
 export interface IRatingGetByGoodParams{

@@ -1,7 +1,8 @@
 const {
     User,
     RatingImage,
-    Rating
+    Rating,
+    Good
 } = require('../modules/models');
 const staticManagement = require('../helpers/staticManagement')
 
@@ -110,16 +111,17 @@ class ratingController {
         }
     }
     async getAllRatingByUser(req, res, next) {
-        const { userId } = req.query;
+        let { userId } = req.query;
 
         let ratingModel;
         if (!userId) {
             next(ApiError.badRequest("Не указан userId"));
         }
+
         try {
             ratingModel = await Rating.findAndCountAll({
                 order: [['createdAt', 'ASC']],
-                include: [{ model: RatingImage }],
+                include: [{ model: RatingImage }, { model: Good }],
                 distinct: true,
                 where: {
                     userId: userId

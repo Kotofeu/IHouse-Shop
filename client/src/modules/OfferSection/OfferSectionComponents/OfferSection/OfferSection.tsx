@@ -11,8 +11,8 @@ import useRequest from '../../../../utils/hooks/useRequest'
 import classes from './OfferSection.module.scss'
 
 export const OfferSection = memo(() => {
-    const params = useParams();
     const navigate = useNavigate()
+    const params = useParams();
     const id = params.id ? Number(params.id) : undefined
     const [offer, isLoading, error]
         = useRequest<IComprehensiveOffer, number>(fetchOneComprehensiveOffer, id)

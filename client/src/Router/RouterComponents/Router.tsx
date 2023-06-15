@@ -21,7 +21,7 @@ export const Router = () => {
                     <Route index element={<Home />} />
                     <Route path="about-us" element={<AboutUs />} />
                     <Route path="basket" element={<Basket />} />
-                    <Route path="rating" element={<Rating />} />
+                    <Route path="rating/:id?" element={<Rating />} />
                     <Route path="favourite" element={<Favourite />} />
                     <Route path="offer/:id" element={<Offer />} />
                     <Route path='catalog'>

@@ -42,6 +42,6 @@ export const createAdmin = async (email: string, password: string) => {
 }
 
 export const getUserById = async (id: number) => {
-    const { data } = await $authHost.get(`${baseUser}${id}`)
+    const { data } = await $host.get(`${baseUser}${id}`)
     return data
 }

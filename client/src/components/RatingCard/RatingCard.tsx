@@ -8,6 +8,7 @@ import Title from '../../UI/Title/Title';
 
 import defaultUser from '../../assets/icons/User-icon.svg'
 import classes from './RatingCard.module.scss'
+import { NavLink } from 'react-router-dom';
 
 interface IRatingCard {
     className?: string;
@@ -49,13 +50,31 @@ const RatingCard: FC<IRatingCard> = memo((props) => {
             <div className={classes.rating_desc}>
                 <header className={classes.rating_header}>
                     <div className={classes.rating_info}>
-                        <ServerImage className={classes.rating_userImage} src={rating.user?.image || undefined} altSrc={defaultUser} alt={rating.user?.name || ''}/>
-                        <Title className={classes.rating_username}>{rating.user?.name}</Title>
+                        {
+                            rating.user
+                                ? <NavLink className={classes.rating_ownerLink} to = {`/rating/${rating.user.id}`}>
+                                    <ServerImage className={classes.rating_userImage} src={rating.user?.image || undefined} altSrc={defaultUser} alt={rating.user?.name || ''} />
+                                    <Title className={classes.rating_name}>{rating.user?.name}</Title>
+                                </NavLink>
+                                : null
+                        }
+                        {
+                            rating.good
+                                ? <NavLink className={classes.rating_ownerLink} to = {`/catalog/${rating.good.id}`}>
+                                    <Title className={classes.rating_name}>{rating.good.name}</Title>
+                                </NavLink>
+                                : null
+                        }
                         <div className={classes.rating_date}>{ratingDate.toLocaleDateString()}</div>
+
                     </div>
                     <StarRating className={classes.rating_star} rating={rating.rating} />
                 </header>
-                <div className={classes.rating_comment}>{rating.comment}</div>
+                {
+                    rating.comment
+                        ? <div className={classes.rating_comment}>{rating.comment}</div>
+                        : null
+                }
             </div>
         </div>
     )
