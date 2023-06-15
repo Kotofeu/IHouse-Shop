@@ -336,7 +336,7 @@ class goodController {
                     include: [
                         { model: GoodImages },
                         { model: GoodInfo },
-                        { model: Rating, include: [{model: User}, {model: RatingImage}] },
+                        { model: Rating, include: [{model: User}, {model: RatingImage}]},
                         { model: Category },
                         { model: Type },
                         { model: Brand },

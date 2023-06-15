@@ -34,15 +34,13 @@ dd {
   font-size: inherit;
 }
 
-body,
-html {
+body {
   position: relative;
   width: 100%;
   overflow-x: hidden;
+  overflow-y: scroll;
   font-size: 14px
 }
-
-
 
 a {
   text-decoration: none;
@@ -100,9 +98,6 @@ p {
   line-height: 1.6em;
 }
 
-html {
-  overflow-y: scroll;
-}
 
 h1,
 h2,

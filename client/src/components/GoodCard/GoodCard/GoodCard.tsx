@@ -4,15 +4,11 @@ import { NavLink } from 'react-router-dom'
 import classes from './GoodCard.module.scss'
 import { IGoodJSON } from '../../../store/GoodStore';
 import ServerImage from '../../../UI/ServerImage/ServerImage';
-import { averageRating } from '../GoodHelpers/averageRating';
-import StarRating from '../../../UI/StarRating/StarRating';
-import PriceBox from '../../../UI/PriceBox/PriceBox';
-import GoodCardButtons from '../GoodButtons/GoodButtons';
-import GoodImages from '../GoodImages/GoodImages';
+import { GoodBuy } from '../GoodBuy/GoodBuy';
+import GoodRating from '../GoodRating/GoodRating';
 
 export enum GoodCardType {
     horizontalCard = classes.card___horizontal,
-    fullCard = classes.card___full
 }
 
 interface IGoodCard extends IGoodJSON {
@@ -37,18 +33,17 @@ export const GoodCard: FC<IGoodCard> = memo((props) => {
     } = props
 
     let preview;
-    if (good_images && good_images[0] && (cardType !== GoodCardType.fullCard)) {
-        preview = good_images.sort((a, b) => a.id - b.id)[0]
+    if (good_images && good_images[0]) {
+        preview = good_images.sort((a, b) => a.id - b.id)[0].image
     }
     const classNameJoin = [classes.card, cardType, className].join(' ')
     return (
         <div className={classNameJoin}>
             <div className={classes.card_inner}>
                 <NavLink className={classes.card_imageLink} to={`/catalog/${id}`}>
-                    <GoodImages
-                        className={classes.card_imageSlider}
-                        imageClass={classes.card_image}
-                        images={preview || good_images}
+                    <ServerImage
+                        className={classes.card_image}
+                        src={preview || undefined}
                         alt={name}
                     />
                 </NavLink>
@@ -62,18 +57,9 @@ export const GoodCard: FC<IGoodCard> = memo((props) => {
                                     : null
                             }
                             <div className={classes.card_goodStatInfo}>
-                                {
-                                    ratings.length
-                                        ? <div className={classes.card_rating}>
-                                            <StarRating className={classes.card_ratingStars} rating={averageRating(ratings)} />
-                                            <div className={classes.card_ratingCount}>
-                                                {ratings.length}
-                                            </div>
-                                        </div>
-                                        : <div className={classes.card_rating___empty}>
-                                            Нет отзывов
-                                        </div>
-                                }
+                                <GoodRating
+                                    ratings={ratings}
+                                />
                                 {
                                     brand
                                         ? <div className={classes.card_brand}>
@@ -89,10 +75,10 @@ export const GoodCard: FC<IGoodCard> = memo((props) => {
                             </div>
                         </div>
                         <div className={classes.card_buy}>
-                            <PriceBox className={classes.card_cost} oldCost={oldPrice} cost={price} />
-                            <GoodCardButtons
+                            <GoodBuy
                                 goodId={id}
-                                cardClassName={classes.card_button}
+                                price={price}
+                                oldPrice={oldPrice}
                             />
                         </div>
 

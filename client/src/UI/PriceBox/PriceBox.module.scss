@@ -1,6 +1,6 @@
 @import '../../styles/settings.scss';
 
-.cost {
+.price {
     background-color: $neutral-color;
     display: flex;
     align-items: flex-end;
@@ -9,11 +9,11 @@
     flex-wrap: wrap;
 
 }
-.cost_oldValue, .cost__value, .cost_discountCost{
+.price_oldValue, .price__value, .price_discountCost{
     white-space: nowrap;
 
 }
-.cost_oldValue {
+.price_oldValue {
     color: $text-color;
     font-size: 13px;
     text-decoration: line-through;
@@ -23,7 +23,7 @@
 
 }
 
-.cost__value {
+.price_value {
     font-weight: 600;
     color: $secondary-color;
     font-size: 20px;
@@ -31,7 +31,7 @@
 
 }
 
-.cost_discountCost {
+.price_discountCost {
     color: $secondary-color;
 
 }

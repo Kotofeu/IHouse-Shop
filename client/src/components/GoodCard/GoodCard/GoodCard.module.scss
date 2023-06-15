@@ -5,6 +5,7 @@
     border-radius: 10px;
     background-color: $primary-color;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .16);
+
     &___horizontal {
         & .card_inner {
             flex-direction: row;
@@ -40,101 +41,23 @@
             min-width: 250px;
             height: 100%;
             width: 35%;
+            align-items: normal;
         }
 
         & .card_goodStat {
             width: 100%;
-            justify-content: space-between;
-        }
-
-        & .card_goodStatInfo {
-            width: auto;
             justify-content: flex-end;
         }
 
-        & .card_buy {}
-
-        & .card_cost {
-            width: auto;
-        }
-    }
-
-    &___full {
-        padding-top: 45px;
-        position: relative;
-        & .card_inner {
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .card_imageLink {
-            height: auto;
-            align-self: center;
-            width: 100%;
-            padding: 5px;
-            border-radius: 3px;
-            box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.16);
-        }
-        & .card_imageSlider {
-            width: 100%;
-            height: 100%;
-        }
-        & .card_description {
-            flex-direction: row;
-            align-items: flex-start;
-            justify-content: flex-start;
-            padding: 0;
-        }
-        & .card_image{
-            background-color: $neutral-color;
-            border-radius: 2px;
-            max-height: 400px;
-        }
-        & .card_link {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            left: 0px;
-            width: 100%;
-            min-height: auto;
-            padding: 10px 15px 0;
-            display: block; 
-            font-size: 22px;  
-            cursor:default;      
-            &::after {
-                display: none;
-            }
-            &:hover{
-                color: $title-color;
-            }
-        }
-
-        & .card_info {
-            height: 100%;
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        & .card_goodStat {
-            width: 100%;
-            justify-content: space-between;
-        }
-
         & .card_goodStatInfo {
-            width: auto;
+            width: 100%;
+            justify-content: space-between;
         }
 
         & .card_buy {
-            padding: 0;
             width: auto;
-            flex-wrap: nowrap;
-            min-width: 250px;
         }
 
-        & .card_cost {
-        }
     }
 }
 
@@ -151,7 +74,6 @@
 
 }
 
-.card_imageSlider {}
 
 .card_image {
     width: 100%;
@@ -163,7 +85,6 @@
 .card_description {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     padding-top: 10px;
     flex-grow: 1;
@@ -174,6 +95,7 @@
 .card_link {
     position: relative;
     width: 100%;
+    height: 82px;
     min-height: 82px;
     padding-top: 7px;
     font-size: 18px;
@@ -209,6 +131,7 @@
 }
 
 .card_info {
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -233,43 +156,6 @@
     gap: 10px;
 }
 
-.card_rating,
-.card_rating___empty {
-    padding: 10px;
-    border: 1px solid $text-color;
-    border-radius: 7px;
-}
-
-.card_rating___empty {
-    padding: 11px;
-}
-
-.card_rating {
-    display: flex;
-    align-items: center;
-}
-
-.card_ratingStars {
-    padding-right: 8px;
-
-}
-
-.card_ratingCount {
-    padding-left: 8px;
-    position: relative;
-
-    &::before {
-        content: "";
-        position: absolute;
-        height: 100%;
-        top: 0;
-        left: 0;
-        width: 1px;
-        background-color: $text-color;
-
-    }
-}
-
 .card_brand {
     height: 40px;
     width: 80px;
@@ -284,23 +170,9 @@
 .card_buy {
     display: flex;
     width: 100%;
-    align-items: center;
+    align-items: flex-end;
     justify-content: flex-end;
     gap: 5px;
     padding-top: 20px;
     flex-wrap: wrap;
-}
-
-.card_cost {
-    padding: 8px;
-    border-radius: 4px;
-    flex-grow: 1;
-}
-
-.card_button {
-    border-radius: 9px;
-    min-width: 40px;
-    min-height: 40px;
-    width: 40px;
-    height: 40px;
 }

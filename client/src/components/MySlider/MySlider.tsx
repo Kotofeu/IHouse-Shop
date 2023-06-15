@@ -26,6 +26,7 @@ export default function MySlider<T>(props: IMySlider<T>) {
     let navigationPadding = 0;
     if (settings?.pagination) navigationPadding = 15
     if (settings?.scrollbar) navigationPadding = 7
+    if (!items.length) return null
     return (
         <Swiper
             {...settings}

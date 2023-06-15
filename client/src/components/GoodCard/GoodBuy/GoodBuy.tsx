@@ -8,19 +8,21 @@ import basketImage from '../../../assets/icons/Basket.svg'
 import { basketStore, favouriteStore, userStore } from '../../../store'
 import { deleteBasket, fetchBasket, isGoodInBasket, postBasket } from '../../../http/BasketAPI'
 import { deleteFavourite, fetchFavourite, isGoodInFavourite, postFavourite } from '../../../http/FavouriteAPI'
+import PriceBox from '../../../UI/PriceBox/PriceBox'
 
-interface IGoodCardButtons {
+import classes from './GoodBuy.module.scss'
+interface IGoodBuy {
     goodId: number;
-    cardClassName?: string;
+    price: number;
+    oldPrice?: number | null;
 }
-
 enum GoodButtonAction {
     FAVOURITE_ACTION = 'favourite',
     BASKET_ACTION = 'basket'
 }
 
-const GoodCardButtons: FC<IGoodCardButtons> = observer((props) => {
-    const { goodId, cardClassName = '' } = props
+export const GoodBuy: FC<IGoodBuy> = observer((props) => {
+    const { price, oldPrice, goodId } = props
     const [isFavouriteActive, setIsFavouriteActive] = useState<boolean>(false)
     const [isBasketActive, setIsBasketActive] = useState<boolean>(false)
     const userID = userStore.user?.id
@@ -55,22 +57,23 @@ const GoodCardButtons: FC<IGoodCardButtons> = observer((props) => {
 
     return (
         <>
-            <ToggleButton
-                className={cardClassName}
-                title='Избранное'
-                buttonImage={favouritesImage}
-                onClick={(event) => handleClick(event, GoodButtonAction.FAVOURITE_ACTION)}
-                isActive={isFavouriteActive}
-            />
-            <ToggleButton
-                className={cardClassName}
-                title='Корзина'
-                buttonImage={basketImage}
-                onClick={(event) => handleClick(event, GoodButtonAction.BASKET_ACTION)}
-                isActive={isBasketActive}
-            />
+            <PriceBox className={classes.card_price} oldPrice={oldPrice} price={price} />
+            <>
+                <ToggleButton
+                    className={classes.card_button}
+                    title='Избранное'
+                    buttonImage={favouritesImage}
+                    onClick={(event) => handleClick(event, GoodButtonAction.FAVOURITE_ACTION)}
+                    isActive={isFavouriteActive}
+                />
+                <ToggleButton
+                    className={classes.card_button}
+                    title='Корзина'
+                    buttonImage={basketImage}
+                    onClick={(event) => handleClick(event, GoodButtonAction.BASKET_ACTION)}
+                    isActive={isBasketActive}
+                />
+            </>
         </>
     )
 })
-
-export default GoodCardButtons

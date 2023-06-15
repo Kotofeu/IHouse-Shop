@@ -5,7 +5,8 @@ import { $authHost, $host, baseRating } from "./index";
 const ratingByUser = baseRating + "user";
 const ratingByGood = baseRating + 'good';
 
-export const postRating = async (rating: IRating) => {
+export const postRating = async (rating: any) => {
+    console.log(rating.images)
     const { data } = await $authHost.post(baseRating, rating)
     return data
 }

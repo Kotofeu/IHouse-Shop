@@ -1,26 +1,26 @@
 import { memo, FC } from 'react'
 import classes from './PriceBox.module.scss'
 interface IPriceBox {
-    className: string;
-    oldCost?: number | null;
-    cost: number;
+    className?: string;
+    oldPrice?: number | null;
+    price: number;
 }
 const PriceBox: FC<IPriceBox> = memo((props) => {
-    const { className = '', oldCost, cost } = props
+    const { className = '', oldPrice, price } = props
     const isDiscount: boolean
-        = typeof oldCost === 'number' && oldCost > cost;
+        = typeof oldPrice === 'number' && oldPrice > price;
     return (
-        <div className={[className, classes.cost].join(' ')}>
+        <div className={[className, classes.price].join(' ')}>
             {
                 isDiscount &&
-                <div className={classes.cost_oldValue}>{oldCost?.toLocaleString()} ₽</div>
+                <div className={classes.price_oldValue}>{oldPrice?.toLocaleString()} ₽</div>
             }
             <div
                 className={
-                    [classes.cost__value, isDiscount ? classes.cost_discountCost : ''].join(' ')
+                    [classes.price_value, isDiscount ? classes.price_discountCost : ''].join(' ')
                 }
             >
-                {cost.toLocaleString()} ₽
+                {price.toLocaleString()} ₽
             </div>
 
         </div>

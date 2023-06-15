@@ -15,9 +15,9 @@ const StarRating: FC<IStarRating> = memo((props) => {
         rating = 0,
         setRating,
         className = '',
-        starRatedColor = '#fc8507',
-        starEmptyColor = '#D9D9D9',
-        starHoverColor = 'FC9527',
+        starRatedColor = '#FC9A31',
+        starEmptyColor = '#5a5a5a',
+        starHoverColor = '#FC9A31',
         starDimension = '16px',
         starSpacing = '2px'
     } = props

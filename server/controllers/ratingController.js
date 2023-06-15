@@ -30,7 +30,7 @@ class ratingController {
 
             let imagesNames = [];
             let images;
-
+            console.log(req.files)
             if (req.files && req.files.images) {
 
                 images = req.files.images
@@ -95,7 +95,7 @@ class ratingController {
             where.goodId = goodId
             if (rating) where.rating = rating
             ratingModel = await Rating.findAndCountAll({
-                order: [['id', 'ASC']],
+                order: [['id', 'DESC']],
                 include: [{ model: RatingImage }, { model: User }],
                 distinct: true,
                 where,
