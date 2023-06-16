@@ -4,6 +4,7 @@ import ToggleButton from '../../../UI/ToggleButton/ToggleButton'
 
 import favouritesImage from '../../../assets/icons/Favourites.svg'
 import basketImage from '../../../assets/icons/Basket.svg'
+import deleteImage from '../../../assets/icons/delete.svg'
 
 import { basketStore, favouriteStore, userStore } from '../../../store'
 import { deleteBasket, fetchBasket, isGoodInBasket, postBasket } from '../../../http/BasketAPI'
@@ -11,6 +12,7 @@ import { deleteFavourite, fetchFavourite, isGoodInFavourite, postFavourite } fro
 import PriceBox from '../../../UI/PriceBox/PriceBox'
 
 import classes from './GoodBuy.module.scss'
+import { deleteGood } from '../../../http/GoodAPI'
 interface IGoodBuy {
     goodId: number;
     price: number;
@@ -53,7 +55,10 @@ export const GoodBuy: FC<IGoodBuy> = observer((props) => {
             alert("Ошибка подключения")
         }
     };
-
+    const goodDelete = async (event:  React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        deleteGood(goodId).then(() => alert("Товар удалён")).catch(() => alert('Ошибка удаления'))
+    }
     return (
         <>
             <PriceBox className={classes.card_price} oldPrice={oldPrice} price={price} />
@@ -73,7 +78,19 @@ export const GoodBuy: FC<IGoodBuy> = observer((props) => {
                             buttonImage={basketImage}
                             onClick={(event) => handleClick(event, GoodButtonAction.BASKET_ACTION)}
                             isActive={isBasketActive}
-                        /></>
+                        />
+                        {
+                            userStore.isAdmin
+                                ? <ToggleButton
+                                    className={classes.card_button}
+                                    title='Удалить'
+                                    buttonImage={deleteImage}
+                                    onClick={goodDelete}
+                                />
+                                : null
+                        }
+
+                    </>
                     : null
             }
         </>

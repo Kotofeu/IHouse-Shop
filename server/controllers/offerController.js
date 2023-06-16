@@ -38,6 +38,7 @@ class offerController {
                     }
                 );
                 if (goods) {
+                    goods = JSON.parse(goods)
                     ComplexOfferGoods.destroy({ where: { complexOfferId: id } })
                     goods.forEach(async good => {
                         const goodExists = await Good.findOne({ where: { id: good.goodId } })
@@ -62,6 +63,7 @@ class offerController {
                 });
 
                 if (goods) {
+                    goods = JSON.parse(goods)
                     goods.forEach(async good => {
                         const goodExists = await Good.findOne({ where: { id: good.goodId } })
                         if (!goodExists) next(ApiError.badRequest("Товара не существует"));

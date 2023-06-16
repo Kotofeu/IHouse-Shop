@@ -6,3 +6,4 @@ export const RATING_ROUTE = '/rating';
 export const OFFER_ROUTE = '/offer';
 export const CATALOG_ROUTE = '/catalog';
 export const SETTINGS_ROUTE = '/settings';
+export const ADMIN_ROUTE = '/admin';

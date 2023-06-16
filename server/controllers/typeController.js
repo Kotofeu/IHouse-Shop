@@ -10,7 +10,7 @@ class typeController {
                 type = await Type.update(
                     {
                         name: name,
-                        categoryId: categoryId
+                        categoryId: +categoryId
                     },
                     {
                         where: {
@@ -20,7 +20,7 @@ class typeController {
                 );
             }
             else {
-                type = await Type.create({ name: name, categoryId: categoryId });
+                type = await Type.create({ name: name, categoryId: +categoryId });
             }
             return res.json(type);
         }
@@ -31,19 +31,15 @@ class typeController {
     async getByCategory(req, res, next) {
         try {
             let { categoryId } = req.query;
-            let type;
-            if (categoryId) {
-                type = await Type.findAndCountAll({
-                    where: { categoryId: categoryId },
-                    order: [['name', 'ASC']],
-                    distinct:true
+            const where = categoryId? {categoryId: categoryId}: null
+            const type = await Type.findAndCountAll({
 
-                })
-                return res.json(type)
-            }
-            else {
-               return res.json(0)
-            }
+                where: where,
+                order: [['name', 'ASC']],
+                distinct:true
+
+            })
+            return res.json(type)
         }
         catch (e) {
             next(ApiError.badRequest(e.message));

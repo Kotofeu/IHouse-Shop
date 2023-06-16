@@ -14,9 +14,10 @@ import classes from './UserHeader.module.scss'
 
 
 interface IUserHeader {
+    className?: string;
     userId?: number
 }
-const UserHeader = observer(({ userId }: IUserHeader) => {
+const UserHeader = observer(({ className = '', userId }: IUserHeader) => {
     const [
         userById,
         userLoading,
@@ -34,7 +35,7 @@ const UserHeader = observer(({ userId }: IUserHeader) => {
         if (!userId && userStore.user) setUser(userStore.user)
     }, [userById, userStore.user])
     return (
-        <header className={classes.userHeader}>
+        <header className={[classes.userHeader, className].join(' ')}>
             {
                 userLoading && userId
                     ? <Loader />

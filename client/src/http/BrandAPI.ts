@@ -4,8 +4,8 @@ interface IPostBrandParams {
     name: string;
     image: string;
 }
-export const postBrand = async (brand?: IPostBrandParams) => {
-    const { data } = await $authHost.post(baseBrand, {...brand})
+export const postBrand = async (brand?: any) => {
+    const { data } = await $authHost.post(baseBrand, brand)
     return data
 }
 export const fetchBrand  = async () => {

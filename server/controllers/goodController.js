@@ -190,6 +190,7 @@ class goodController {
                         ))
                     }
                     if (info) {
+                        info = JSON.parse(info)
                         GoodInfo.destroy({ where: { goodId: id } })
                         info.forEach(info => GoodInfo.create({
                             name: info.name,
@@ -223,6 +224,7 @@ class goodController {
                     ))
                 }
                 if (info) {
+                    info = JSON.parse(info)
                     info.forEach(info => GoodInfo.create({
                         name: info.name,
                         description: info.description,

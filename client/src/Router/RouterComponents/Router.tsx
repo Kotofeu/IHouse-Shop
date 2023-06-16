@@ -5,7 +5,7 @@ import Layout from './Layout'
 import ScrollToTop from '../../components/ScrollToTop'
 
 import { userStore } from '../../store'
-import { authRoutes, publiceRoutes } from './userRoutes'
+import { adminRoutes, authRoutes, publiceRoutes } from './userRoutes'
 import { observer } from 'mobx-react-lite'
 
 export const Router = observer(() => {
@@ -19,6 +19,9 @@ export const Router = observer(() => {
                         <Route key={path} path={path} element={<Component />} />
                     ))}
                     {publiceRoutes.map(({ path, Component }) => (
+                        <Route key={path} path={path} element={<Component />} />
+                    ))}
+                    {userStore.isAdmin && adminRoutes.map(({ path, Component }) => (
                         <Route key={path} path={path} element={<Component />} />
                     ))}
                     <Route path='*' element={<Navigate to="/" replace />} />

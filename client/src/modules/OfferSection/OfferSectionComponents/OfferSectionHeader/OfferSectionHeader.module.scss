@@ -1,3 +1,4 @@
+@import '../../../../styles/settings.scss';
 .offerHeader {}
 
 .offerHeader_inner {
@@ -28,7 +29,18 @@
     font-weight: 500;
     font-size: 17px;
 }
-
+.offerHeader_controller{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+.offerHeader_deleteButton{
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    background-color: $primary-color;
+}
 .offerHeader_amount {}
 
 .offerHeader_title {

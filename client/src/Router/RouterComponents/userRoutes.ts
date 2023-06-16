@@ -6,8 +6,9 @@ import { Catalog } from '../../pages/Catalog'
 import { Offer } from '../../pages/Offer'
 import { Good } from '../../pages/Good'
 import { Rating } from '../../pages/Rating'
-import { ABOUTE_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, FAVOURITE_ROUTE, HOME_ROUTE, OFFER_ROUTE, RATING_ROUTE, SETTINGS_ROUTE } from '../../utils/const/routes'
+import { ABOUTE_ROUTE, ADMIN_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, FAVOURITE_ROUTE, HOME_ROUTE, OFFER_ROUTE, RATING_ROUTE, SETTINGS_ROUTE } from '../../utils/const/routes'
 import Settings from '../../pages/Settings/Settings'
+import Admin from '../../pages/Admin/Admin'
 
 export const authRoutes = [
     {
@@ -55,5 +56,8 @@ export const publiceRoutes = [
     
 ]
 export const adminRoutes = [
-    
+    {
+        path: ADMIN_ROUTE,
+        Component: Admin
+    },
 ]

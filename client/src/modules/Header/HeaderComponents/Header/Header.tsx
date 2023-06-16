@@ -9,17 +9,17 @@ import catalogImage from '../../../../assets/icons/Catalog.svg'
 import aboutImage from '../../../../assets/icons/AboutUs.svg'
 import favouritesImage from '../../../../assets/icons/Favourites.svg'
 import basketImage from '../../../../assets/icons/Basket.svg'
+import adminPandel from '../../../../assets/icons/AdminPanel.svg'
 
 import HeaderUser from '../HeaderUser/HeaderUser'
 
 
 import classes from './Header.module.scss'
-import { ABOUTE_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, FAVOURITE_ROUTE } from '../../../../utils/const/routes'
+import { ABOUTE_ROUTE, ADMIN_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, FAVOURITE_ROUTE } from '../../../../utils/const/routes'
 import { userStore } from '../../../../store'
 import { observer } from 'mobx-react-lite'
 
 export const Header = observer(() => {
-
   return (
     <header className={classes.header}>
       <Container>
@@ -57,6 +57,18 @@ export const Header = observer(() => {
                     imageSrc={basketImage}
                     title='Корзина'
                     link={BASKET_ROUTE}
+                  />
+                </div>
+                : null
+            }
+            {
+              userStore.isAdmin
+                ? <div className={classes.header_linkButtons}>
+                  <HeaderButton
+                    className={classes.header_link}
+                    imageSrc={adminPandel}
+                    title='Добавить'
+                    link={ADMIN_ROUTE}
                   />
                 </div>
                 : null

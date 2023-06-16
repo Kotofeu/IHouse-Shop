@@ -11,7 +11,7 @@ import classes from './Settings.module.scss'
 import Input from '../../UI/Input/Input'
 import UserHeader from '../../components/UserHeader/UserHeader'
 const Settings = observer(() => {
-    const { id, name, phone, image, users_authorization } = userStore.user ?? {}
+    const id = userStore.user?.id
     const navigate = useNavigate()
     const [userFile, setUserFile] = useState<File | null>();
     const [userName, setUserName] = useState<string>('');

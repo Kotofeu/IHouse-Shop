@@ -139,7 +139,7 @@ class userController {
             const newAuth = await UserAuthorization.findOne({ where: { userId: req.user.id } })
             const newUser = await User.findOne({ where: { id: user.userId } })
 
-            const token = generateJwt(req.user.id, newAuth.email, newAuth.password, newUser.image)
+            const token = generateJwt(req.user.id, newAuth.email, newUser.role, newUser.image)
             return res.json({ token })
         }
         catch (e) {

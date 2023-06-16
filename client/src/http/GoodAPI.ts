@@ -5,8 +5,8 @@ import { $authHost, $host, baseGood } from "./index";
 const baseGoodImage = baseGood + 'image';
 const baseGoodInfo = baseGood + 'info';
 
-export const postGood = async (good: IGoodTable) => {
-    const { data } = await $authHost.post(baseGood, {...good})
+export const postGood = async (good: any) => {
+    const { data } = await $authHost.post(baseGood, good)
     return data
 }
 export const fetchGood = async (params?: IGoodGetParams) => {

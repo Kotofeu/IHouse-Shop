@@ -1,8 +1,8 @@
 import { ICategoryTable } from "../store/GoodStore";
 import { $authHost, $host, baseCategory } from "./index";
 
-export const postCategory = async (category: ICategoryTable) => {
-    const { data } = await $authHost.post(baseCategory, {...category})
+export const postCategory = async (category: any) => {
+    const { data } = await $authHost.post(baseCategory, category)
     return data
 }
 export const fetchCategory  = async () => {

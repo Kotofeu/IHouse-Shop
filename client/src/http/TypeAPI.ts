@@ -1,8 +1,8 @@
 import { IType } from "../store/GoodStore";
 import { $authHost, $host, baseType } from "./index";
 
-export const postType = async (type: IType) => {
-    const { data } = await $authHost.post(baseType, {...type})
+export const postType = async (type: any) => {
+    const { data } = await $authHost.post(baseType, type)
     return data
 }
 export const fetchTypes  = async () => {
