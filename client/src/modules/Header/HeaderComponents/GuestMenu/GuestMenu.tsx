@@ -2,6 +2,7 @@ import { memo, FC, MouseEvent } from 'react'
 import classes from './GuestMenu.module.scss'
 import { NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { HOME_ROUTE, RATING_ROUTE, SETTINGS_ROUTE } from '../../../../utils/const/routes';
 interface IGuestMenu {
   className?: string;
   onExitClick: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -30,10 +31,10 @@ const GuestMenu: FC<IGuestMenu> = memo((props) => {
         animate={animationVariant.open}
       >
         <nav className={classes.guestMenu_nav}>
-          <NavLink className={classes.guestMenu_link} to={'/rating'}>
+          <NavLink className={classes.guestMenu_link} to={RATING_ROUTE}>
             Мои отзывы
           </NavLink>
-          <NavLink className={classes.guestMenu_link} to={'/'}>
+          <NavLink className={classes.guestMenu_link} to={SETTINGS_ROUTE}>
             Настройки
           </NavLink>
         </nav>

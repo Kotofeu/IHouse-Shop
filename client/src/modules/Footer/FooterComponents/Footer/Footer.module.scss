@@ -28,7 +28,9 @@
 }
 
 .footer_city {
-    padding: 13px 0;
+    //padding: 13px 0;
+    //new 
+    font-size: 16px;
     display: flex;
     flex-direction: column;
     gap: 7px;
@@ -36,6 +38,8 @@
 
 .footer_mailBox {
     margin-top: 10px;
+    //new
+    margin-bottom: 10px;
 }
 .footer_contactLink{
     font-size: 18px;

@@ -1,1 +1,0 @@
-export {MyRatingSection} from './MyRatingSectionComponents/MyRatingSection'

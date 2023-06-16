@@ -32,7 +32,6 @@ export const GoodBuy: FC<IGoodBuy> = observer((props) => {
             isGoodInFavourite(goodId).then(data => setIsFavouriteActive(data))
         }
     }, [goodId, userID])
-    if (!userStore.isAuth) return null
 
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement>, action: GoodButtonAction) => {
         event.preventDefault();
@@ -58,22 +57,25 @@ export const GoodBuy: FC<IGoodBuy> = observer((props) => {
     return (
         <>
             <PriceBox className={classes.card_price} oldPrice={oldPrice} price={price} />
-            <>
-                <ToggleButton
-                    className={classes.card_button}
-                    title='Избранное'
-                    buttonImage={favouritesImage}
-                    onClick={(event) => handleClick(event, GoodButtonAction.FAVOURITE_ACTION)}
-                    isActive={isFavouriteActive}
-                />
-                <ToggleButton
-                    className={classes.card_button}
-                    title='Корзина'
-                    buttonImage={basketImage}
-                    onClick={(event) => handleClick(event, GoodButtonAction.BASKET_ACTION)}
-                    isActive={isBasketActive}
-                />
-            </>
+            {
+                userStore.isAuth
+                    ? <>
+                        <ToggleButton
+                            className={classes.card_button}
+                            title='Избранное'
+                            buttonImage={favouritesImage}
+                            onClick={(event) => handleClick(event, GoodButtonAction.FAVOURITE_ACTION)}
+                            isActive={isFavouriteActive}
+                        />
+                        <ToggleButton
+                            className={classes.card_button}
+                            title='Корзина'
+                            buttonImage={basketImage}
+                            onClick={(event) => handleClick(event, GoodButtonAction.BASKET_ACTION)}
+                            isActive={isBasketActive}
+                        /></>
+                    : null
+            }
         </>
     )
 })

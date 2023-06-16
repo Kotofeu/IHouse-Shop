@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import classes from './Category.module.scss'
 import Accordion from '../../../../components/Accordion/Accordion'
 import { goodStore } from '../../../../store'
+import { CATALOG_ROUTE } from '../../../../utils/const/routes'
 interface IGoodType {
     id: number;
     name: string;
@@ -25,7 +26,7 @@ const Category: FC<ICategory> = memo((props) => {
             titleElement={(
                 <NavLink
                     className={classes.category_link}
-                    to={`/catalog`}
+                    to={CATALOG_ROUTE}
                     onClick={() => {id ? goodStore.setCategoryId(id) : goodStore.setCategoryId(undefined); goodStore.setTypeId(undefined)}}
                 >
                     <img className={classes.category_image} src={imageSrc} alt={categoryName} />
@@ -41,7 +42,7 @@ const Category: FC<ICategory> = memo((props) => {
                 <div className={classes.category_type} key={item.id}>
                     <NavLink
                         className={classes.category_typeLink}
-                        to={`/catalog`}
+                        to={CATALOG_ROUTE}
                         onClick={() => { goodStore.setCategoryId(id); goodStore.setTypeId(item.id) }}
 
                     >

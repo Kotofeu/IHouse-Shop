@@ -6,6 +6,7 @@ import { IGoodJSON } from '../../../store/GoodStore';
 import ServerImage from '../../../UI/ServerImage/ServerImage';
 import { GoodBuy } from '../GoodBuy/GoodBuy';
 import GoodRating from '../GoodRating/GoodRating';
+import { CATALOG_ROUTE } from '../../../utils/const/routes';
 
 export enum GoodCardType {
     horizontalCard = classes.card___horizontal,
@@ -40,7 +41,7 @@ export const GoodCard: FC<IGoodCard> = memo((props) => {
     return (
         <div className={classNameJoin}>
             <div className={classes.card_inner}>
-                <NavLink className={classes.card_imageLink} to={`/catalog/${id}`}>
+                <NavLink className={classes.card_imageLink} to={`${CATALOG_ROUTE}/${id}`}>
                     <ServerImage
                         className={classes.card_image}
                         src={preview || undefined}
@@ -48,7 +49,7 @@ export const GoodCard: FC<IGoodCard> = memo((props) => {
                     />
                 </NavLink>
                 <div className={classes.card_description}>
-                    <NavLink className={classes.card_link} to={`/catalog/${id}`}>{name}</NavLink>
+                    <NavLink className={classes.card_link} to={`${CATALOG_ROUTE}/${id}`}>{name}</NavLink>
                     <div className={classes.card_info}>
                         <div className={classes.card_goodStat}>
                             {

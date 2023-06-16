@@ -3,35 +3,27 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Layout from './Layout'
 import ScrollToTop from '../../components/ScrollToTop'
-import { Home } from '../../pages/Home'
-import { AboutUs } from '../../pages/AboutUs'
-import { Basket } from '../../pages/Basket'
-import { Favourite } from '../../pages/Favourite'
-import { Catalog } from '../../pages/Catalog'
-import { Offer } from '../../pages/Offer'
-import { Good } from '../../pages/Good'
-import { Rating } from '../../pages/Rating'
 
-export const Router = () => {
+import { userStore } from '../../store'
+import { authRoutes, publiceRoutes } from './userRoutes'
+import { observer } from 'mobx-react-lite'
+
+export const Router = observer(() => {
     return (
         <BrowserRouter>
             <ScrollToTop />
+
             <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="about-us" element={<AboutUs />} />
-                    <Route path="basket" element={<Basket />} />
-                    <Route path="rating/:id?" element={<Rating />} />
-                    <Route path="favourite" element={<Favourite />} />
-                    <Route path="offer/:id" element={<Offer />} />
-                    <Route path='catalog'>
-                        <Route index element={<Catalog />} />
-                        <Route path=':id' element={<Good/>} />
-                        <Route path='*' element={<Navigate to="/catalog" replace />} />
-                    </Route>
+                <Route path='/' element={<Layout />}>
+                    {userStore.isAuth && authRoutes.map(({ path, Component }) => (
+                        <Route key={path} path={path} element={<Component />} />
+                    ))}
+                    {publiceRoutes.map(({ path, Component }) => (
+                        <Route key={path} path={path} element={<Component />} />
+                    ))}
                     <Route path='*' element={<Navigate to="/" replace />} />
                 </Route>
             </Routes>
         </BrowserRouter>
     )
-}
+})

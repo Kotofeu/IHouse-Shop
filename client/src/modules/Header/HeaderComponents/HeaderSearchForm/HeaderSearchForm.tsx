@@ -9,6 +9,7 @@ import Form from '../../../../components/Form/From'
 
 import classes from './HeaderSearchForm.module.scss'
 import { goodStore } from '../../../../store'
+import { CATALOG_ROUTE } from '../../../../utils/const/routes'
 const HeaderSearchForm = memo(() => {
     const [searchValue, setSearchValue] = useState<string>('');
     const navigate = useNavigate()
@@ -16,7 +17,7 @@ const HeaderSearchForm = memo(() => {
         (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault()
             goodStore.setName(searchValue)
-            navigate(`/catalog`);
+            navigate(CATALOG_ROUTE);
             setSearchValue('')
         }
     )

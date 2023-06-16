@@ -1,20 +1,8 @@
-@import '../../../styles/settings.scss';
-
-.rating {
-    padding-top: 30px;
-
-}
-
-.rating_card {
-    margin-bottom: 10px;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-}
-
-.rating_header {
+@import '../../styles/settings.scss';
+.userHeader {
+    min-height: 80px;
     width: 100%;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-self: center;
@@ -23,14 +11,14 @@
     padding: 10px 20px;
     margin-bottom: 20px;
 }
-.rating_headerMain{
+.userHeader_main{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 17px;
     row-gap: 7px;
 }
-.rating_user {
+.userHeader_user {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -38,7 +26,7 @@
 
 }
 
-.rating_userImage {
+.userHeader_userImage {
     height: 30px;
     width: 30px;
     background-color: rgba(0, 0, 0, 0.05);
@@ -46,29 +34,32 @@
     display: block;
     object-fit: cover;
 }
-
-.rating_username {
+.userHeader_empty{
+    margin: auto;
+}
+.userHeader_username {
     font-size: 20px;
     font-weight: 600;
 }
-.rating_userCreatedAt{
+.userHeader_userCreatedAt{
     font-weight: 500;
     padding-left: 6px;
 }
 
-.rating_userRole {
+.userHeader_userRole {
     font-size: 17px;
     font-weight: 500;
 }
 
-.rating_contacts {
+.userHeader_contacts {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: center;
     gap: 5px;
 }
 
-.rating_userContact {
+.userHeader_userContact {
     font-size: 17px;
     font-weight: 600;
     padding: 2px;

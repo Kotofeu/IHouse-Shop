@@ -37,7 +37,8 @@ export const Footer = () => {
                                 linkType={ContactLinkType.tel}
                             />
                         </div>
-                        <div className={classes.footer_city}>
+                    </address>
+                    <div className={classes.footer_city}>
                             <FooterTitle>Санкт-Петербург</FooterTitle>
                             <p className={classes.footer_place}>Набережная канала Грибоедова, дом 126, лит.А., пом.6-Н.</p>
                             <ContactLink
@@ -46,7 +47,6 @@ export const Footer = () => {
                                 linkType={ContactLinkType.tel}
                             />
                         </div>
-                    </address>
                     <div className={classes.footer_social}>
                         <FooterTitle titleType={FooterTitleType.h4}>Наши новости</FooterTitle>
                         <div className={classes.footer_socialLinksList}>
@@ -63,10 +63,7 @@ export const Footer = () => {
                             ))}
                         </div>
                     </div>
-                    <FooterSubscribe
-                        className={classes.footer_subscribe}
-                        title='Написать сообщение'
-                    />
+
                 </div>
             </Container>
             <div className={classes.footer_copyrighting}>
@@ -75,3 +72,7 @@ export const Footer = () => {
         </footer>
     )
 }
+/**                    <FooterSubscribe
+                        className={classes.footer_subscribe}
+                        title='Написать сообщение'
+                    /> */

@@ -1,11 +1,6 @@
-import { IUser } from "../store/UserStore";
 import { $authHost, $host, baseUser } from "./index";
 import jwt_decode from "jwt-decode";
 
-interface IEditParams extends IUser {
-    newEmail?: string,
-    newPassword?: string
-}
 
 const catchTokenError = (data: any): unknown => {
     if (data && data?.token) {
@@ -26,8 +21,8 @@ export const login = async (email: string, password: string) => {
     return catchTokenError(data)
 
 }
-export const edit = async (params: IEditParams) => {
-    const { data } = await $authHost.post(`${baseUser}edit`, { ...params })
+export const edit = async (params: any) => {
+    const { data } = await $authHost.post(`${baseUser}edit`, params )
     return catchTokenError(data)
 
 }

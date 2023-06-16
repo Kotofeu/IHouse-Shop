@@ -93,7 +93,6 @@ class userController {
                 phone,
                 isSubscribed,
             } = req.body;
-
             const user = await UserAuthorization.findOne({ where: { userId: req.user.id } })
             if (!user) {
                 return next(ApiError.internal('Пользователь не найден'))
@@ -109,6 +108,12 @@ class userController {
                 const candidate = await UserAuthorization.findOne({ where: { email: newEmail } })
                 if (candidate) {
                     return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+                }
+            }
+            if (phone){
+                const candidate = await User.findOne({ where: { phone: phone } })
+                if (candidate) {
+                    return next(ApiError.badRequest('Пользователь с таким телефоном уже существует'))
                 }
             }
             let image;
@@ -129,7 +134,7 @@ class userController {
             }, { where: { id: user.userId } })
             const userAuthorization = await UserAuthorization.update({
                 email: newEmail, password: hashPassword
-            }, { where: { id: user.userId } })
+            }, { where: { id: user.id } })
 
             const newAuth = await UserAuthorization.findOne({ where: { userId: req.user.id } })
             const newUser = await User.findOne({ where: { id: user.userId } })

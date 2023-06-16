@@ -9,6 +9,7 @@ import Title from '../../UI/Title/Title';
 import defaultUser from '../../assets/icons/User-icon.svg'
 import classes from './RatingCard.module.scss'
 import { NavLink } from 'react-router-dom';
+import { CATALOG_ROUTE, RATING_ROUTE } from '../../utils/const/routes';
 
 interface IRatingCard {
     className?: string;
@@ -52,7 +53,7 @@ const RatingCard: FC<IRatingCard> = memo((props) => {
                     <div className={classes.rating_info}>
                         {
                             rating.user
-                                ? <NavLink className={classes.rating_ownerLink} to = {`/rating/${rating.user.id}`}>
+                                ? <NavLink className={classes.rating_ownerLink} to = {`${RATING_ROUTE}/${rating.user.id}`}>
                                     <ServerImage className={classes.rating_userImage} src={rating.user?.image || undefined} altSrc={defaultUser} alt={rating.user?.name || ''} />
                                     <Title className={classes.rating_name}>{rating.user?.name}</Title>
                                 </NavLink>
@@ -60,7 +61,7 @@ const RatingCard: FC<IRatingCard> = memo((props) => {
                         }
                         {
                             rating.good
-                                ? <NavLink className={classes.rating_ownerLink} to = {`/catalog/${rating.good.id}`}>
+                                ? <NavLink className={classes.rating_ownerLink} to = {`${CATALOG_ROUTE}/${rating.good.id}`}>
                                     <Title className={classes.rating_name}>{rating.good.name}</Title>
                                 </NavLink>
                                 : null

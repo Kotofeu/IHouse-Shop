@@ -7,7 +7,7 @@ import showPassImage from '../../../../assets/icons/show-password.svg'
 import Input from '../../../../UI/Input/Input';
 import ToggleButton from '../../../../UI/ToggleButton/ToggleButton';
 
-import { login, registration } from '../../../../http/userAPI';
+import { getUserById, login, registration } from '../../../../http/userAPI';
 
 import { IUser } from '../../../../store/UserStore';
 
@@ -60,11 +60,7 @@ const AuthForm: FC<IAuthModal> = memo((props) => {
             alert(e.response.data.message)
         }
         if (data?.id) {
-            setUser({
-                id: data.id,
-                users_authorization: { role: data.role, email: data.email },
-                image: data.image
-            })
+            getUserById(data.id).then(data => setUser(data))
         }
 
     }

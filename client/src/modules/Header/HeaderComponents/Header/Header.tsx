@@ -1,4 +1,3 @@
-import { memo } from 'react'
 
 import Container from '../../../../UI/Container/Container'
 import { NavLink } from 'react-router-dom'
@@ -15,8 +14,11 @@ import HeaderUser from '../HeaderUser/HeaderUser'
 
 
 import classes from './Header.module.scss'
+import { ABOUTE_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, FAVOURITE_ROUTE } from '../../../../utils/const/routes'
+import { userStore } from '../../../../store'
+import { observer } from 'mobx-react-lite'
 
-export const Header = memo(() => {
+export const Header = observer(() => {
 
   return (
     <header className={classes.header}>
@@ -31,30 +33,35 @@ export const Header = memo(() => {
                 className={classes.header_link}
                 imageSrc={catalogImage}
                 title='Каталог'
-                link='/catalog'
+                link={CATALOG_ROUTE}
               />
               <HeaderButton
                 className={classes.header_link}
                 imageSrc={aboutImage}
                 title='О нас'
-                link='/about-us'
+                link={ABOUTE_ROUTE}
               />
             </div>
             <HeaderSearchForm />
-            <div className={classes.header_linkButtons}>
-              <HeaderButton
-                className={classes.header_link}
-                imageSrc={favouritesImage}
-                title='Избранное'
-                link='/favourite'
-              />
-              <HeaderButton
-                className={classes.header_link}
-                imageSrc={basketImage}
-                title='Корзина'
-                link='/basket'
-              />
-            </div>
+            {
+              userStore.isAuth
+                ? <div className={classes.header_linkButtons}>
+                  <HeaderButton
+                    className={classes.header_link}
+                    imageSrc={favouritesImage}
+                    title='Избранное'
+                    link={FAVOURITE_ROUTE}
+                  />
+                  <HeaderButton
+                    className={classes.header_link}
+                    imageSrc={basketImage}
+                    title='Корзина'
+                    link={BASKET_ROUTE}
+                  />
+                </div>
+                : null
+            }
+
           </nav>
           <HeaderUser className={classes.header_user} />
 
